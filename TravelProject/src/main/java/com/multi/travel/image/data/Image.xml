@@ -63,8 +63,8 @@
       ,#{latitude}
       ,#{longitude}
       ,#{altitude}
+      ,#{regdate}
       ,sysdate
-      ,#{moddate}
       ,#{filesize}
       ,'N'
       ,#{ip_addr} 

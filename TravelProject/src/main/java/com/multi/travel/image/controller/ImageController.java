@@ -65,11 +65,7 @@ public class ImageController {
 			System.out.println("2번 :"+dataList.get(1).getFile().getOriginalFilename());
 			System.out.println("3번 :"+dataList.get(2).getFile().getOriginalFilename());
 */			
-		/*	
-		 	Test.ImageDtoTest(dataList.get(0));
-			Test.ImageDtoTest(dataList.get(1));
-			Test.ImageDtoTest(dataList.get(2));
-		*/
+			
 		/*	     
 			//exif data 가져오기 (gps정보, 파일크기, 생성시간, 수정시간)
 			dto = ExifData.getExifData(dto.getFile(), dto); 
@@ -92,6 +88,9 @@ public class ImageController {
 				
 				String result = FileUploader.upload(dataList.get(i).getFile());
 				
+				 
+				Test.ImageDtoTest(dataList.get(i));
+				imageService.insert(dataList.get(i));
 			}
 
 
