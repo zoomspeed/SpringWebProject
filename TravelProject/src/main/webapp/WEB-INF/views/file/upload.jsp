@@ -48,7 +48,7 @@
 		</td>
 	</tr>
 	<!-- 추가 버튼을 누르면 위 숨겨진 테이블의 tr 을 가져다가 추가할 겁니닷 -->
-</table>
+</table>  
 
 <button type="text" name="btnWrite" id="btnWrite">전송하기</button>
 </form>
