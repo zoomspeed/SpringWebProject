@@ -38,7 +38,7 @@ public class ImageController {
 	//통해서 
 	//board/save.mt?title=test&contents=내용&userid=test
 		@RequestMapping(value="/image/save" ,method = RequestMethod.POST)
-		public @ResponseBody String save(HttpServletRequest req, List<ImageDto> dto)
+		public @ResponseBody String save(HttpServletRequest req, ImageDto dto)
 		{		
 			ServletContext ctx= req.getServletContext();
 			
@@ -46,37 +46,32 @@ public class ImageController {
 			String path = ctx.getRealPath(CommonConst.IMAGE_PATH);
 			System.out.println(path);
 			String ip = IP.getClientIP(req);
-			//dto.setIp_addr(ip);
+			dto.setIp_addr(ip);
 			
-			System.out.println(dto.get(0).getTitle());
-			//System.out.println(dto.get(1).getTitle());
-	/*		dto.get(0).setIp_addr(ip);
 			
 			
 			
 			//파일 업로드 경로잡기 
 			FileUploader.setFilePath(path);
-			
-			boolean result=FileUploader.upload(dto.get(0).getFiles(),
-					 dto.get(0).getFileNameList()); 
+			/*
+			boolean result=FileUploader.upload(dto.getFiles(),
+					 dto.getFileNameList()); 
 			if( result == false)
 			{
 				return "fail";//파일 업로드 실패시 
 			}
 				
-			for(int i=0; i<dto.get(0).getFileNameList().size(); i++)
+			for(int i=0; i<dto.getFileNameList().size(); i++)
 			{
-				dto.get(0).getFieldNameList().add("filename"+(i+1));
-				imageService.insert(dto.get(0));
+				dto.getFieldNameList().add("filename"+(i+1));
+				imageService.insert(dto);
 			}
-			
-			
-			//String result=FileUploader.upload(dto.getFile()); 
-			
-			
-			
-			return "success";
 			*/
+			
+			String result=FileUploader.upload(dto.getFile()); 
+			System.out.println("filename : "+result);
+			
+			
 			return "success";
 		}
 		
@@ -87,6 +82,12 @@ public class ImageController {
 			
 		}
 				
+		@RequestMapping("fileUpload1")
+		public void fileUpload(HttpServletRequest request, HttpServletResponse response) throws Exception{
+			  MultipartRequest multipartReq = (MultipartRequest)request;
+			  System.out.println("전송성공");
+
+		}
 
 		@RequestMapping("fileUpload")
 		public String filUpload() {

@@ -37,7 +37,7 @@
 </p>
 <p>
  <label for="reportFile">리포트 파일</label>
- <input type="file" id="files" name="files">
+ <input type="file" id="file" name="file">
 </p>
 <p>
  <input type="button" value="확인" onclick="formSubmit(this.form)">
