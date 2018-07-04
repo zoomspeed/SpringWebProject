@@ -43,7 +43,7 @@
          order="BEFORE">
          select nvl(max(image_seq),0)+1 as image_seq
          from tl_image
-      </selectKey>
+      </selectKey>     
       insert into tl_image(
       image_seq
 	  ,userid
@@ -63,7 +63,7 @@
       ,#{latitude}
       ,#{longitude}
       ,#{altitude}
-      ,#{regdate}
+      ,to_date(#{regdate},'YYYY:MM:DD:HH24:MI:SS')
       ,sysdate
       ,#{filesize}
       ,'N'

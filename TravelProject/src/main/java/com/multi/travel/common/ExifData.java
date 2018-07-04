@@ -15,7 +15,7 @@ import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.multi.travel.image.dto.ImageDto;
-
+import com.multi.travel.common.Util;
 public class ExifData {
 
 	private static Metadata metadata = null;
@@ -92,14 +92,17 @@ public class ExifData {
 		        if(tag.getTagName().equals("GPS Latitude")) {
 		        	System.out.println("GPS Latitude "+tag.getDescription());
 		        	dto.setLatitude(tag.getDescription());
+		        	//dto.setLatitude(Util.getString(tag.getDescription()));
 		        }
 		        else if(tag.getTagName().equals("GPS Longitude")) {
 		        	System.out.println("GPS Longitude "+tag.getDescription());
 		        	dto.setLongitude(tag.getDescription());
+		        	//dto.setLongitude(Util.getString(tag.getDescription()));
 		        }
 		        else if(tag.getTagName().equals("GPS Altitude")) {
 		        	System.out.println("GPS Altitude "+tag.getDescription());
 		        	dto.setAltitude(tag.getDescription());
+		        	//dto.setAltitude(Util.getString(tag.getDescription()));
 		        }
 		        else if(tag.getTagName().equals("File Size")) {
 		        	System.out.println("File Size "+tag.getDescription());
@@ -222,5 +225,6 @@ public class ExifData {
 		return true;  //¿¹¿Ü ¾Æ´Ò¶§ 
 		*/
 	}	
+	
 	
 }

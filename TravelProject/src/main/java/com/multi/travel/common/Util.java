@@ -32,4 +32,18 @@ public class Util {
 		
 		return code;
 	}
+	
+	public static String getString(String s) {
+		
+		String NewString="";
+		for(int i=0; i<s.length(); i++) {
+			if(s.charAt(i)=='\'' || s.charAt(i)=='\"') {
+				continue;
+			}
+			NewString = NewString+s.charAt(i);
+			
+		}
+		System.out.println("NewString : "+NewString);
+		return NewString;
+	}
 }
