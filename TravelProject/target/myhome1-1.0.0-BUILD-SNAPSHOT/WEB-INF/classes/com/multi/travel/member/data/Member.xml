@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+	<!-- 아이디 중복 체크 쿼리  -->
+	<select id="Member.idcheck" 
+	        parameterType="MemberDto"
+	        resultType="Integer">
+	 select count(*) 
+	 from tl_member
+	 where email = #{email}       
+	 </select>
+	 
+	 <insert id="Member.insert" parameterType="MemberDto">
+	 	<selectKey resultType="String" 
+	 	            keyProperty="member_id" 
+	 	            order="BEFORE">
+			select nvl(max(member_seq), 0)+1 as member_seq
+			from tl_member
+		</selectKey>
+	 
+	 	insert into tl_member(
+			member_seq
+			,userid
+			,email
+			,password
+			,username
+			,base_address
+			,detail_address
+			,mobile
+			,zipcode
+			,regdate
+			,member_auth
+			,profile_image
+	 	)values(
+			#{member_seq}
+			,#{userid}
+			,#{email}
+			,#{password}
+			,#{username}
+			,#{base_address}
+			,#{detail_address}
+			,#{mobile}
+			,#{zipcode}
+			,#{regdate}
+			,#{member_auth}
+			,#{profile_image}
+	 	)
+	 </insert>
+	 
+	 <select id="Member.getMemberInfo"
+	         parameterType="MemberDto"
+	         resultType="MemberDto" >
+	 	select member_seq, email, username, mobile, password
+	 	from tl_member
+	 	where email = #{email}          
+	 </select>
+	         
+	 <select id="Member.findPwd" parameterType="MemberDto"
+	         resultType="MemberDto" >
+	 	select password
+	 	from tl_member
+	 	where mobile = #{mobile} and email=#{email}         
+	 </select>
+	         
+ 	<select id="Member.findId" parameterType="MemberDto"
+	         resultType="MemberDto" >
+	 	select email
+	 	from tl_member
+	 	where mobile = #{mobile} and username=#{username}         
+	 </select>
+</mapper>
