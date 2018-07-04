@@ -29,12 +29,10 @@ public class ImageDto {
 	List<MultipartFile> files;
 	
 	//파일 이름 저장하기 위해서
-	List<String> fileNameList=
-			  new ArrayList<String>();
+	List<String> fileNameList = new ArrayList<String>();
 	
 	//필드명 저장할 배열 
-	List<String> fieldNameList=
-			new ArrayList<String>();	
+	List<String> fieldNameList = new ArrayList<String>();	
 	
 	//파일을 받아오기 위해서 추가하는 필드 
 	
@@ -45,6 +43,7 @@ public class ImageDto {
 
 	//fileName1, fileName2, fileName
 	
+	List<String> titles = new ArrayList<String>();
 
 
 	//디폴트 생성자 

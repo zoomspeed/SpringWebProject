@@ -37,40 +37,34 @@ public class ImageController {
 	//컨트롤러에서 직접 dao 사용하지 말고 서비스 
 	//통해서 
 	//board/save.mt?title=test&contents=내용&userid=test
-		@RequestMapping(value="/image/save" ,method = RequestMethod.POST)
+	//board/save.mt?title=test&contents=내용&userid=test
+		@RequestMapping("/image/save")
 		public @ResponseBody String save(HttpServletRequest req, ImageDto dto)
 		{		
 			ServletContext ctx= req.getServletContext();
 			
-			
 			String path = ctx.getRealPath(CommonConst.IMAGE_PATH);
 			System.out.println(path);
+			
 			String ip = IP.getClientIP(req);
 			dto.setIp_addr(ip);
 			
-			
-			
-			
 			//파일 업로드 경로잡기 
 			FileUploader.setFilePath(path);
-			/*
+			
 			boolean result=FileUploader.upload(dto.getFiles(),
-					 dto.getFileNameList()); 
+				 dto.getFileNameList()); 
 			if( result == false)
 			{
 				return "fail";//파일 업로드 실패시 
 			}
-				
+			
 			for(int i=0; i<dto.getFileNameList().size(); i++)
 			{
 				dto.getFieldNameList().add("filename"+(i+1));
-				imageService.insert(dto);
 			}
-			*/
 			
-			String result=FileUploader.upload(dto.getFile()); 
-			System.out.println("filename : "+result);
-			
+			//boardService.insert(dto);
 			
 			return "success";
 		}

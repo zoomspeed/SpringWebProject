@@ -18,21 +18,22 @@
 
 
 <!-- 예제 시작 -->
-<!-- 
+ 
 <table id="preset" style="display:none;">
 	<tr name="tr_attach_file">
 		<th>첨부파일</th>
 		<td>
-			<input type="file" name="attachFile" />
+			<input type="file" name="file" />
+			<input type="title" name="title" id="title" />
 		</td>
 	</tr>
 </table>
-  -->
+ 
 <form name="mform" id="mform" method="post" enctype="multipart/form-data">  
-<table id="preset" cellpadding="5" cellspacing="0" border="1">
+<table  cellpadding="5" cellspacing="0" border="1">
 	<tr>
 		<th>제목</th>
-		<td>.</td>
+		<td><input type="title" name="title" id="title" /></td>
 	</tr>
 	<tr>
 		<th>내용</th>
@@ -41,7 +42,7 @@
 	<tr name="tr_attach_file">
 		<th>첨부파일</th>
 		<td>
-			<input type="file" name="attachFile" id="attachFile" class="atchfile"/> <button type="button" onclick="addFile()">추가</button>
+			<input type="file" name="file" id="file" class="atchfile"/> <button type="button" onclick="addFile()">추가</button>
 		</td>
 	</tr>
 	<!-- 추가 버튼을 누르면 위 숨겨진 테이블의 tr 을 가져다가 추가할 겁니닷 -->
@@ -88,7 +89,7 @@
 			*/
 
 			// title=제목1&contents=내용1
-			console.log(formData.getAll("attachFile").length);
+			console.log(formData.getAll("file").length);
 			//return false;
 			
 			//파일의 경우 반드시 추가로 뭔가를 해줘야 한다 
