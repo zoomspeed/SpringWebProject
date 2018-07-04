@@ -1,4 +1,21 @@
-/*package com.multi.travel.image.controller;
+/*import javax.annotation.Resource;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartRequest;
+
+import com.multi.travel.common.CommonConst;
+import com.multi.travel.common.FileUploader;
+import com.multi.travel.common.IP;
+import com.multi.travel.image.dto.ImageDto;
+import com.multi.travel.image.service.ImageService;
+
+package com.multi.travel.image.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,9 +46,10 @@ import com.multi.travel.common.IP;
 import com.multi.travel.image.dto.ImageDto;
 import com.multi.travel.image.service.ImageService;
 
+
 @Controller 
-public class ImageController_back {
-	@Resource(name="imageServiceImpl1")
+public class ImageController {
+	@Resource(name="imageServiceImpl")
 	ImageService imageService;
 	
 	//컨트롤러에서 직접 dao 사용하지 말고 서비스 
@@ -53,7 +71,7 @@ public class ImageController_back {
 			
 			//파일 업로드 경로잡기 
 			FileUploader.setFilePath(path);
-			
+			/*
 			boolean result=FileUploader.upload(dto.getFiles(),
 					 dto.getFileNameList()); 
 			if( result == false)
@@ -64,13 +82,13 @@ public class ImageController_back {
 			for(int i=0; i<dto.getFileNameList().size(); i++)
 			{
 				dto.getFieldNameList().add("filename"+(i+1));
-				imageService.insert(dto);
+				//imageService.insert(dto);
 			}
-			
-			
-			//String result=FileUploader.upload(dto.getFile()); 
-			
-			
+			*/
+	/*		
+			String result=FileUploader.upload(dto.getFile()); 
+			System.out.println("filename : "+result);
+			System.out.println("image name : " + dto.getTitle());
 			
 			return "success";
 		}
@@ -101,10 +119,9 @@ public class ImageController_back {
 				
 		
 	
-}
+}*/
 
 
 
 
 
-*/
