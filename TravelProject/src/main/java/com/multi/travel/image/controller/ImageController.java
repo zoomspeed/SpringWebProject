@@ -42,7 +42,7 @@ public class ImageController {
 	//board/save.mt?title=test&contents=내용&userid=test
 	//board/save.mt?title=test&contents=내용&userid=test
 		@RequestMapping("/image/save")
-		public @ResponseBody String save(HttpServletRequest req, ImageDto dto)
+		public @ResponseBody String save(@RequestParam(value="files", required=true) List<MultipartFile> values,HttpServletRequest req, ImageDto dto)
 		{		
 			ServletContext ctx= req.getServletContext();
 			String ip = IP.getClientIP(req);
@@ -50,6 +50,12 @@ public class ImageController {
 			
 			String path = ctx.getRealPath(CommonConst.IMAGE_PATH);
 			System.out.println(path);
+			
+			
+			System.out.println("values size @@@@@@ : "+values.size());
+			System.out.println(values.get(0).getOriginalFilename());
+			System.out.println(values.get(1).getOriginalFilename());
+			System.out.println(values.get(2).getOriginalFilename());
 		/*	     
 			//exif data 가져오기 (gps정보, 파일크기, 생성시간, 수정시간)
 			dto = ExifData.getExifData(dto.getFile(), dto); 

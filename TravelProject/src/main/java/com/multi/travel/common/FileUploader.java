@@ -40,9 +40,7 @@ public class FileUploader {
 		
 	}
 	
-	public static boolean upload(
-			List<MultipartFile> files, 
-			List<String> fileNameList)
+	public static boolean upload(List<MultipartFile> files, List<String> fileNameList)
 	{
 		
 		//files : 업로드할 파일들 

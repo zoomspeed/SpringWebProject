@@ -3,6 +3,7 @@ package com.multi.travel.common;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -115,5 +116,91 @@ public class ExifData {
 		}
 		return dto;
 	}
+	
+	public static List<ImageDto> getExifData(List<MultipartFile> mFile, List<ImageDto> dto)
+	{
+		
+		//files : 업로드할 파일들 
+		//fileNameList : 파일 업로드 후 
+		//   실제 파일명을 전달하기 위한 리스트 
+		List<File> file = null;
+		int i;
+		
+		//temp.setTitle(mFile.getName());
+		//temp.setUserid(dto.getUserid());
+		
+		try {
+			for(MultipartFile f : mFile) {
+				file.add(multipartToFile(f));
+			}
+			
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+
+		try {
+			i=0;
+			for(File f : file) {
+				metadata = ImageMetadataReader.readMetadata(f);
+				//dto.set(i) = setGPS(dto.get(i));
+				dto.set(i, setGPS(dto.get(i)));
+				i++;
+			}
+			
+		} catch (ImageProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return dto;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
+		//첨부된 파일이 존재한다면 
+		if(files!=null && files.size()>0)
+		{
+			for(MultipartFile f:files) {
+			
+				System.out.println(f.getOriginalFilename());
+				if(f.getOriginalFilename().length()==0)
+				{
+					fileNameList.add("");
+				}
+				else
+				{
+					String filename = 
+							getNewFileName(f.getOriginalFilename());
+					//파일 이름 중복 해결해야 한다
+					File newFile = new File(filePath + "/"+ filename);
+					try {
+						f.transferTo(newFile);
+					} catch (Exception e) {
+						
+						e.printStackTrace();
+						return false; //예외상황발생했을때
+					}
+					fileNameList.add(filename);
+				}
+			}
+		}
+	
+		return true;  //예외 아닐때 
+		*/
+	}	
 	
 }
