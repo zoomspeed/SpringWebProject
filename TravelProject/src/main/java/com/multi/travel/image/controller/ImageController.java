@@ -50,7 +50,7 @@ public class ImageController {
 			
 			String path = ctx.getRealPath(CommonConst.IMAGE_PATH);
 			System.out.println(path);
-			     
+		/*	     
 			//exif data 가져오기 (gps정보, 파일크기, 생성시간, 수정시간)
 			dto = ExifData.getExifData(dto.getFile(), dto); 
 			dto.setIp_addr(ip);
@@ -59,7 +59,7 @@ public class ImageController {
 			dto.setTitle(filename);
 			//dto에 값들어갔나 확인 출력테스트
 			Test.ImageDtoTest(dto);
-			
+		*/
 			
 			//파일 업로드 경로잡기 
 			FileUploader.setFilePath(path);

@@ -37,7 +37,7 @@ public class ExifData {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}  
 
 		try {
 			metadata = ImageMetadataReader.readMetadata(file);

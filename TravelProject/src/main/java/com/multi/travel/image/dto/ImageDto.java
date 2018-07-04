@@ -35,15 +35,18 @@ public class ImageDto {
 	List<String> fieldNameList = new ArrayList<String>();	
 	
 	//파일을 받아오기 위해서 추가하는 필드 
-	
-	
+	List<String> titles = new ArrayList<String>();
+	List<String> latitudes = new ArrayList<String>();
+	List<String> longitudes = new ArrayList<String>();
+	List<String> altitudes = new ArrayList<String>();
+	List<String> regdates = new ArrayList<String>();
+	List<String> moddates = new ArrayList<String>();
+	List<String> filesizes = new ArrayList<String>();	
 	//파일 이름 저장하기 위해서
 	
 	//필드명 저장할 배열 
 
 	//fileName1, fileName2, fileName
-	
-	List<String> latitudes = new ArrayList<String>();
 
 
 	//디폴트 생성자 
@@ -84,6 +87,7 @@ public class ImageDto {
 	public void setFieldNameList(List<String> fieldNameList) {
 		this.fieldNameList = fieldNameList;
 	}
+	
 
 	//테스트용 생성자 
 	public ImageDto(String title)
@@ -210,8 +214,66 @@ public class ImageDto {
 	public void setFilesize(String filesize) {
 		this.filesize = filesize;
 	}
+
+	public List<String> getTitles() {
+		return titles;
+	}
+
+	public void setTitles(List<String> titles) {
+		this.titles = titles;
+	}
+
+	public List<String> getLatitudes() {
+		return latitudes;
+	}
+
+	public void setLatitudes(List<String> latitudes) {
+		this.latitudes = latitudes;
+	}
+
+	public List<String> getLongitudes() {
+		return longitudes;
+	}
+
+	public void setLongitudes(List<String> longitudes) {
+		this.longitudes = longitudes;
+	}
+
+	public List<String> getAltitudes() {
+		return altitudes;
+	}
+
+	public void setAltitudes(List<String> altitudes) {
+		this.altitudes = altitudes;
+	}
+
+	public List<String> getRegdates() {
+		return regdates;
+	}
+
+	public void setRegdates(List<String> regdates) {
+		this.regdates = regdates;
+	}
+
+	public List<String> getModdates() {
+		return moddates;
+	}
+
+	public void setModdates(List<String> moddates) {
+		this.moddates = moddates;
+	}
+
+	public List<String> getFilesizes() {
+		return filesizes;
+	}
+
+	public void setFilesizes(List<String> filesizes) {
+		this.filesizes = filesizes;
+	}
 	
 
+	
+	
 	
 	
 }

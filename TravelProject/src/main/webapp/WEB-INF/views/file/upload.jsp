@@ -44,7 +44,7 @@
 		<th>첨부파일</th>
 		<td>
 			<input type="file" name="files" id="files" class="atchfile"/> <button type="button" onclick="addFile()">추가</button>
-			<input type="file" name="file" id="file" class="atchfile"/> <button type="button" onclick="addFile()">추가f</button>
+			<!-- <input type="file" name="file" id="file" class="atchfile"/> <button type="button" onclick="addFile()">추가f</button> -->
 		</td>
 	</tr>
 	<!-- 추가 버튼을 누르면 위 숨겨진 테이블의 tr 을 가져다가 추가할 겁니닷 -->
