@@ -14,7 +14,7 @@ public interface ImageDao {
 	
 	void insert(ImageDto dto);
 	void update(ImageDto dto);
-	void delete(ImageDto dto);
+	void delete(ImageDto dto); 
 	void reply(ImageDto dto);
 	
 }
