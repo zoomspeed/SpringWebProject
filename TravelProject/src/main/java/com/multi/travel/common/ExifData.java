@@ -3,6 +3,7 @@ package com.multi.travel.common;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -18,9 +19,11 @@ import com.multi.travel.image.dto.ImageDto;
 public class ExifData {
 
 	private static Metadata metadata = null;
+	private static List<File> file = null;
 	//private static ImageDto dto = null;
 	
 	
+
 	 
 	
 	public static ImageDto getExifData(MultipartFile mFile, ImageDto dto) {
@@ -75,11 +78,16 @@ public class ExifData {
 		//38° 31' 52.8 N ,  0° 9' 49.8 W
 		//https://www.google.com/maps/place/38%C2%B031'52.8%22N+0%C2%B009'49.8%22W/@38.5306485,-0.1654881,17.25z/data=!4m5!3m4!1s0x0:0x0!8m2!3d38.5313333!4d-0.1638333
 		
+
+		
 		for (Directory directory : metadata.getDirectories()) {
 		    for (Tag tag : directory.getTags()) {
 		        System.out.format(" [%s] - %s = %s \n",
 		            directory.getName(), tag.getTagName(), tag.getDescription());
 		        //System.out.println("getDataType@@@@@@@@@@@@@@@@@@@@@ : "+tag.getTagName().equals("GPS"));
+		        
+		        
+		        
 		        
 		        if(tag.getTagName().equals("GPS Latitude")) {
 		        	System.out.println("GPS Latitude "+tag.getDescription());
@@ -104,7 +112,8 @@ public class ExifData {
 		        else if(tag.getTagName().equals("Date/Time Original")) {
 		        	System.out.println("Date/Time Original : "+tag.getDescription());
 		        	dto.setRegdate(tag.getDescription());
-		        }  
+		        }
+		        
 		    }
 		    
 		    if (directory.hasErrors()) {
@@ -117,14 +126,21 @@ public class ExifData {
 		return dto;
 	}
 	
-	public static List<ImageDto> getExifData(List<MultipartFile> mFile, List<ImageDto> dto)
+	public static List<ImageDto> getExifData(List<MultipartFile> mFile, List<ImageDto> dataList)
 	{
+		List<File> file = new ArrayList<File>();
+		int i;
+		
+		if(mFile == null) {
+			System.out.println("파일 리스트가 널임");
+			
+		}
+		
 		
 		//files : 업로드할 파일들 
 		//fileNameList : 파일 업로드 후 
 		//   실제 파일명을 전달하기 위한 리스트 
-		List<File> file = null;
-		int i;
+
 		
 		//temp.setTitle(mFile.getName());
 		//temp.setUserid(dto.getUserid());
@@ -133,6 +149,7 @@ public class ExifData {
 			for(MultipartFile f : mFile) {
 				file.add(multipartToFile(f));
 			}
+			//System.out.println("파일크기 : "+file.size());
 			
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
@@ -147,7 +164,10 @@ public class ExifData {
 			for(File f : file) {
 				metadata = ImageMetadataReader.readMetadata(f);
 				//dto.set(i) = setGPS(dto.get(i));
-				dto.set(i, setGPS(dto.get(i)));
+				
+				
+				dataList.add(setGPS(new ImageDto()));
+				dataList.get(i).setFile(mFile.get(i));
 				i++;
 			}
 			
@@ -159,7 +179,7 @@ public class ExifData {
 			e.printStackTrace();
 		}
 		
-		return dto;
+		return dataList;
 		
 		
 		

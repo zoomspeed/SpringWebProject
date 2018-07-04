@@ -23,7 +23,7 @@
 	<tr name="tr_attach_file">
 		<th>첨부파일</th>
 		<td>
-			<input type="file" name="files" />
+			<input type="file" name="file" />
 			<!-- <input type="title" name="title" id="title" />  -->
 		</td>
 	</tr>
@@ -43,7 +43,7 @@
 	<tr name="tr_attach_file">
 		<th>첨부파일</th>
 		<td>
-			<input type="file" name="files" id="files" class="atchfile"/> <button type="button" onclick="addFile()">추가</button>
+			<input type="file" name="file" id="file" class="atchfile"/> <button type="button" onclick="addFile()">추가</button>
 			<!-- <input type="file" name="file" id="file" class="atchfile"/> <button type="button" onclick="addFile()">추가f</button> -->
 		</td>
 	</tr>
@@ -91,7 +91,7 @@
 			*/
 
 			// title=제목1&contents=내용1
-			console.log(formData.getAll("files").length);
+			console.log(formData.getAll("file").length);
 			//return false;
 			
 			//파일의 경우 반드시 추가로 뭔가를 해줘야 한다 

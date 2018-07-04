@@ -1,5 +1,7 @@
 package com.multi.travel.image.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,20 +44,32 @@ public class ImageController {
 	//board/save.mt?title=test&contents=내용&userid=test
 	//board/save.mt?title=test&contents=내용&userid=test
 		@RequestMapping("/image/save")
-		public @ResponseBody String save(@RequestParam(value="files", required=true) List<MultipartFile> values,HttpServletRequest req, ImageDto dto)
+		public @ResponseBody String save(@RequestParam(value="file", required=true) List<MultipartFile> values,HttpServletRequest req, ImageDto dto)
 		{		
 			ServletContext ctx= req.getServletContext();
 			String ip = IP.getClientIP(req);
 			String filename = null;
-			
+			List<ImageDto> dataList = new ArrayList<ImageDto>();
 			String path = ctx.getRealPath(CommonConst.IMAGE_PATH);
 			System.out.println(path);
 			
+
+			
+
 			
 			System.out.println("values size @@@@@@ : "+values.size());
-			System.out.println(values.get(0).getOriginalFilename());
-			System.out.println(values.get(1).getOriginalFilename());
-			System.out.println(values.get(2).getOriginalFilename());
+			
+			dataList = ExifData.getExifData(values, dataList);
+/*			
+			System.out.println("1번 :"+dataList.get(0).getFile().getOriginalFilename());
+			System.out.println("2번 :"+dataList.get(1).getFile().getOriginalFilename());
+			System.out.println("3번 :"+dataList.get(2).getFile().getOriginalFilename());
+*/			
+		/*	
+		 	Test.ImageDtoTest(dataList.get(0));
+			Test.ImageDtoTest(dataList.get(1));
+			Test.ImageDtoTest(dataList.get(2));
+		*/
 		/*	     
 			//exif data 가져오기 (gps정보, 파일크기, 생성시간, 수정시간)
 			dto = ExifData.getExifData(dto.getFile(), dto); 
@@ -66,21 +80,35 @@ public class ImageController {
 			//dto에 값들어갔나 확인 출력테스트
 			Test.ImageDtoTest(dto);
 		*/
-			
 			//파일 업로드 경로잡기 
 			FileUploader.setFilePath(path);
 			
+			for(int i=0; i<dataList.size(); i++) {
+				filename = FileUploader.getNewFileName(dataList.get(i).getFile().getOriginalFilename());
+				System.out.println("file name : " + filename);
+				dataList.get(i).setTitle(filename);
+				dataList.get(i).setUserid(dto.getUserid());
+				dataList.get(i).setIp_addr(ip);
+				
+				String result = FileUploader.upload(dataList.get(i).getFile());
+				
+			}
+
+
+			
+		/*
 			boolean result=FileUploader.upload(dto.getFiles(),
-				 dto.getFileNameList()); 
+				dto.getFileNameList()); 
 			if( result == false)
 			{
 				return "fail";//파일 업로드 실패시 
 			}
-			
+				
 			for(int i=0; i<dto.getFileNameList().size(); i++)
 			{
 				dto.getFieldNameList().add("filename"+(i+1));
 			}
+		*/		
 			
 			//boardService.insert(dto);
 			
