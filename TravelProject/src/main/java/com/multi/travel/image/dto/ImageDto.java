@@ -43,7 +43,7 @@ public class ImageDto {
 
 	//fileName1, fileName2, fileName
 	
-	List<String> titles = new ArrayList<String>();
+	List<String> latitudes = new ArrayList<String>();
 
 
 	//디폴트 생성자 

@@ -24,8 +24,11 @@ import org.springframework.web.multipart.MultipartRequest;
 import com.multi.travel.board.dto.BoardDto;
 import com.multi.travel.board.service.BoardService;
 import com.multi.travel.common.CommonConst;
+import com.multi.travel.common.Test;
+import com.multi.travel.common.ExifData;
 import com.multi.travel.common.FileUploader;
 import com.multi.travel.common.IP;
+import com.multi.travel.common.Test;
 import com.multi.travel.image.dto.ImageDto;
 import com.multi.travel.image.service.ImageService;
 
@@ -42,12 +45,21 @@ public class ImageController {
 		public @ResponseBody String save(HttpServletRequest req, ImageDto dto)
 		{		
 			ServletContext ctx= req.getServletContext();
+			String ip = IP.getClientIP(req);
+			String filename = null;
 			
 			String path = ctx.getRealPath(CommonConst.IMAGE_PATH);
 			System.out.println(path);
 			
-			String ip = IP.getClientIP(req);
+			//exif data 가져오기 (gps정보, 파일크기, 생성시간, 수정시간)
+			dto = ExifData.getExifData(dto.getFile(), dto); 
 			dto.setIp_addr(ip);
+			filename = FileUploader.getNewFileName(dto.getFile().getOriginalFilename());
+			//System.out.println("file name : " + filename);
+			dto.setTitle(filename);
+			//dto에 값들어갔나 확인 출력테스트
+			Test.ImageDtoTest(dto);
+			
 			
 			//파일 업로드 경로잡기 
 			FileUploader.setFilePath(path);
