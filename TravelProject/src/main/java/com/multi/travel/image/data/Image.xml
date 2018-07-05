@@ -78,9 +78,9 @@
       (
 	    select * 
 	    from tl_image  
-	    order by image_seq asc      
+	    order by image_seq desc      
       )
-      where <![CDATA[rownum<=6]]> order by image_seq desc
+      where <![CDATA[rownum<=6]]> order by image_seq asc
    </select>
 
 

@@ -61,7 +61,12 @@
 				<%for(int i=0; i<ImageList.size(); i++){ %>
 					<div class="col-md-4 col-sm-4 fh5co-item-wrap">
 						<a class="fh5co-listing-item">
-							<img src="${commonURL}/upload/image/<%=ImageList.get(i)%>" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive">
+							<!-- 
+							<img src="${commonURL}/upload/image/<%=ImageList.get(i)%>" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive" style="width: 100%; height: 100%;">
+							 -->
+							 
+							<img src="${commonURL}/upload/image/<%=ImageList.get(i)%>" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive" style="width: 700px; height: 282px;">
+							
 							<div class="fh5co-listing-copy">
 								<h2><%=ImageList.get(i) %></h2>
 								<span class="icon">

@@ -10,4 +10,6 @@ public final class CommonConst {
     	            MEMBER_PATH="/upload/member";
 	public static final String
 					IMAGE_PATH="/upload/image";
+
+
 }
