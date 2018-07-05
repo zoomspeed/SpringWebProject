@@ -78,7 +78,7 @@ public class ExifData {
 		//38¡Æ 31' 52.8 N ,  0¡Æ 9' 49.8 W
 		//https://www.google.com/maps/place/38%C2%B031'52.8%22N+0%C2%B009'49.8%22W/@38.5306485,-0.1654881,17.25z/data=!4m5!3m4!1s0x0:0x0!8m2!3d38.5313333!4d-0.1638333
 		
-
+		String temp="";
 		
 		for (Directory directory : metadata.getDirectories()) {
 		    for (Tag tag : directory.getTags()) {
@@ -86,19 +86,29 @@ public class ExifData {
 		            directory.getName(), tag.getTagName(), tag.getDescription());
 		        //System.out.println("getDataType@@@@@@@@@@@@@@@@@@@@@ : "+tag.getTagName().equals("GPS"));
 		        
-		        
-		        
-		        
-		        if(tag.getTagName().equals("GPS Latitude")) {
-		        	System.out.println("GPS Latitude "+tag.getDescription());
-		        	dto.setLatitude(tag.getDescription());
+		        if(tag.getTagName().equals("GPS Latitude Ref")) {
+		        	System.out.println("GPS Latitude Ref "+tag.getDescription());
+		        	temp = tag.getDescription();
 		        	//dto.setLatitude(Util.getString(tag.getDescription()));
 		        }
+		           
+		        else if(tag.getTagName().equals("GPS Latitude")) {
+		        	System.out.println("GPS Latitude "+tag.getDescription());
+		        	dto.setLatitude(tag.getDescription()+" "+temp);
+		        	//dto.setLatitude(Util.getString(tag.getDescription()));
+		        }
+		        else if(tag.getTagName().equals("GPS Longitude Ref")) {
+		        	System.out.println("GPS Longitude Ref "+tag.getDescription());
+		        	temp = tag.getDescription();
+		        	//dto.setLatitude(Util.getString(tag.getDescription()));
+		        }
+		        
 		        else if(tag.getTagName().equals("GPS Longitude")) {
 		        	System.out.println("GPS Longitude "+tag.getDescription());
-		        	dto.setLongitude(tag.getDescription());
+		        	dto.setLongitude(tag.getDescription() +" "+temp);
 		        	//dto.setLongitude(Util.getString(tag.getDescription()));
 		        }
+		        
 		        else if(tag.getTagName().equals("GPS Altitude")) {
 		        	System.out.println("GPS Altitude "+tag.getDescription());
 		        	dto.setAltitude(tag.getDescription());
