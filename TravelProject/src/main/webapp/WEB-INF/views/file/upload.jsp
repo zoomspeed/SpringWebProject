@@ -66,10 +66,10 @@
 	
 	$(document).ready(function(){
 		
-		$("#btnWrite").click(function(){
+		$("#btnWrite").click(function(event){
 			//에러체크 (제목, 내용, 아이디)
 			
-			
+			event.preventDefault();
 			//데이타 전송하기 위해서 form에 있는
 			//모든 값들을 parameter 화한다 
 			var form = $("#mform")[0];
@@ -117,6 +117,11 @@
 				},
 				error:function(request, status, error){
 					//서버호출 실패시 
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					//console.log(status);
+					//console.log(request);
+					//console.log(error);
 					alert("파일 용량이 너무 커서 못올립니다");
 					
 				}
