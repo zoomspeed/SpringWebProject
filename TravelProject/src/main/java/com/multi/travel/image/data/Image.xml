@@ -71,6 +71,19 @@
       )
    </insert>
 
+   <select id="Image.getMainImage" parameterType="ImageDto"
+      resultType="String">
+ 
+      select title from
+      (
+	    select * 
+	    from tl_image  
+	    order by image_seq asc      
+      )
+      where <![CDATA[rownum<=6]]> order by image_seq desc
+   </select>
+
+
    <select id="Image.getTotalCount" parameterType="ImageDto"
       resultType="Integer">
       select count(*)

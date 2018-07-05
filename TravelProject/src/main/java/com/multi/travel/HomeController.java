@@ -1,9 +1,12 @@
 package com.multi.travel;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,12 +17,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.multi.travel.board.service.BoardService;
+import com.multi.travel.image.service.ImageService;
+
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
-	
+	@Resource(name="imageServiceImpl")
+	ImageService imageService;	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/**
@@ -34,8 +41,11 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
 		String formattedDate = dateFormat.format(date);
+		List<String> ImageList = new ArrayList<String>();		
+		ImageList = imageService.getMainImage();	
 		
 		model.addAttribute("serverTime", formattedDate );
+		model.addAttribute("ImageList",ImageList);		
 		
 		return "redirect:/home.do";
 	}
@@ -50,7 +60,13 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-		model.addAttribute("serverTime", formattedDate );
+		List<String> ImageList = new ArrayList<String>();
+		ImageList = imageService.getMainImage();
+
+		
+
+		model.addAttribute("serverTime", formattedDate );		
+		model.addAttribute("ImageList",ImageList);
 		
 		return "/map/home";
 	}  

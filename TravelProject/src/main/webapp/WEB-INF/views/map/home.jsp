@@ -8,6 +8,7 @@
 	<%@include file="../include/header2.jsp"%>
 	
 
+
 		<div id="fh5co-wrapper">
 		<div id="fh5co-page">
 
@@ -47,81 +48,29 @@
 
 		</div>
 		
+		
+	<% 
+		List<String> ImageList =(ArrayList<String>)request.getAttribute("ImageList");
+	%>
 			
 
 		<div class="fh5co-listing">
 			<div class="container">
 				<div class="row">
+				
+				<%for(int i=0; i<ImageList.size(); i++){ %>
 					<div class="col-md-4 col-sm-4 fh5co-item-wrap">
 						<a class="fh5co-listing-item">
-							<img src="${commonURL}/resources/template/images/img-1.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive">
+							<img src="${commonURL}/upload/image/<%=ImageList.get(i)%>" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive">
 							<div class="fh5co-listing-copy">
-								<h2>Paris</h2>
+								<h2><%=ImageList.get(i) %></h2>
 								<span class="icon">
 									<i class="icon-chevron-right"></i>
 								</span>
 							</div>
 						</a>
 					</div>
-					<div class="col-md-4 col-sm-4 fh5co-item-wrap">
-						<a class="fh5co-listing-item">
-							<img src="${commonURL}/resources/template/images/img-2.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive">
-							<div class="fh5co-listing-copy">
-								<h2>New York</h2>
-								<span class="icon">
-									<i class="icon-chevron-right"></i>
-								</span>
-							</div>
-						</a>
-					</div>
-					<div class="col-md-4 col-sm-4 fh5co-item-wrap">
-						<a class="fh5co-listing-item">
-							<img src="${commonURL}/resources/template/images/img-3.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive">
-							<div class="fh5co-listing-copy">
-								<h2>London</h2>
-								<span class="icon">
-									<i class="icon-chevron-right"></i>
-								</span>
-							</div>
-						</a>
-					</div>
-					<!-- END 3 row -->
-
-					<div class="col-md-4 col-sm-4 fh5co-item-wrap">
-						<a class="fh5co-listing-item">
-							<img src="${commonURL}/resources/template/images/img-4.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive">
-							<div class="fh5co-listing-copy">
-								<h2>Amsterdam</h2>
-								<span class="icon">
-									<i class="icon-chevron-right"></i>
-								</span>
-							</div>
-						</a>
-					</div>
-					<div class="col-md-4 col-sm-4 fh5co-item-wrap">
-						<a class="fh5co-listing-item">
-							<img src="${commonURL}/resources/template/images/img-5.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive">
-							<div class="fh5co-listing-copy">
-								<h2>Australia</h2>
-								<span class="icon">
-									<i class="icon-chevron-right"></i>
-								</span>
-							</div>
-						</a>
-					</div>
-					<div class="col-md-4 col-sm-4 fh5co-item-wrap">
-						<a class="fh5co-listing-item">
-							<img src="${commonURL}/resources/template/images/img-6.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive">
-							<div class="fh5co-listing-copy">
-								<h2>Japan</h2>
-								<span class="icon">
-									<i class="icon-chevron-right"></i>
-								</span>
-							</div>
-						</a>
-					</div>
-					<!-- END 3 row -->
-
+				<% } %>
 
 				</div>
 			</div>

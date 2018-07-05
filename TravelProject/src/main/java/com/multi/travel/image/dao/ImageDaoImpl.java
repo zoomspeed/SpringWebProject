@@ -17,7 +17,7 @@ public class ImageDaoImpl implements ImageDao{
 	SqlSessionTemplate sm;
 
 	@Override
-	public List<ImageDto> getList(BoardDto dto) {
+	public List<ImageDto> getList(ImageDto dto) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -68,6 +68,13 @@ public class ImageDaoImpl implements ImageDao{
 	public void reply(ImageDto dto) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<String> getMainImage() {
+		// TODO Auto-generated method stub
+		List<String> list = sm.selectList("Image.getMainImage");
+		return list;
 	}
 	
 

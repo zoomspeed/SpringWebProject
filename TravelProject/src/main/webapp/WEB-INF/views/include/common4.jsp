@@ -18,7 +18,7 @@ if(request.getParameter("key")!=null)
 
 %>
 
-
+<%String basePath = request.getRealPath("/"); %>	
 <%
 //System.out.println("getContextPath:~~~ "+request.getContextPath());
 //System.out.println("getClientIp   "+request.getLocalAddr());
