@@ -12,7 +12,7 @@
 		<div id="fh5co-wrapper">
 		<div id="fh5co-page">
 
-		<div>
+		<div>  
 		
 			<c:if test="${email==null || email==''}">	
 				<div class="box"/>
