@@ -13,26 +13,7 @@
 		<div id="fh5co-page">
 
 		<div>  
-		
-			<c:if test="${email==null || email==''}">	
-				<div class="box"/>
-					<a href="/travel/member/login.do">로그온</a>
-				</div>		
-				<div class="box"/>
-					<a href="/travel/member/member_write.do">
-					회원가입</a>
-				</div>
-			</c:if>
-			
-			<c:if test="${email!=null && email!=''}">	
-				이름 : ${username} <br>
-				이메일 : ${email} <br>
-				모바일 : ${mobile} <br>
-				사용자아이디 : ${userid} <br>
-				<div class="box"/>
-					<a href="/travel/member/logout.do">로그아웃</a>
-				</div>
-			</c:if>
+
 		 
 		</div>		
 		

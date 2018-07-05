@@ -10,7 +10,7 @@ if(request.getParameter("pg")!=null)
 	pg = request.getParameter("pg");
 %>
 <%=request.getRealPath("/") %>
-[출처] [Java/JSP]CKEditor+CKFinder를 사용해보자!|작성자 찬틀
+
 
 <!DOCTYPE html">
 <html>

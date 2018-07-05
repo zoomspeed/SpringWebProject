@@ -1,7 +1,7 @@
 <%@ page language="java" 
     contentType="text/html;charset=utf-8"
     pageEncoding="utf-8"%>
-   
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
     
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -133,10 +133,10 @@
 						<nav id="fh5co-menu-wrap" role="navigation">
 							<ul class="sf-menu" id="fh5co-primary-menu">
 								<li class="active">
-									<a href="index.html">Home</a>
+									<a href="${commonURL}">Home</a>
 								</li>
 								<li>
-									<a href="listing.html" class="fh5co-sub-ddown">게시판</a>
+									<a href="${commonURL}/board/test.do" class="fh5co-sub-ddown">게시판</a>
 									<ul class="fh5co-sub-menu">
 										<li><a href="${commonURL}/board/list.do" target="_blank">자유게시판</a></li>
 										<li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Q&A 게시판</a></li>
@@ -147,43 +147,38 @@
 									</ul>
 								</li>
 								<li>
-									<a href="listing.html" class="fh5co-sub-ddown">길찾기</a>
+									<a href="${commonURL}/file/upload.do" class="fh5co-sub-ddown">길찾기</a>
 									<ul class="fh5co-sub-menu">
 										<li><a href="${commonURL}/file/upload.do" target="_blank">사진위치로 길찾기</a></li>
 										<li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">주변 관광지 찾기</a></li>
 										<li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">가장빠른길 찾기</a></li>
 									</ul>
 								</li>								
-								<!--
+								 
+		 
+						 	<c:if test="${email==null || email==''}">	 
+
 								<li>
-									<a href="#" class="fh5co-sub-ddown">Dropdown</a>
-									 <ul class="fh5co-sub-menu">
-									 	<li><a href="left-sidebar.html">Web Development</a></li>
-									 	<li><a href="right-sidebar.html">Branding &amp; Identity</a></li>
-										<li>
-											<a href="#" class="fh5co-sub-ddown">Free HTML5</a>
-											<ul class="fh5co-sub-menu">
-												<li><a href="http://freehtml5.co/preview/?item=build-free-html5-bootstrap-template" target="_blank">Build</a></li>
-												<li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Work</a></li>
-												<li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">Light</a></li>
-												<li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">Relic</a></li>
-												<li><a href="http://freehtml5.co/preview/?item=display-free-html5-template-using-bootstrap" target="_blank">Display</a></li>
-												<li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
-											</ul>
-										</li>
-										<li><a href="#">UI Animation</a></li>
-										<li><a href="#">Copywriting</a></li>
-										<li><a href="#">Photography</a></li> 
-									</ul>
-								</li>
-								 -->
-								<li>
-									<a href="${commonURL}/member/login.do">Login</a>
+									<a href="${commonURL}/member/login.do" class="fh5co-sub-ddown">Login</a>
 									<ul class="fh5co-sub-menu">
 										<li><a href="${commonURL}/member/login.do" target="_blank">Login</a></li>
-										<li><a href="${commonURL}/member/signup.do" target="_blank">Work</a></li>
+										<li><a href="${commonURL}/member/signup.do" target="_blank">SignUp</a></li>
 									</ul>
 								</li>
+
+						 	</c:if>  
+							
+						 	<c:if test="${email!=null && email!=''}">	 
+						
+								<li>
+									<a href="${commonURL}/member/logout.do" class="fh5co-sub-ddown">Logout</a>
+									<ul class="fh5co-sub-menu">
+										<li><a href="${commonURL}/member/logout.do" target="_blank">Logout</a></li>
+									</ul>
+								</li>
+
+							 </c:if>	 								 			 
+
 																 
 								<li><a href="${commonURL}/contact.do">Contact</a></li>
 							</ul>
