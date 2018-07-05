@@ -48,9 +48,10 @@
 
 
 <!-- board template start -->
-
+<!-- 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+ -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- board template end -->
@@ -111,9 +112,14 @@
 
 
 	<!-- Google Map -->
+	    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDSFJk-gBENhgfxPZ5I8BLrdMcYJdJP2c&callback=initMap"
+        async defer></script>	
+	
+	<!--     
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
+         
 	<script src="${commonURL}/resources/template/js/google_map.js"></script>
-
+	 -->
 	<!-- Main JS -->
 	<script src="${commonURL}/resources/template/js/main.js"></script>
 
@@ -151,7 +157,7 @@
 									<ul class="fh5co-sub-menu">
 										<li><a href="${commonURL}/file/upload.do" target="_blank">사진위치로 길찾기</a></li>
 										<li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">주변 관광지 찾기</a></li>
-										<li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">가장빠른길 찾기</a></li>
+										<li><a href="${commonURL}/map/mapInfo.do" target="_blank">가장빠른길 찾기</a></li>
 									</ul>
 								</li>								
 								 

@@ -113,7 +113,7 @@
 					//서버호출 성공시 
 						alert('사진이 등록되었습니다');
 					
-					location.href="<%=commonURL%>/board/list.do";
+					location.href="<%=commonURL%>/map/mapInfo.do";
 				},
 				error:function(request, status, error){
 					//서버호출 실패시 
