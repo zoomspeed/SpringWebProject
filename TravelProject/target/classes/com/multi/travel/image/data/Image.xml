@@ -15,17 +15,15 @@
       (
       from tl_image
       where delyn='N'
-         <if test="sel!=null and key!=null">
-            <if test="sel.equals('all')">
-               and (title like '%'||#{key}||'%'
-               or
-               userid like '%'||#{key}||'%')
+         <if test="sel!=null">
+            <if test="sel==1">
+            	order by image_seq desc 
             </if>
-            <if test="sel.equals('title')">
-               and title like '%'||#{key}||'%'
+            <if test="sel==2">
+               order by hit desc
             </if>
-            <if test="sel.equals('userid')">
-               and userid like '%'||#{key}||'%'
+            <if test="sel==3">
+               order by title asc
             </if>
          </if>
       )where pg=#{pg}
@@ -56,6 +54,7 @@
 	  ,filesize
 	  ,delyn
       ,ip_addr
+      ,hit
       )values(
       #{image_seq}
       ,#{userid}
@@ -67,7 +66,8 @@
       ,sysdate
       ,#{filesize}
       ,'N'
-      ,#{ip_addr} 
+      ,#{ip_addr}
+      ,0 
       )
    </insert>
 
@@ -77,10 +77,23 @@
       select title from
       (
 	    select * 
-	    from tl_image  
-	    order by image_seq desc      
+	    from tl_image
+      
+
+      
+      <if test="sel!=null">   
+         <if test="sel.equals('date')">
+			order by image_seq desc
+         </if>
+         <if test="sel.equals('title')">
+			order by title asc
+         </if>
+         <if test="sel.equals('hit')">
+			order by hit desc
+         </if>
+	  </if>	 
       )
-      where <![CDATA[rownum<=6]]> order by image_seq asc
+      where <![CDATA[rownum<=6]]> 
    </select>
 
 

@@ -235,7 +235,7 @@ function goDelete(board_seq)
 			success:function(data){
 				alert("글이 삭제되었습니다");
 				//현재 페이지 새로 고침하기 
-				location.reload();
+				//location.reload();
 			},
 			error:function(e){
 				alert("삭제 실패");

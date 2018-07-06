@@ -16,8 +16,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.multi.travel.board.service.BoardService;
+import com.multi.travel.image.dto.ImageDto;
 import com.multi.travel.image.service.ImageService;
 
 /**
@@ -34,7 +36,7 @@ public class HomeController {
 	 */
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public @ResponseBody String home(Locale locale, Model model, ImageDto dto) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		Date date = new Date();
@@ -42,7 +44,7 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		List<String> ImageList = new ArrayList<String>();		
-		ImageList = imageService.getMainImage();	
+		ImageList = imageService.getMainImage(dto);	
 		
 		model.addAttribute("serverTime", formattedDate );
 		model.addAttribute("ImageList",ImageList);		
@@ -52,7 +54,7 @@ public class HomeController {
 
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home1(Locale locale, Model model) {
+	public  String home1(Locale locale, Model model ,ImageDto dto) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		Date date = new Date();
@@ -60,8 +62,10 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
+		System.out.println("@@@@@@@@@@getSel@@@@@@@@@@@@@@@@ : "+dto.getSel());
+		System.out.println("key@@@@@@@@@@@@@2:"+dto.getKey());
 		List<String> ImageList = new ArrayList<String>();
-		ImageList = imageService.getMainImage();
+		ImageList = imageService.getMainImage(dto);
 
 		
 
@@ -69,7 +73,9 @@ public class HomeController {
 		model.addAttribute("ImageList",ImageList);
 		
 		return "/map/home";
-	}  
+	}
+	
+	
 		
 	
 	

@@ -6,8 +6,12 @@
 <%@include file="../include/common4.jsp"%>
 
 	<%@include file="../include/header2.jsp"%>
-	
 
+<%
+sel="title";
+if(request.getParameter("sel")!=null)
+	sel = request.getParameter("sel");
+%>
 
 		<div id="fh5co-wrapper">
 		<div id="fh5co-page">
@@ -30,14 +34,41 @@
 		</div>
 		
 		
+		
+	
+		
+
 	<% 
 		List<String> ImageList =(ArrayList<String>)request.getAttribute("ImageList");
 	%>
+
 			
 
 		<div class="fh5co-listing">
 			<div class="container">
 				<div class="row">
+				
+ 		<!-- <div class="fh5co-hero"> -->		
+		<!-- <div class="fh5co-overlay"></div>  -->		
+		<!-- <div class="fh5co-cover" > -->
+		<!-- <form id="mform" name="mform"> -->
+			<div class="desc animate-box fh5co-overlay">
+					&nbsp;&nbsp;&nbsp;
+					<form id="mform" name="mform">
+					<label for="sel" class="desc">실시간 업로드 사진</label>
+					
+					<select id="sel" name="sel" class="btn btn-primary btn-lg">
+						<option value="date" <%if(sel.equals("date")){%>selected<%}%> onclick="go_AlbumList()">날짜순</option>
+						<option value="title" <%if(sel.equals("title")){%>selected<%}%> onclick="go_AlbumList()">제목순</option>
+						<option value="hit" <%if(sel.equals("hit")){%>selected<%}%> onclick="go_AlbumList()">조회순</option>
+					</select>
+					<button id="Ggg" name="Ggg" value="ddd" onclick="go_AlbumList()">
+					</form>
+			</div>
+		<!-- </form> -->	
+		<!--  </div> -->
+		<!--  </div>  -->
+				<br/><br/>
 				
 				<%for(int i=0; i<ImageList.size(); i++){ %>
 					<div class="col-md-4 col-sm-4 fh5co-item-wrap">
@@ -111,3 +142,34 @@
 
 	</body>
 </html>
+
+<script>
+function go_AlbumList()
+{
+	var sel = document.getElementById('sel').value;
+	console.log(sel);
+	var url="${commonURL}/ImageList.do";
+<%-- 	
+ 	$.ajax({
+		url:url,
+		data:{"sel":sel},
+		dataType:"text",
+		success:function(data){
+			alert("조회가 완료 되었습니다.");
+			<%ImageList =(ArrayList<String>)request.getAttribute("ImageList");%>
+			<%for(int i=0; i<ImageList.size(); i++){%>
+			console.log("<%=ImageList.get(i)%>");
+			<%}%>
+			//console.log(data);
+			//현재 페이지 새로 고침하기 
+			//location.reload();
+		},
+		error:function(e){
+			alert("조회 실패");
+		}
+	});	
+	  --%>
+	$("#mform").submit();
+	
+}
+</script>

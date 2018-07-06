@@ -33,6 +33,7 @@ public class BoardController {
 	@RequestMapping("/board/list")
 	public void list(Model model, BoardDto dto)
 	{
+		System.out.println("@@@@@@boardSel@@@@@@@ : "+dto.getSel());
 		List<BoardDto> list = boardService.getList(dto);
 		int total = boardService.getTotal(dto);
 		

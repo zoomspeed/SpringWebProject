@@ -4,9 +4,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
@@ -137,7 +140,28 @@ public class ImageController {
 		}		
 		
 
-				
+		//@RequestMapping(value = "/ImageList", method = RequestMethod.GET)
+		@RequestMapping("ImageList")
+		public @ResponseBody String ImageList(Model model ,ImageDto dto) {
+		
+			System.out.println("@@@@@@@@@@getSel@@@@@@@@@@@@@@@@ : "+dto.getSel());
+			System.out.println("key@@@@@@@@@@@@@2:"+dto.getKey());
+			List<String> ImageList = new ArrayList<String>();
+			ImageList = imageService.getMainImage(dto);
+			String personJson="";
+			personJson += "{";
+			for(int i=0; i<ImageList.size()-1; i++) {
+				System.out.println(ImageList.get(i));
+				personJson +="\"arr["+i+"]\":\""+ImageList.get(i)+"\",";
+			}
+			personJson += "arr[5]\":\""+ImageList.get(5)+"\"}";
+			System.out.println("personJson");
+			System.out.println(personJson);
+			
+			model.addAttribute("ImageList",ImageList);
+			
+			return "success";
+		}				
 		
 	
 }

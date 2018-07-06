@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
  
 public class ImageDto {
 	private String pg="0";
-	private String sel="all";
+	private String sel="date";
 	private String key="";
 	private String num="";
 	
