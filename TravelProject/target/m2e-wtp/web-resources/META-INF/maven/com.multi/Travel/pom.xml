@@ -206,7 +206,7 @@
 		    <artifactId>tck-utils-api</artifactId>
 		    <version>0.9.1</version>
 		</dependency>
-		  
+		
 		<!--  exif 메타데이터 추출. -->
 		<dependency>
 		  <groupId>com.drewnoakes</groupId>

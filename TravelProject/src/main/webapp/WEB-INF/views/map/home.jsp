@@ -63,9 +63,9 @@ if(request.getParameter("sel")!=null)
 						<option value="title" <%if(sel.equals("title")){%>selected<%}%>">제목순</option>
 						<option value="hit" <%if(sel.equals("hit")){%>selected<%}%>">조회순</option>
 					</select>
-					<input type="button" id="b" name="b" value="bsww"onclick="go_AlbumList3()">
-					<input type="text" name="name" value="aa">
-					<input type="text" name="location" value="aa">
+					<input type="button" id="b" name="b" value="bsww"onclick="go_AlbumList3()"/>
+					<input type="text" name="name" id="name" value="aa"/>
+					<input type="text" name="location" id="location" value="bb"/>
 					</form>
 			</div>
 		<!-- </form> -->	
@@ -163,7 +163,7 @@ function go_AlbumList()
 //?sel="+encodeURI(sel)
 	
  	$.ajax({
- 		contentType:'appication/json',
+ 		contentType:'application/json ; charset=UTF-8',
 		url:url,
 		//data:{"sel":sel},
 		data:JSON.stringify(data),
@@ -205,7 +205,7 @@ function go_AlbumList1()
 
 	
  	$.ajax({
- 		contentType:'appication/json; charset=UTF-8',
+ 		contentType:'application/json; charset=UTF-8',
 		url:url,
 		//data:{"sel":sel},
 		data:{ "name": "John", "location": "Boston" },
@@ -241,7 +241,7 @@ function go_AlbumList2()
 	var url="${commonURL}/ImageList2.do";
 
  	$.ajax({
- 		contentType:'appication/json',
+ 		contentType:'application/json',
 		url:url,
 		//data:{"sel":sel},
 		data:JSON.stringify(data),
@@ -269,18 +269,19 @@ function go_AlbumList3()
 	
 	var data = {}
 	data["name"] = $('#name').val();
+	//data["name"] = "aa";
 	data["location"] = $('#location').val();
 	console.log(JSON.stringify(data));
 	url = "ImageList3.do";
   
  	$.ajax({
- 		contentType:'appication/json; charset=utf-8',
+ 		contentType:'application/json; charset=utf-8',
 		url:"ImageList3.do?sel=ac",
-		data:{"sel":sel},
-		//data:JSON.stringify(data),
+		//data:{"sel":"acd"},
+		data:JSON.stringify(data),
 		//data:JSON.stringify({"name":"kim","location":"seoul","title":"aaa"}),
 		dataType:'json',
-		type:'post',
+		type:'POST',
 		success:function(data){
 			alert("조회가 완료 되었습니다.");
 			
