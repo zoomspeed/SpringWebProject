@@ -63,7 +63,7 @@ if(request.getParameter("sel")!=null)
 						<option value="title" <%if(sel.equals("title")){%>selected<%}%>">제목순</option>
 						<option value="hit" <%if(sel.equals("hit")){%>selected<%}%>">조회순</option>
 					</select>
-					<input type="button" id="b" name="b" value="bsww"onclick="go_AlbumList1()">
+					<input type="button" id="b" name="b" value="bsww"onclick="go_AlbumList3()">
 					<input type="text" name="name" value="aa">
 					<input type="text" name="location" value="aa">
 					</form>
@@ -225,5 +225,75 @@ function go_AlbumList1()
 	  
 	//$("#mform").submit();
 	
+}
+
+
+function go_AlbumList2()
+{
+
+	var sel = document.getElementById('sel').value;
+	
+	var data = {}
+	data["name"] = $('#name').val();
+	data["location"] = $('#location').val();
+	console.log(JSON.stringify(data));
+	
+	var url="${commonURL}/ImageList2.do";
+
+ 	$.ajax({
+ 		contentType:'appication/json',
+		url:url,
+		//data:{"sel":sel},
+		data:JSON.stringify(data),
+		dataType:'json',
+		type:'post',
+		success:function(data){
+			alert("조회가 완료 되었습니다.");
+			
+			console.log(data);
+		},
+		error:function(request,status,error){
+			alert(error);
+			alert(request.message);
+			//alert("조회 실패");
+		}
+	});	
+	  
+	//$("#mform").submit();
+}
+
+function go_AlbumList3()
+{
+
+	var sel = document.getElementById('sel').value;
+	
+	var data = {}
+	data["name"] = $('#name').val();
+	data["location"] = $('#location').val();
+	console.log(JSON.stringify(data));
+	
+	var url="${commonURL}/ImageList3.do";
+
+ 	$.ajax({
+ 		contentType:'appication/json; charset=UTF-8',
+		url:url,
+		//data:{"sel":sel},
+		data:JSON.stringify(data),
+		dataType:'json',
+		type:'post',
+		success:function(data){
+			alert("조회가 완료 되었습니다.");
+			
+			//console.log(data.message);
+			console.log(data);
+		},
+		error:function(request,status,error){
+			alert(error);
+			alert(request.message);
+			//alert("조회 실패");
+		}
+	});	
+	  
+	//$("#mform").submit();
 }
 </script>

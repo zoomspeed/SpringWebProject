@@ -178,6 +178,39 @@ public class ImageController {
 		    return resp;
 		}		
 	
+		
+		@RequestMapping(value = "/ImageList2", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+		public @ResponseBody
+		ImageDto Submit1() {//@RequestBody Map<String,Object> params
+			//@RequestParam("name") String name,@RequestParam("location") String location
+		    // your logic here
+			Map<String, Object> resultMap = new HashMap<String,Object>();
+			
+			resultMap.put("message", "회원정보 수정");
+			System.out.println("호출완료2");
+			ImageDto dto = new ImageDto();
+			dto.setTitle("aa");
+			
+			return dto;
+			//return resultMap;
+		}	
+		
+		
+		@RequestMapping(value = "/ImageList3", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+		public @ResponseBody
+		Map<String, Object> Submit2() {//@RequestBody Map<String,Object> params
+			//@RequestParam("name") String name,@RequestParam("location") String location
+		    // your logic here
+			Map<String, Object> resultMap = new HashMap<String,Object>();
+			
+			resultMap.put("message", "회원정보 수정");
+			System.out.println("호출완료2");
+			//ImageDto dto = new ImageDto();
+			//dto.setTitle("aa");
+			
+			return resultMap;
+			//return resultMap;
+		}			
 }
 
 
