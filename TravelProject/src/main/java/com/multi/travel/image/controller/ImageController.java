@@ -195,7 +195,7 @@ public class ImageController {
 			//return resultMap;
 		}	
 		
-		
+		  
 		@RequestMapping(value = "/ImageList3", method = RequestMethod.POST)
 		public @ResponseBody
 		Map<String, Object> Submit2(@RequestParam("sel") String sel) {//@RequestBody Map<String,Object> params

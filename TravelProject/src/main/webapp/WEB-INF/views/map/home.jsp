@@ -272,7 +272,7 @@ function go_AlbumList3()
 	data["location"] = $('#location').val();
 	console.log(JSON.stringify(data));
 	url = "ImageList3.do";
-
+  
  	$.ajax({
  		contentType:'appication/json; charset=utf-8',
 		url:"ImageList3.do?sel=ac",
