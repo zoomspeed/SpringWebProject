@@ -7,9 +7,11 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
@@ -17,8 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -142,27 +146,37 @@ public class ImageController {
 
 		//@RequestMapping(value = "/ImageList", method = RequestMethod.GET)
 		@RequestMapping("ImageList")
-		public @ResponseBody String ImageList(Model model ,ImageDto dto) {
-		
+		public @ResponseBody Map<String,Object> ImageList(
+				@RequestBody Map<String,Object> params, ImageDto dto) {
+			Map<String,Object>resultMap = new HashMap<String,Object>();
+			
 			System.out.println("@@@@@@@@@@getSel@@@@@@@@@@@@@@@@ : "+dto.getSel());
 			System.out.println("key@@@@@@@@@@@@@2:"+dto.getKey());
 			List<String> ImageList = new ArrayList<String>();
 			ImageList = imageService.getMainImage(dto);
-			String personJson="";
-			personJson += "{";
-			for(int i=0; i<ImageList.size()-1; i++) {
-				System.out.println(ImageList.get(i));
-				personJson +="\"arr["+i+"]\":\""+ImageList.get(i)+"\",";
-			}
-			personJson += "arr[5]\":\""+ImageList.get(5)+"\"}";
-			System.out.println("personJson");
-			System.out.println(personJson);
 			
-			model.addAttribute("ImageList",ImageList);
-			
-			return "success";
-		}				
+			resultMap.put("message", "회원정보 입력완료");
+			System.out.println(params.get("sel"));
+			String json ="{\"id\" :" + 1 + ",\"id2\" :" + 2 + "}";	
+			System.out.println(json);
+			return resultMap;
+		}	
 		
+		
+		@RequestMapping(value = "/ImageList1", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+		public @ResponseBody
+		String Submit() {
+			//@RequestParam("name") String name,@RequestParam("location") String location
+		    // your logic here
+			System.out.println("호출완료");
+
+			
+
+			
+			String resp = "{\"name\" : \"aa\", \"location\" :  \"location44\"}";
+			System.out.println(resp);
+		    return resp;
+		}		
 	
 }
 
