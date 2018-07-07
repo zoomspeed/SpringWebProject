@@ -196,15 +196,16 @@ public class ImageController {
 		}	
 		
 		
-		@RequestMapping(value = "/ImageList3", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+		@RequestMapping(value = "/ImageList3", method = RequestMethod.POST)
 		public @ResponseBody
-		Map<String, Object> Submit2() {//@RequestBody Map<String,Object> params
+		Map<String, Object> Submit2(@RequestParam("sel") String sel) {//@RequestBody Map<String,Object> params
 			//@RequestParam("name") String name,@RequestParam("location") String location
 		    // your logic here
 			Map<String, Object> resultMap = new HashMap<String,Object>();
-			
-			resultMap.put("message", "회원정보 수정");
-			System.out.println("호출완료2");
+			System.out.println(sel);
+			resultMap.put("message", "회원정보d 수정");
+			System.out.println("호출완료3");
+			//System.out.println(dto.getTitle());
 			//ImageDto dto = new ImageDto();
 			//dto.setTitle("aa");
 			

@@ -271,14 +271,14 @@ function go_AlbumList3()
 	data["name"] = $('#name').val();
 	data["location"] = $('#location').val();
 	console.log(JSON.stringify(data));
-	
-	var url="${commonURL}/ImageList3.do";
+	url = "ImageList3.do";
 
  	$.ajax({
- 		contentType:'appication/json; charset=UTF-8',
-		url:url,
-		//data:{"sel":sel},
-		data:JSON.stringify(data),
+ 		contentType:'appication/json; charset=utf-8',
+		url:"ImageList3.do?sel=ac",
+		data:{"sel":sel},
+		//data:JSON.stringify(data),
+		//data:JSON.stringify({"name":"kim","location":"seoul","title":"aaa"}),
 		dataType:'json',
 		type:'post',
 		success:function(data){
