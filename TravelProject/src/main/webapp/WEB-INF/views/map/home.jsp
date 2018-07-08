@@ -51,22 +51,20 @@ if(request.getParameter("sel")!=null)
  		<!-- <div class="fh5co-hero"> -->		
 		<!-- <div class="fh5co-overlay"></div>  -->		
 		<!-- <div class="fh5co-cover" > -->
-		<!-- <form id="mform" name="mform"> -->
+		<form id="mform" name="mform"> 
 			<div class="desc animate-box fh5co-overlay">
 					&nbsp;&nbsp;&nbsp;
-					<form id="mform" name="mform">
+					<!-- <form id="mform" name="mform"> -->
 					
 					<label for="sel" class="desc">실시간 업로드 사진</label>
 					<!-- <button id="Ggg" name="Ggg" value="ddd" onclick="go_AlbumList()"> -->
 					<select id="sel" name="sel" class="btn btn-primary btn-lg">
-						<option value="date" <%if(sel.equals("date")){%>selected<%}%>">날짜순</option>
-						<option value="title" <%if(sel.equals("title")){%>selected<%}%>">제목순</option>
-						<option value="hit" <%if(sel.equals("hit")){%>selected<%}%>">조회순</option>
+						<option value="date" <%if(sel.equals("date")){%>selected<%}%>" onclick="go_AlbumList()">날짜순</option>
+						<option value="title" <%if(sel.equals("title")){%>selected<%}%>" onclick="go_AlbumList()">제목순</option>
+						<option value="hit" <%if(sel.equals("hit")){%>selected<%}%>" onclick="go_AlbumList()">조회순</option>
 					</select>
-					<input type="button" id="b" name="b" value="bsww"onclick="go_AlbumList3()"/>
-					<input type="text" name="name" id="name" value="aa"/>
-					<input type="text" name="location" id="location" value="bb"/>
-					</form>
+
+					<!-- </form> -->
 			</div>
 		<!-- </form> -->	
 		<!--  </div> -->
@@ -80,10 +78,10 @@ if(request.getParameter("sel")!=null)
 							<img src="${commonURL}/upload/image/<%=ImageList.get(i)%>" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive" style="width: 100%; height: 100%;">
 							 -->
 							 
-							<img src="${commonURL}/upload/image/<%=ImageList.get(i)%>" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive" style="width: 700px; height: 282px;">
-							
+							<img id="ImageSrc<%=(i+1)%>" name="ImageSrcs" src="${commonURL}/upload/image/<%=ImageList.get(i)%>" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive" style="width: 700px; height: 282px;">
+							<input type="hidden" id="ImageName<%=i%>" name="ImageNames" onclick="goChange('<%=i+1%>')" value="<%=ImageList.get(i) %>"/>
 							<div class="fh5co-listing-copy">
-								<h2><%=ImageList.get(i) %></h2>
+								<h2 id="h<%=(i+1)%>" name="h<%=(i+1)%>"><%=ImageList.get(i) %></h2>
 								<span class="icon">
 									<i class="icon-chevron-right"></i>
 								</span>
@@ -91,7 +89,7 @@ if(request.getParameter("sel")!=null)
 						</a>
 					</div>
 				<% } %>
-
+				</form>
 				</div>
 			</div>
 		</div>
@@ -149,143 +147,33 @@ if(request.getParameter("sel")!=null)
 <script>
 function go_AlbumList()
 {
-	
-	
-	var sel = document.getElementById('sel').value;
-	$("#b").val(sel);
-	
-	var data ={}
-	data["sel"] = $('#sel').val();
-	console.log(sel);
-	
-	var url="${commonURL}/home.do";
-	//URLEncoder.encoding(param, "UTF-8");
-//?sel="+encodeURI(sel)
-	
- 	$.ajax({
- 		contentType:'application/json ; charset=UTF-8',
-		url:url,
-		//data:{"sel":sel},
-		data:JSON.stringify(data),
-		dataType:'json',
-		Type:'post',
-		success:function(data){
-			alert("조회가 완료 되었습니다.");
-			//var data = JSON.parse(obj);
-
-			console.log(data.message);
-
-			//alert(data.id);
-					
- 
-			//console.log(data);
-			//현재 페이지 새로 고침하기 
-			//location.reload();
-		},
-		error:function(request,status,error){
-			alert(error);
-			alert(request.message);
-			//alert("조회 실패");
-		}
-	});	
-	  
-	//$("#mform").submit();
-	
-}
-
-
-function go_AlbumList1()
-{
-	
-	
-	var sel = document.getElementById('sel').value;
-	console.log(sel);
-	
-	var url="${commonURL}/ImageList1.do";
-
-	
- 	$.ajax({
- 		contentType:'application/json; charset=UTF-8',
-		url:url,
-		//data:{"sel":sel},
-		data:{ "name": "John", "location": "Boston" },
-		dataType:'json',
-		type:'post',
-		success:function(data){
-			alert("조회가 완료 되었습니다.");
-			
-			console.log(data);
-		},
-		error:function(request,status,error){
-			alert(error);
-			alert(request.message);
-			//alert("조회 실패");
-		}
-	});	
-	  
-	//$("#mform").submit();
-	
-}
-
-
-function go_AlbumList2()
-{
 
 	var sel = document.getElementById('sel').value;
 	
 	var data = {}
-	data["name"] = $('#name').val();
-	data["location"] = $('#location').val();
-	console.log(JSON.stringify(data));
-	
-	var url="${commonURL}/ImageList2.do";
-
- 	$.ajax({
- 		contentType:'application/json',
-		url:url,
-		//data:{"sel":sel},
-		data:JSON.stringify(data),
-		dataType:'json',
-		type:'post',
-		success:function(data){
-			alert("조회가 완료 되었습니다.");
-			
-			console.log(data);
-		},
-		error:function(request,status,error){
-			alert(error);
-			alert(request.message);
-			//alert("조회 실패");
-		}
-	});	
-	  
-	//$("#mform").submit();
-}
-
-function go_AlbumList3()
-{
-
-	var sel = document.getElementById('sel').value;
-	
-	var data = {}
-	data["name"] = $('#name').val();
+/* 	data["name"] = $('#name').val(); */
 	//data["name"] = "aa";
-	data["location"] = $('#location').val();
-	console.log(JSON.stringify(data));
-	url = "ImageList3.do";
+/* 	data["location"] = $('#location').val();
+	data["sel"] = sel;
+	console.log(JSON.stringify(data)); */
+
   
  	$.ajax({
  		contentType:'application/json; charset=utf-8',
-		url:"ImageList3.do?sel=ac",
-		//data:{"sel":"acd"},
-		data:JSON.stringify(data),
+		url:"ImageList.do",
+		//data:{"sel":sel},
+		//data:JSON.stringify(data),
 		//data:JSON.stringify({"name":"kim","location":"seoul","title":"aaa"}),
+		data:JSON.stringify({"sel":sel}),
 		dataType:'json',
 		type:'POST',
 		success:function(data){
 			alert("조회가 완료 되었습니다.");
 			
-			//console.log(data.message);
+			changeImage(data);
+ 
+			//console.log(data.ImageList1);
+			//console.log(data.ImageList2);
 			console.log(data);
 		},
 		error:function(request,status,error){
@@ -297,4 +185,26 @@ function go_AlbumList3()
 	  
 	//$("#mform").submit();
 }
+
+
+ function changeImage(data){
+	
+
+		<%
+			for(int i=0; i<ImageList.size(); i++){
+		%>	
+				var imageSrc = '#ImageSrc'+<%=(i+1)%>;
+				var h = '#h'+<%=(i+1)%>;
+				var image = eval('data.ImageList'+<%=(i+1)%>);
+				//console.log(h);
+				//console.log(image);
+				$(h).html(image);
+				$(imageSrc).attr("src","${commonURL}/upload/image/"+image); 
+				//console.log($(imageSrc).html());
+				//console.log($(h).html(image));
+		<%		
+			}
+		%>
+		
+} 
 </script>

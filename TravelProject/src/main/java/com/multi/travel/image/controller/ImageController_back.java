@@ -1,27 +1,18 @@
-/*import javax.annotation.Resource;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartRequest;
-
-import com.multi.travel.common.CommonConst;
-import com.multi.travel.common.FileUploader;
-import com.multi.travel.common.IP;
-import com.multi.travel.image.dto.ImageDto;
-import com.multi.travel.image.service.ImageService;
-
+/*
 package com.multi.travel.image.controller;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
@@ -29,8 +20,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,11 +34,13 @@ import org.springframework.web.multipart.MultipartRequest;
 import com.multi.travel.board.dto.BoardDto;
 import com.multi.travel.board.service.BoardService;
 import com.multi.travel.common.CommonConst;
+import com.multi.travel.common.Test;
+import com.multi.travel.common.ExifData;
 import com.multi.travel.common.FileUploader;
 import com.multi.travel.common.IP;
+import com.multi.travel.common.Test;
 import com.multi.travel.image.dto.ImageDto;
 import com.multi.travel.image.service.ImageService;
-
 
 @Controller 
 public class ImageController {
@@ -55,25 +50,62 @@ public class ImageController {
 	//컨트롤러에서 직접 dao 사용하지 말고 서비스 
 	//통해서 
 	//board/save.mt?title=test&contents=내용&userid=test
-		@RequestMapping(value="/image/save" ,method = RequestMethod.POST)
-		public @ResponseBody String save(HttpServletRequest req, ImageDto dto)
+	//board/save.mt?title=test&contents=내용&userid=test
+		@RequestMapping("/image/save")
+		public @ResponseBody String save(@RequestParam(value="file", required=true) List<MultipartFile> values,HttpServletRequest req, ImageDto dto)
 		{		
 			ServletContext ctx= req.getServletContext();
-			
-			
+			String ip = IP.getClientIP(req);
+			String filename = null;
+			List<ImageDto> dataList = new ArrayList<ImageDto>();
 			String path = ctx.getRealPath(CommonConst.IMAGE_PATH);
 			System.out.println(path);
-			String ip = IP.getClientIP(req);
+			
+
+			
+
+			
+			System.out.println("values size @@@@@@ : "+values.size());
+			
+			dataList = ExifData.getExifData(values, dataList);
+			
+			System.out.println("1번 :"+dataList.get(0).getFile().getOriginalFilename());
+			System.out.println("2번 :"+dataList.get(1).getFile().getOriginalFilename());
+			System.out.println("3번 :"+dataList.get(2).getFile().getOriginalFilename());
+		
+			
+			     
+			//exif data 가져오기 (gps정보, 파일크기, 생성시간, 수정시간)
+			dto = ExifData.getExifData(dto.getFile(), dto); 
 			dto.setIp_addr(ip);
-			
-			
-			
-			
+			filename = FileUploader.getNewFileName(dto.getFile().getOriginalFilename());
+			//System.out.println("file name : " + filename);
+			dto.setTitle(filename);
+			//dto에 값들어갔나 확인 출력테스트
+			Test.ImageDtoTest(dto);
+		
 			//파일 업로드 경로잡기 
 			FileUploader.setFilePath(path);
-			/*
+			
+			for(int i=0; i<dataList.size(); i++) {
+				filename = FileUploader.getNewFileName(dataList.get(i).getFile().getOriginalFilename());
+				System.out.println("file name : " + filename);
+				dataList.get(i).setTitle(filename);
+				dataList.get(i).setUserid(dto.getUserid());
+				dataList.get(i).setIp_addr(ip);
+				
+				String result = FileUploader.upload(dataList.get(i).getFile());
+				
+				 
+				Test.ImageDtoTest(dataList.get(i));
+				imageService.insert(dataList.get(i));
+			}
+
+
+			
+		
 			boolean result=FileUploader.upload(dto.getFiles(),
-					 dto.getFileNameList()); 
+				dto.getFileNameList()); 
 			if( result == false)
 			{
 				return "fail";//파일 업로드 실패시 
@@ -82,13 +114,10 @@ public class ImageController {
 			for(int i=0; i<dto.getFileNameList().size(); i++)
 			{
 				dto.getFieldNameList().add("filename"+(i+1));
-				//imageService.insert(dto);
 			}
-			*/
-	/*		
-			String result=FileUploader.upload(dto.getFile()); 
-			System.out.println("filename : "+result);
-			System.out.println("image name : " + dto.getTitle());
+				
+			
+			//boardService.insert(dto);
 			
 			return "success";
 		}
@@ -116,11 +145,86 @@ public class ImageController {
 		}		
 		
 
-				
+		//@RequestMapping(value = "/ImageList", method = RequestMethod.GET)
+		@RequestMapping("ImageList")
+		public @ResponseBody Map<String,Object> ImageList(
+				@RequestBody Map<String,Object> params, ImageDto dto) {
+			Map<String,Object>resultMap = new HashMap<String,Object>();
+			
+			System.out.println("@@@@@@@@@@getSel@@@@@@@@@@@@@@@@ : "+dto.getSel());
+			System.out.println("key@@@@@@@@@@@@@2:"+dto.getKey());
+			List<String> ImageList = new ArrayList<String>();
+			ImageList = imageService.getMainImage(dto);
+			
+			resultMap.put("message", "회원정보 입력완료");
+			System.out.println(params.get("sel"));
+			String json ="{\"id\" :" + 1 + ",\"id2\" :" + 2 + "}";	
+			System.out.println(json);
+			return resultMap;
+		}	
 		
-	
-}*/
+		
+		@RequestMapping(value = "/ImageList1", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+		public @ResponseBody
+		String Submit() {
+			//@RequestParam("name") String name,@RequestParam("location") String location
+		    // your logic here
+			System.out.println("호출완료");
 
+			
+
+			
+			String resp = "{\"name\" : \"aa\", \"location\" :  \"location44\"}";
+			System.out.println(resp);
+		    return resp;
+		}		
+	
+		
+		@RequestMapping(value = "/ImageList2", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+		public @ResponseBody
+		ImageDto Submit1() {//@RequestBody Map<String,Object> params
+			//@RequestParam("name") String name,@RequestParam("location") String location
+		    // your logic here
+			Map<String, Object> resultMap = new HashMap<String,Object>();
+			
+			resultMap.put("message", "회원정보 수정");
+			System.out.println("호출완료2");
+			ImageDto dto = new ImageDto();
+			dto.setTitle("aa");
+			
+			return dto;
+			//return resultMap;
+		}	
+		
+		  
+		@RequestMapping(value = "/ImageList3", method = RequestMethod.POST)
+		public @ResponseBody
+		Map<String, Object> Submit2(@RequestBody Map<String,Object> params) {//@RequestBody Map<String,Object> params
+			//@RequestParam("sel") String sel
+			//@RequestParam("name") String name,@RequestParam("location") String location
+		    // your logic here
+			
+			//System.out.println(params);
+			//System.out.println(params.get("sel"));
+			Map<String, Object> resultMap = new HashMap<String,Object>();
+			//System.out.println(sel);
+			
+			
+			
+			resultMap.put("sel", params.get("sel"));
+			//resultMap.put("a", params.get("location"));
+			
+			System.out.println("호출완료3");
+			//System.out.println(dto.getTitle());
+			//ImageDto dto = new ImageDto();
+			//dto.setTitle("aa");
+			
+			return resultMap;
+			//return resultMap;
+		}			
+}
+
+*/
 
 
 

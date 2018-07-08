@@ -144,80 +144,30 @@ public class ImageController {
 		}		
 		
 
-		//@RequestMapping(value = "/ImageList", method = RequestMethod.GET)
-		@RequestMapping("ImageList")
-		public @ResponseBody Map<String,Object> ImageList(
-				@RequestBody Map<String,Object> params, ImageDto dto) {
-			Map<String,Object>resultMap = new HashMap<String,Object>();
-			
-			System.out.println("@@@@@@@@@@getSel@@@@@@@@@@@@@@@@ : "+dto.getSel());
-			System.out.println("key@@@@@@@@@@@@@2:"+dto.getKey());
-			List<String> ImageList = new ArrayList<String>();
-			ImageList = imageService.getMainImage(dto);
-			
-			resultMap.put("message", "회원정보 입력완료");
-			System.out.println(params.get("sel"));
-			String json ="{\"id\" :" + 1 + ",\"id2\" :" + 2 + "}";	
-			System.out.println(json);
-			return resultMap;
-		}	
-		
-		
-		@RequestMapping(value = "/ImageList1", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-		public @ResponseBody
-		String Submit() {
-			//@RequestParam("name") String name,@RequestParam("location") String location
-		    // your logic here
-			System.out.println("호출완료");
-
-			
-
-			
-			String resp = "{\"name\" : \"aa\", \"location\" :  \"location44\"}";
-			System.out.println(resp);
-		    return resp;
-		}		
-	
-		
-		@RequestMapping(value = "/ImageList2", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-		public @ResponseBody
-		ImageDto Submit1() {//@RequestBody Map<String,Object> params
-			//@RequestParam("name") String name,@RequestParam("location") String location
-		    // your logic here
-			Map<String, Object> resultMap = new HashMap<String,Object>();
-			
-			resultMap.put("message", "회원정보 수정");
-			System.out.println("호출완료2");
-			ImageDto dto = new ImageDto();
-			dto.setTitle("aa");
-			
-			return dto;
-			//return resultMap;
-		}	
 		
 		  
-		@RequestMapping(value = "/ImageList3", method = RequestMethod.POST)
+		@RequestMapping(value = "/ImageList", method = RequestMethod.POST)
 		public @ResponseBody
-		Map<String, Object> Submit2(@RequestBody Map<String,Object> params) {//@RequestBody Map<String,Object> params
+		Map<String, Object> Submit2(@RequestBody ImageDto dto, Model model) {//@RequestBody Map<String,Object> params
 			//@RequestParam("sel") String sel
-			//@RequestParam("name") String name,@RequestParam("location") String location
-		    // your logic here
-			System.out.println(params);
-			System.out.println(params.get("name"));
 			Map<String, Object> resultMap = new HashMap<String,Object>();
 			//System.out.println(sel);
+						
+			List<String> dataList = imageService.getMainImage(dto);
 			
+			for(int i=0; i<dataList.size(); i++) {
+				resultMap.put("ImageList"+(i+1), dataList.get(i));
+			}
+			//resultMap.put("sel", dto.getSel());
 			
-			resultMap.put("message", params.get("name"));
-			resultMap.put("a", params.get("location"));
+			for(int i=0; i<dataList.size(); i++) {
+				System.out.println(resultMap.get("ImageList"+(i+1)));
+			}
 			
-			System.out.println("호출완료3");
-			//System.out.println(dto.getTitle());
-			//ImageDto dto = new ImageDto();
-			//dto.setTitle("aa");
+			model.addAttribute("resultMap", resultMap);
+			System.out.println("ImgeList 호출완료");
 			
 			return resultMap;
-			//return resultMap;
 		}			
 }
 
