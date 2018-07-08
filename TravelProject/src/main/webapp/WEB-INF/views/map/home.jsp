@@ -63,7 +63,7 @@ if(request.getParameter("sel")!=null)
 						<option value="title" <%if(sel.equals("title")){%>selected<%}%>" onclick="go_AlbumList()">제목순</option>
 						<option value="hit" <%if(sel.equals("hit")){%>selected<%}%>" onclick="go_AlbumList()">조회순</option>
 					</select>
-
+					<input type="button" onclick="go_AlbumList()" value="전송하기"/>
 					<!-- </form> -->
 			</div>
 		<!-- </form> -->	
@@ -200,11 +200,13 @@ function go_AlbumList()
 				//console.log(image);
 				$(h).html(image);
 				$(imageSrc).attr("src","${commonURL}/upload/image/"+image); 
-				//console.log($(imageSrc).html());
-				//console.log($(h).html(image));
+				console.log($(imageSrc).html());
+				console.log($(h).html(image));
 		<%		
 			}
 		%>
+		
+		//$("#ImageSrc").attr("src","${commonURL}/upload/image/"+ImageList1);
 		
 } 
 </script>

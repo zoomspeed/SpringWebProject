@@ -1,0 +1,133 @@
+@charset "UTF-8";
+
+/* header */
+header { z-index:1000; position:fixed; width:100%; height:52px; background-color:#fff; }
+
+.logo { float:left; margin:2px 0 0 15px; }
+.logo a img { width : 90px; }
+
+nav.menu_bar { float:left; margin:12px 0 0 100px; }
+nav.menu_bar ul li { float:left; margin:0 70px 0 0; font-size: 17px; }
+nav.menu_bar ul li a:link { color: #bbbbbb; }
+nav.menu_bar ul li a:visited { color: #bbbbbb; }
+nav.menu_bar ul li a:active { color: #bbbbbb; }
+nav.menu_bar ul li a:hover { color: #111111; }
+
+ul.member_menu { float:right; margin:6px 15px 0 0; font-size: 12px; }
+ul.member_menu li { float:left; margin: 0 0 0 20px; }
+ul.member_menu li a:link { color: #bbbbbb; }
+ul.member_menu li a:visited { color: #bbbbbb; }
+ul.member_menu li a:active { color: #bbbbbb; }
+ul.member_menu li a:hover { color: #111111; }
+
+#member_login { 
+	z-index:1010; display:block; clear:both; float:right; border:1px solid #cccccc; display:none;
+	background-color:#fff; margin: 5px 15px 0 0; width:200px; height: 250px; padding: 20px 17px; 
+}
+#member_login h2 { font-size: 14px; font-weight: 800; margin-bottom: 8px; }
+#member_login span { font-size: 12px; color: #7e7e7e; font-weight: 600; }
+
+#member_login input { width:195px; height:27px; margin:3px 0; }
+
+#member_login #btn { margin:15px 0; }
+.btn1 { 
+	width:100%; height:30px; background-color: white; text-align: center; border: 1px solid #7e7e7e; 
+	cursor: pointer; font-size:17px; margin-top:3px;
+}
+a .btn1 {color: #7e7e7e; font-weight: 800;}
+
+.btn2 {
+	width:100%; height:30px; background-color: #111; text-align: center; border: 1px solid #111111; 
+	cursor: pointer; font-size:17px;  margin-top:3px;
+}
+a .btn2 {color: #fff; font-weight: 800;}
+
+#member_login #id_pw a:link { color: #7e7e7e; } 
+#member_login #id_pw a:visited { color: #7e7e7e; }
+#member_login #id_pw a:active { color: #7e7e7e; }
+#member_login #id_pw a:hover { color: #111111; transition-duration: 0.2s; }
+
+#header_shadow { z-index:500; position:fixed; width:100%; padding:53px 0 0; height:3px;
+	background:url("../images/header_shadow.png"); /* url() 입력시 띄어쓰기 x ~!!!!! */
+	opacity:0.5;	display:none;	top:2.99px; }
+		
+/* footer */
+footer { width:100%; height:160px; background-color: #111; }
+
+section#companyInfo { margin:0 15px; padding-top:10px; }
+section#companyInfo ul li { color:#aaa; font-size:12px; margin: 5px 0; }
+section#companyInfo ul li a:link { color:#aaa; }
+section#companyInfo ul li a:visited { color:#aaa; }
+section#companyInfo ul li a:active { color:#aaa; }
+section#companyInfo ul li a:hover { color:#ffbdcb; }
+section#companyInfo p { color:#aaa; margin:14px 0 0; font-size:10px; }
+
+p.copyright { float: left; }
+p.siteby { float:right; }
+
+
+
+/*----- container -----*/
+#container { width: 92%; height:950px; padding: 60px 4% 0; }
+
+#review_area { width:930px; margin: 20px auto 0; }
+#review_area h3 { margin:30px 0; }
+
+.review_list { width:930px; background-color: #fff; margin: 0 auto; }
+.review_list ul li { width:930px; height:120px; margin:10px 0; background-color: #fff; border-top: 1px solid #ddd; }
+.review_list ul li a img { width: 130px; float:left; border: none; }
+.review_list ul li .txt_area { width:450px; float:left; padding:20px 15px; }
+.review_list ul li h4 { font-size:16px; font-weight:800; cursor: pointer; }
+
+.txt_area .review_short { font-size:14px; margin: 15px 0; }
+.txt_area .review_short:hover { cursor: pointer; }
+.txt_area .review_all { display:none; font-size:14px; margin: 15px 0; }
+
+.review_list ul li span.review_name { float:left; width:100px; margin: 20px 0; font-size:14px; font-weight:600; }
+.review_list ul li span.review_date { float:left; width:100px; margin: 20px 0; font-size:14px; color:#aaa; }
+
+.btn_update { border: 1px solid #aaa; background-color: #fff; margin: 45px 0; padding : 5px 10px; color:#aaa; }
+.btn_del { border: none; background-color: #111; margin: 45px 0; padding : 5px 10px; color:#eee; }
+
+.list_page { width:930px; margin: 20px auto; float:left; text-align: center; }
+.list_page span { float: left; font-size:14px; }
+.list_page span a { font-weight: 600; }
+
+.list_page ol { float: left; margin:0 15px; }
+.list_page ol li { float: left; }
+.list_page ol li a { margin: 5px; padding:4px; color: #111; }
+.list_page ol li a:hover { background-color:#aaa; font-weight:600; transition-duration: 0.6s; }
+
+.list_page span a:link{color:#111;}
+.list_page span a:visited{color:#111;}
+.list_page span a:active{color:#111;}
+.list_page span a:hover{color:#aaa;}
+
+.list_bar { clear: both; float: left; width:500px; margin:5px 0;}
+.list_bar select{height: 35px;margin:20px 3px 0 0;}
+.list_bar input{height: 28px; margin: 0 0 0 10px;}
+
+.list_bar button.btn_search {
+	width:100px; height:30px; margin: 0 0 0 5px; 
+	background-color: #eee; font-weight:800; color:#7e7e7e; border: none; }
+button.btn_search:link { background-color: #aaa; color:#111; }
+button.btn_search:visited { background-color: #aaa; color:#111; }
+button.btn_search:active { background-color: #aaa; color:#111; }
+button.btn_search:hover { background-color: #aaa; color:#111; cursor: pointer; }
+	
+#board_btn { float: right; margin: 28px 5px 0; }
+.btn_list { 
+	width:100px; height:30px; margin: 0 0 0 10px; 
+	background-color: #eee; font-weight:800; color:#7e7e7e; border: none; }
+.btn_list:link { background-color: #aaa; color:#111; }
+.btn_list:visited { background-color: #aaa; color:#111; }
+.btn_list:active { background-color: #aaa; color:#111; }
+.btn_list:hover { background-color: #aaa; color:#111; cursor: pointer; }
+	
+.btn_write { 
+	width:100px; height:30px; margin: 0 0 0 10px; 
+	background-color: #eee; font-weight:800; color:#7e7e7e; border: none; }
+.btn_write:link { background-color: #aaa; color:#111; }
+.btn_write:visited { background-color: #aaa; color:#111; }
+.btn_write:active { background-color: #aaa; color:#111; }
+.btn_write:hover { background-color: #aaa; color:#111; cursor: pointer; }

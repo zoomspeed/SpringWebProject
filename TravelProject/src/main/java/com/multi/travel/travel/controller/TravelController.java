@@ -63,7 +63,14 @@ public class TravelController {
 	public String contact()
 	{
 		return "/map/contact";
-	}		
+	}	
+	
+	
+	@RequestMapping("/board/Albumbbs")
+	public String goAlbumbbs()
+	{
+		return "/board/Albumbbs";
+	}			
 }
 
 

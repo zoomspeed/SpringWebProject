@@ -148,7 +148,7 @@ public class ImageController {
 		  
 		@RequestMapping(value = "/ImageList", method = RequestMethod.POST)
 		public @ResponseBody
-		Map<String, Object> Submit2(@RequestBody ImageDto dto, Model model) {//@RequestBody Map<String,Object> params
+		Map<String, Object> Submit2(@RequestBody ImageDto dto) {//@RequestBody Map<String,Object> params
 			//@RequestParam("sel") String sel
 			Map<String, Object> resultMap = new HashMap<String,Object>();
 			//System.out.println(sel);
@@ -164,8 +164,8 @@ public class ImageController {
 				System.out.println(resultMap.get("ImageList"+(i+1)));
 			}
 			
-			model.addAttribute("resultMap", resultMap);
-			System.out.println("ImgeList 호출완료");
+			//model.addAttribute("resultMap", resultMap);
+			//System.out.println("ImgeList 호출완료");
 			
 			return resultMap;
 		}			
