@@ -85,6 +85,7 @@ public class BoardController {
 		{
 			BoardDto temp = list.get(i);
 			System.out.println(temp.getTitle());
+			System.out.println(temp.getModdate());
 		}
 		System.out.println("전체 개수 : "+total);
 	}	

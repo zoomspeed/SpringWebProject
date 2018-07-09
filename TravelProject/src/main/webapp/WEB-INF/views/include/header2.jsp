@@ -87,7 +87,7 @@
 	<![endif]-->
 
 	<!-- test start --> <!-- 겹치는부분.... -->
-	 <link rel="stylesheet" href="${commonURL}/resources/board_template/board.css"> 
+<!-- 	 <link rel="stylesheet" href="${commonURL}/resources/board_template/board.css">    -->
 	<!-- test end -->
 
 	<!-- jQuery -->

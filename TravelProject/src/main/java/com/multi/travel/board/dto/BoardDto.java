@@ -12,7 +12,8 @@ public class BoardDto {
 	private String num="";
 	
 
-
+	private String username="";
+	
 	private String board_seq="";
 	private String userid="";
 	private String title ="";
@@ -229,8 +230,21 @@ public class BoardDto {
 	}
 	
 	
+	
+	
+	
 
+	public String getUsername() {
+		return username;
+	}
 
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	
+
+	
 	
 	
 }

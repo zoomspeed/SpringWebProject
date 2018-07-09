@@ -13,7 +13,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%@include file="../include/mainheader.jsp"%>
 <form name="mform" id="mform">
-<input type="text" name="pg" value="<%=pg%>" id="pg" />
+<input type="hidden" name="pg" value="<%=pg%>" id="pg" />
 <br/><br/><br/><br/>
 	<div class="limiter" >
 		<div class="container-table100" style="background-color:gray">
@@ -27,12 +27,15 @@
 						<table>
 							<thead>
 								<tr class="row100 head">
-									<th class="cell100 column5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;순번</th>
-									<th class="cell100 column1">Class name</th>
-									<th class="cell100 column2">Type</th>
-									<th class="cell100 column3">Hours</th>
-									<th class="cell100 column4">Trainer</th>
-									<th class="cell100 column5">Spots</th>
+									<th class="cell100 column5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Number</th>
+									<th class="cell100 column2">Title</th>
+									<th class="cell100 column2">UserID</th>
+									<th class="cell100 column5">RegDate</th>
+									<th class="cell100 column5">ModDate</th>
+									<th class="cell100 column5">Hit</th>
+									<th class="cell100 column5">Ip_addr</th>
+									<th class="cell100 column6">수정</th>
+									<th class="cell100 column6">삭제</th>
 								</tr>
 							</thead>
 						</table>
@@ -49,9 +52,11 @@
 								<c:forEach var="item" items="${list}" >
 								<tr class="row100 body">
 									<td  class="cell100 column5">
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										&nbsp;&nbsp;&nbsp;&nbsp;
 										<c:out value="${total-item.num+1}"/>
 									</td>
-									<td class="cell100 column1">
+									<td class="cell100 column2">
 									    <c:forEach var="i" begin="1" 
 									          end="${item.depth}">
 									          &nbsp;&nbsp;&nbsp;
@@ -75,17 +80,33 @@
 									<td class="cell100 column2">
 										<c:out value="${item.userid}"/>
 									</td>
-									<td class="cell100 column3">
+									<td class="cell100 column5">
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<c:out value="${item.regdate}"/>
 									</td>
-									<td class="cell100 column4">
+									<td class="cell100 column5">
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<c:out value="${item.moddate}"/>
+									</td>									
+									<td class="cell100 column5">
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										&nbsp;&nbsp;&nbsp;&nbsp;
 										<c:out value="${item.hit}"/>
 									</td>
 									<td class="cell100 column5">
-										test
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										&nbsp;&nbsp;&nbsp;&nbsp;
+										<%-- <c:out value="${item.username}"/> --%>
+										<c:out value="${item.ip_addr}"/>
 										<!-- <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
 										<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a> -->
 									</td>
+									<td class="cell100 column6">
+										<a href="#" ><button type="button" class="btn btn-primary btn-sm">수정</button></a>
+									</td>
+									<td class="cell100 column6">
+										<a href="#" ><button type="button" class="btn btn-danger btn-sm">삭제</button></a>
+									</td>																
 								</tr>
 								</c:forEach>
 							
@@ -105,12 +126,12 @@
 						</table>
 
 					</div>
+
+				</div>
 				<% 
 					int total = Integer.parseInt(request.getAttribute("total").toString());
-					out.print(Pager.makeTag(request, 20,total));
-				%>
-				</div>
-				
+					out.print(Pager.makeTag(request, 16,total));
+				%>				
 			 
 
 			
@@ -119,7 +140,19 @@
 	</div>
 </form>
 <%@include file="../include/footer2.jsp"%>
+<style>
+.wrap-table100 ul{
 
+    position:absolute;
+    left:39%;
+    /*left:42%;*/
+}
+
+
+
+
+
+</style>
 <!--===============================================================================================-->	
 	<script src="${commonURL}/resources/table_template/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->

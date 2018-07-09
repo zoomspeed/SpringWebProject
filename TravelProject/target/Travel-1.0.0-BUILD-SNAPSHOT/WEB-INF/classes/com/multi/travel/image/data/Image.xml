@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="Image">
+   <!-- MyBatis ${필드명} 맵핑이 먼저 이루어진다 #{필드명} 맵핑이 나중에 이루어진다 쿼리를 콘솔에서 보면 $가 붙은건 
+      ? 가 아니라 실제 값으로 보여요 #이 붙은거는 ? 로 보인다 나중에 실제 값하고 결합한다 #붙은건 데이터 타입에 따라서 자동으로 
+      '를 붙여준다 $는 그냥 그 위치에 문자열을 내보낼 뿐이라서 '가 필요하면 직접 붙여줘야 한다 $는 데이터를 문자열을 줘도 그대로 
+      옮겨놓는다 테이블명이나 필드명이 추가되거나 할때는 ${필드명} 또는 ${테이블명} -->
+   <select id="Image.getList" parameterType="ImageDto"
+      resultType="ImageDto">
+ 
+      select * from
+      (
+      from tl_image
+      where delyn='N'
+         <if test="sel!=null">
+            <if test="sel==1">
+            	order by image_seq desc 
+            </if>
+            <if test="sel==2">
+               order by hit desc
+            </if>
+            <if test="sel==3">
+               order by title asc
+            </if>
+         </if>
+      )where pg=#{pg}
+
+   </select>
+   <!-- PreparedStatement 사용하면서 파라미터를 ?로 했는데 이게 mybatis는 #{변수명} 으로 대체 #{pg} 
+      parameterType에 반드시 pg 라는 변수가 있어야 한다 그래서 getPg 라는 함수를 호출해서 값을 읽어와 끼워넣기 한다 
+      디비에서 데이타를 가져와서 select 쿼리가 데이타를 보낼때는 resultType에서 지정한 클래스 안에 각 필드들에 대한 변수가 
+      모두 있어야 한다. set변수명을 다 일일이 호출해서 데이터 넣어서 객체만들고 그 객체를 리스트에 저장해서 보낸다 -->
+
+   <insert id="Image.insert" parameterType="ImageDto">
+      <!-- select 쿼리를 먼저 진행하도록 resultType 반환이 Integer타입 keyProperty 결과 받을 변수 
+         order 진행순서 BEFORE 를 쓰면 먼저 진행된다 -->
+      <selectKey resultType="String" keyProperty="image_seq"
+         order="BEFORE">
+         select nvl(max(image_seq),0)+1 as image_seq
+         from tl_image
+      </selectKey>     
+      insert into tl_image(
+      image_seq
+	  ,userid
+	  ,title
+	  ,latitude
+	  ,longitude
+   	  ,altitude
+	  ,regdate
+	  ,moddate
+	  ,filesize
+	  ,delyn
+      ,ip_addr
+      ,hit
+      )values(
+      #{image_seq}
+      ,#{userid}
+      ,#{title}
+      ,LTRIM(#{latitude},'-')
+      ,LTRIM(#{longitude},'-')
+      ,#{altitude}
+      ,to_date(#{regdate},'YYYY:MM:DD:HH24:MI:SS')
+      ,sysdate
+      ,#{filesize}
+      ,'N'
+      ,#{ip_addr}
+      ,0 
+      )
+   </insert>
+
+   <select id="Image.getMainImage" parameterType="ImageDto"
+      resultType="String">
+ 
+      select title from
+      (
+	    select * 
+	    from tl_image
+      
+
+      
+      <if test="sel!=null">   
+         <if test="sel.equals('date')">
+			order by image_seq desc
+         </if>
+         <if test="sel.equals('title')">
+			order by title asc
+         </if>
+         <if test="sel.equals('hit')">
+			order by hit desc
+         </if>
+	  </if>	 
+      )
+      where <![CDATA[rownum<=6]]> 
+   </select>
+
+
+   <select id="Image.getTotalCount" parameterType="ImageDto"
+      resultType="Integer">
+      select count(*)
+      from tl_image
+      where delyn='N'
+      <if test="sel!=null and key!=null">
+         <if test="sel.equals('all')">
+            and (title like '%'||#{key}||'%'
+            or
+            userid like '%'||#{key}||'%')
+         </if>
+         <if test="sel.equals('title')">
+            and title like '%'||#{key}||'%'
+         </if>
+         <if test="sel.equals('userid')">
+            and userid like '%'||#{key}||'%'
+         </if>
+      </if>
+   </select>
+</mapper>
