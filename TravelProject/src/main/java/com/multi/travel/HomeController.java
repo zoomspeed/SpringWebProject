@@ -43,7 +43,9 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
 		String formattedDate = dateFormat.format(date);
-		List<String> ImageList = new ArrayList<String>();		
+		List<String> ImageList = new ArrayList<String>();	
+		
+
 		ImageList = imageService.getMainImage(dto);	
 		
 		model.addAttribute("serverTime", formattedDate );

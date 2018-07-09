@@ -6,7 +6,7 @@
 <%@include file="../include/common4.jsp"%>
 
 	<%@include file="../include/header2.jsp"%>
-
+	<%@include file="../include/mainheader.jsp"%>
 <%
 sel="title";
 if(request.getParameter("sel")!=null)
@@ -64,6 +64,7 @@ if(request.getParameter("sel")!=null)
 						<option value="hit" <%if(sel.equals("hit")){%>selected<%}%>" onclick="go_AlbumList()">조회순</option>
 					</select>
 					<input type="button" onclick="go_AlbumList()" value="전송하기"/>
+					<input type="hidden" name="num"  value="6"/>
 					<!-- </form> -->
 			</div>
 		<!-- </form> -->	
@@ -164,7 +165,7 @@ function go_AlbumList()
 		//data:{"sel":sel},
 		//data:JSON.stringify(data),
 		//data:JSON.stringify({"name":"kim","location":"seoul","title":"aaa"}),
-		data:JSON.stringify({"sel":sel}),
+		data:JSON.stringify({"sel":sel,"mod":"home"}),
 		dataType:'json',
 		type:'POST',
 		success:function(data){

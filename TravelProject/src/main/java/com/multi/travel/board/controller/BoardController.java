@@ -22,11 +22,16 @@ import com.multi.travel.board.service.BoardService;
 import com.multi.travel.common.CommonConst;
 import com.multi.travel.common.FileUploader;
 import com.multi.travel.common.IP;
+import com.multi.travel.image.dto.ImageDto;
+import com.multi.travel.image.service.ImageService;
 
 @Controller 
 public class BoardController {
 	@Resource(name="boardServiceImpl")
 	BoardService boardService;
+	
+	@Resource(name="imageServiceImpl")
+	ImageService imageService;
 	
 	//컨트롤러에서 직접 dao 사용하지 말고 서비스 
 	//통해서 
@@ -70,8 +75,7 @@ public class BoardController {
 	@RequestMapping("/board/test")
 	public void test(Model model, BoardDto dto)
 	{
-		List<BoardDto> list = 
-				boardService.getList(dto);
+		List<BoardDto> list = boardService.getList(dto);
 		int total = boardService.getTotal(dto);
 		
 		model.addAttribute("list", list);
@@ -292,9 +296,24 @@ public class BoardController {
 		return "success";
 	}
 	
-	
+	@RequestMapping("/board/albumbbs")
+	public String  albumlisting(ImageDto dto, Model model)
+	{
+		List<String> ImageList = new ArrayList<String>();	
+		dto.setNum("12");
+		System.out.println("dto.getNum() : ~~~ "+dto.getNum());
+		ImageList = imageService.getMainImage(dto);	
+		model.addAttribute("ImageList",ImageList);	
+		
+		return "/board/albumbbs";
+	}
+		
 	
 }
+
+
+	
+
 
 
 

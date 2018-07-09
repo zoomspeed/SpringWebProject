@@ -93,7 +93,7 @@
          </if>
 	  </if>	 
       )
-      where <![CDATA[rownum<=6]]> 
+      where <![CDATA[rownum<=#{num}]]> 
    </select>
 
 

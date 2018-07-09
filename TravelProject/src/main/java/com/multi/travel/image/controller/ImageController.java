@@ -144,7 +144,8 @@ public class ImageController {
 		}		
 		
 
-		
+
+				
 		  
 		@RequestMapping(value = "/ImageList", method = RequestMethod.POST)
 		public @ResponseBody
@@ -152,7 +153,19 @@ public class ImageController {
 			//@RequestParam("sel") String sel
 			Map<String, Object> resultMap = new HashMap<String,Object>();
 			//System.out.println(sel);
-						
+			
+			
+			System.out.println(dto.getSel());
+			System.out.println(dto.getMod());
+			if(dto.getMod().equals("home")) {
+				dto.setNum("6");
+			}
+			else if(dto.getMod().equals("album")) {
+				dto.setNum("12");
+			}
+			
+			System.out.println(dto.getNum());
+
 			List<String> dataList = imageService.getMainImage(dto);
 			
 			for(int i=0; i<dataList.size(); i++) {

@@ -9,9 +9,10 @@ public class ImageDto {
 	private String pg="0";
 	private String sel="date";
 	private String key="";
-	private String num="";
+	private String num="6";
 	
 
+	private String  mod="";
 	private String 	image_seq="";
 	private String 	userid="";
 	private String 	title="";
@@ -269,6 +270,14 @@ public class ImageDto {
 
 	public void setFilesizes(List<String> filesizes) {
 		this.filesizes = filesizes;
+	}
+
+	public String getMod() {
+		return mod;
+	}
+
+	public void setMod(String mod) {
+		this.mod = mod;
 	}
 	
 

@@ -58,9 +58,9 @@
 
 
 
-
-	<%@include file="./header3.jsp"%>
-
+	<!-- table template  start -->
+	<%-- <%@include file="./header3.jsp"%> --%>
+	<!-- table template  end -->
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link rel="shortcut icon" href="favicon.ico">
@@ -91,7 +91,7 @@
 	<!-- test end -->
 
 	<!-- jQuery -->
-
+	
 
 	<script src="${commonURL}/resources/template/js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
@@ -126,7 +126,7 @@
 
 
 
-	</head>	
+<%-- 	</head>	
 <!-- header S -->
 	<body>
 		<div id="fh5co-header">
@@ -194,4 +194,4 @@
 			</header>
 			
 		</div>
-<!-- header E -->
+<!-- header E --> --%>
