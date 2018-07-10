@@ -10,8 +10,9 @@
 <div class="social w3ls">
 		<li class="f"><a href="#"><img src="${commonURL}/resources/template/images/login/fb.png" alt=""></a></li>
 		<li class="t"><a href="#"><img src="${commonURL}/resources/template/images/login/twt.png" alt=""></a></li>
-		<li class="p"><a href="#"><i class="fa fa-google" style="font-size:36px; color:white"></i></a></li>
-		<li class="i"><a href="#"><img src="${commonURL}/resources/template/images/login/navermod.png" alt=""></a></li>
+		<!-- <li class="p"><a href="#"><i class="fa fa-google" style="font-size:36px; color:white"></i></a></li> -->
+		<li class="p"><a href="#"><img src="${commonURL}/resources/template/images/login/pin.png" alt=""></a></li>
+		<li class="i"><a href="#"><img src="${commonURL}/resources/template/images/login/ins.png" alt=""></a></li>
 		<div class="clear"></div>
 	</div>
 	<div class="content1 agileits">
@@ -49,6 +50,9 @@ $(function(){
 		
 	   var email = $("#email").val();
 	   var pwd = $("#password").val();
+	   
+/*  	   alert(email);
+	   alert(password); */ 
 	   $.ajax({
 		   //console.log();
 		   url:"${commonURL}/member/logon_proc.do",
