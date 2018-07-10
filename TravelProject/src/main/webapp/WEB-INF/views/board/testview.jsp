@@ -2,9 +2,11 @@
     contentType="text/html;charset=utf-8"
     pageEncoding="utf-8"%>
 <%@page import="com.multi.travel.board.dto.*"%>
-  
+ 
 <%@include file="../include/common.jsp"%>
-
+<%@include file="../include/header2.jsp"%>
+<%@include file="../include/mainheader.jsp"%>	
+<br/><br/><br/><br/>	
 <%
 BoardDto viewDto = (BoardDto)request.getAttribute("viewDto");
 BoardDto prevDto = (BoardDto)request.getAttribute("prevDto");
@@ -26,8 +28,18 @@ BoardDto nextDto = (BoardDto)request.getAttribute("nextDto");
 	     value="">
 	     
 <!------ Include the above in your HEAD tag ---------->
+<style>
+.container {
+    background-image: url("./pexels-photo-531880.jpeg"), url("./pexels-photo-531880.jpeg");
 
-<div class="container">
+}
+#container {
+    background-image: url("./pexels-photo-531880.jpeg"), url("./pexels-photo-531880.jpeg");
+
+}
+</style>
+<!-- <div class="container" style="background-color:lightblue; width:100%; height:100%;"> -->
+<div class="container" style="width:100%; height:100%;">
       <div class="row">
       <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
            <A href="edit.html" >Edit Profile</A>
@@ -113,10 +125,13 @@ BoardDto nextDto = (BoardDto)request.getAttribute("nextDto");
           </div>
         </div>
       </div>
+          
     </div>
-    
+<%@include file="../include/footer2.jsp"%>
     
 </form>
+
+
 </body>
 </html>
 

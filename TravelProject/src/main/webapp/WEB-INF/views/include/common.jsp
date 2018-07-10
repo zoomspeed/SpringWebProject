@@ -9,7 +9,7 @@ String pg="0";
 if(request.getParameter("pg")!=null)
 	pg = request.getParameter("pg");
 %>
-<%=request.getRealPath("/") %>
+<%-- <%=request.getRealPath("/") %> --%>
 
 
 <!DOCTYPE html">
