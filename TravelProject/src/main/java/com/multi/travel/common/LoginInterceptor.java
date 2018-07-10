@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class LoginInterceptor 
@@ -21,7 +23,10 @@ public class LoginInterceptor
 		//세션에 로그온을 하였는지 상태를 알아본다 
 		HttpSession session = request.getSession();   
 		String email = (String)session.getAttribute("email");
+		String password = (String)session.getAttribute("password");
 		
+		System.out.println("email : "+email);
+		System.out.println("password : "+password);
 		// Login 이 안되었을 경우 로그인 페이지로 이동한다
 		if(email==null || email.equals("")) {
 		    System.out.println("Interceptor : Session Check Fail");
