@@ -28,4 +28,8 @@ if(request.getParameter("pg")!=null)
 	    href="${commonURL}/resources/ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css">
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 	
+	
+	<!--  프로필 템플릿 시작 -->
+	<%@include file="../include/viewheader.jsp"%>
+	<!-- 프로필 템플릿 종료 -->
 </head>

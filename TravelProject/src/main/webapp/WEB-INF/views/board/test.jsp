@@ -16,26 +16,26 @@
 <input type="hidden" name="pg" value="<%=pg%>" id="pg" />
 <br/><br/><br/><br/>
 	<div class="limiter" >
-		<div class="container-table100" style="background-color:gray">
+		<div class="container-table100" style="background-color:#e6e6ff">
 			<div class="wrap-table100">
 
-				
+				<br/><br/>
 
 
-				<div class="table100 ver3 m-b-110">
+				<div class="table100 ver1 m-b-110">
 					<div class="table100-head">
 						<table>
 							<thead>
 								<tr class="row100 head">
-									<th class="cell100 column5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Number</th>
-									<th class="cell100 column2">Title</th>
-									<th class="cell100 column2">UserID</th>
-									<th class="cell100 column5">RegDate</th>
-									<th class="cell100 column5">ModDate</th>
-									<th class="cell100 column5">Hit</th>
-									<th class="cell100 column5">Ip_addr</th>
-									<th class="cell100 column6">수정</th>
-									<th class="cell100 column6">삭제</th>
+									<th class="cell100 column5" style="width:12%;"><font size="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Number</font></th>
+									<th class="cell100 column3" style="width:17%;"><font size="4">Title</font></th>
+									<th class="cell100 column2" style="width:13%;"><font size="4">Userid</font></th>
+									<th class="cell100 column5" style="width:11%;"><font size="4">RegDate</font></th>
+									<th class="cell100 column5" style="width:11%;"><font size="4" >ModDate</font></th>
+									<th class="cell100 column5"><font size="4">Hit</font></th>
+									<th class="cell100 column5"><font size="4" >Ip_addr</font></th>
+									<th class="cell100 column6"><font size="4" >del/mod</font></th>
+									<th class="cell100 column6"><font size="4"></font></th>
 								</tr>
 							</thead>
 						</table>
@@ -54,17 +54,20 @@
 									<td  class="cell100 column5">
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										&nbsp;&nbsp;&nbsp;&nbsp;
+										<font size="4">
 										<c:out value="${total-item.num+1}"/>
+										</font>
 									</td>
-									<td class="cell100 column2">
+									<td class="cell100 column3">
 									    <c:forEach var="i" begin="1" 
 									          end="${item.depth}">
 									          &nbsp;&nbsp;&nbsp;
 									    </c:forEach> 
 										<c:if test="${item.depth!='0'}">
-											ㄴ>  
+											ㄴ>  	
 										</c:if>
-			
+										
+										
 										<a href='
 										<c:url value="/board2/view.do">
 											<c:param name="board_seq" value="${item.board_seq}"/>
@@ -72,40 +75,53 @@
 											<c:param name="sel" value="${param.sel}"/>
 											<c:param name="key" value="${param.key}"/>
 										</c:url>'>
+										<font size="4" color="black">
 										<c:out value="${item.title}"/>
+										</font>
 										</a>
+										
 										
 										
 									</td>
 									<td class="cell100 column2">
+										<font size="4">
 										<c:out value="${item.userid}"/>
+										</font>
 									</td>
 									<td class="cell100 column5">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<font size="4">
 										<c:out value="${item.regdate}"/>
+										</font>
 									</td>
 									<td class="cell100 column5">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<font size="4">
 										<c:out value="${item.moddate}"/>
+										</font>
 									</td>									
 									<td class="cell100 column5">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										&nbsp;&nbsp;&nbsp;&nbsp;
+										<font size="4">
 										<c:out value="${item.hit}"/>
+										</font>
 									</td>
 									<td class="cell100 column5">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										&nbsp;&nbsp;&nbsp;&nbsp;
 										<%-- <c:out value="${item.username}"/> --%>
+										<font size="4">
 										<c:out value="${item.ip_addr}"/>
+										</font>
 										<!-- <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
 										<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a> -->
 									</td>
 									<td class="cell100 column6">
-										<a href="#" ><button type="button" class="btn btn-primary btn-sm">수정</button></a>
+										<a href="#" ><button type="button" class="btn btn-primary btn-sm"><font size="2">수정</font></button></a>
 									</td>
 									<td class="cell100 column6">
-										<a href="#" ><button type="button" class="btn btn-danger btn-sm">삭제</button></a>
+										<a href="#" ><button type="button" class="btn btn-danger btn-sm"><font size="2">삭제</font></button></a>
 									</td>																
 								</tr>
 								</c:forEach>
@@ -128,12 +144,27 @@
 					</div>
 
 				</div>
+				
+				<input id="key" name="key" type="text" value="${param.key}" class="keyword"  placeholder="Search..." />
+				<input type="hidden" name="search" id="search" onclick="goSearch()"/>
+				
+				
+						<select id="sel" name="sel">
+							<option value="all" <%if(sel.equals("all")){%>selected<%}%>>전체</option>
+							<option value="title" <%if(sel.equals("title")){%>selected<%}%>>제목</option>
+							<option value="contents" <%if(sel.equals("contents")){%>selected<%}%>>내용</option>
+						</select>				
+			<br/>
+				
+	
 				<% 
 					int total = Integer.parseInt(request.getAttribute("total").toString());
 					out.print(Pager.makeTag(request, 16,total));
 				%>				
 			 
-
+					
+				 
+				
 			
 			</div>
 		</div>
@@ -144,15 +175,81 @@
 .wrap-table100 ul{
 
     position:absolute;
-    left:39%;
+    left:32%;
     /*left:42%;*/
 }
 
 
 
+#sel {
+	position:absolute;
+    left:38%;
+    font-size: 28px;
+}
+
+#mform input[type="text"] {
+    background: url(search-white.png) no-repeat 10px 6px #fcfcfc;
+    border: 1px solid #d1d1d1;
+    font: bold 12px Arial,Helvetica,Sans-serif;
+    color: #bebebe;
+    width: 150px;
+    padding: 6px 15px 6px 35px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+    -webkit-transition: all 0.7s ease 0s;
+    -moz-transition: all 0.7s ease 0s;
+    -o-transition: all 0.7s ease 0s;
+    transition: all 0.7s ease 0s;
+    }
+
+#mform input[type="text"]:focus {
+    position:absolute;
+    left:43%;
+    width: 500px;
+    font-size: 35px;
+    }
+#mform input[type="text"] {
+	position:absolute;
+    left:43%;
+	font-size: 25px;
+    height:40px;
+    width:300px;
+    /*style="height:40px; width:400px; "*/
+    }
 
 
 </style>
+<script>
+var input = document.getElementById("key");
+input.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("search").click();
+    }
+});
+
+
+function goSearch()
+{
+	/*var frm = document.mform;
+	frm.pg.value="0";//검색누르면 첫번째 페이지로 이동
+	frm.action="${commonURL}/board/list.mt";
+	frm.submit();*/
+	
+	$("#pg").val("0"); 
+	$("#mform").attr("action", "${commonURL}/board/test.do");
+	$("#mform").prop("action", "${commonURL}/board/test.do");
+
+	$("#mform").submit();
+}
+
+</script>
+
 <!--===============================================================================================-->	
 	<script src="${commonURL}/resources/table_template/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->

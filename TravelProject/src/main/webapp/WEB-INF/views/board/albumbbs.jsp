@@ -91,7 +91,6 @@ if(request.getParameter("sel")!=null)
 <!-- 
 	</div>
 	END fh5co-page
-
 	</div>
 	END fh5co-wrapper
  -->
@@ -105,7 +104,6 @@ if(request.getParameter("sel")!=null)
 <script>
 function go_AlbumList(recvData)
 {
-
 	//var sel = document.getElementById('sel').value;
 	$('#sel').val(recvData);
 	var sel = recvData;
@@ -116,7 +114,6 @@ function go_AlbumList(recvData)
 /* 	data["location"] = $('#location').val();
 	data["sel"] = sel;
 	console.log(JSON.stringify(data)); */
-
   
  	$.ajax({
  		contentType:'application/json; charset=utf-8',
@@ -147,11 +144,8 @@ function go_AlbumList(recvData)
 	  
 	//$("#mform").submit();
 }
-
-
  function changeImage(data){
 	
-
 		<%
 			for(int i=0; i<ImageList.size(); i++){
 		%>	

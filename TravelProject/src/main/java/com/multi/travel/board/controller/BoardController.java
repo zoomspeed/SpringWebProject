@@ -89,6 +89,20 @@ public class BoardController {
 		}
 		System.out.println("전체 개수 : "+total);
 	}	
+	
+	
+	@RequestMapping("/board/testview")
+	public void gettestView(Model model, BoardDto dto)
+	{
+/*		BoardDto viewDto = boardService.getView(dto.getBoard_seq());
+		BoardDto prevDto = boardService.getPrev(viewDto);
+		BoardDto nextDto = boardService.getNext(viewDto);
+		
+		model.addAttribute("viewDto", viewDto);
+		model.addAttribute("prevDto", prevDto);
+		model.addAttribute("nextDto", nextDto);*/
+	}	
+	
 
 	//board/save.mt?title=test&contents=내용&userid=test
 	@RequestMapping("/board/save")
@@ -306,7 +320,7 @@ public class BoardController {
 		ImageList = imageService.getMainImage(dto);	
 		model.addAttribute("ImageList",ImageList);	
 		
-		return "/board/albumbbs";
+		return "board/albumbbs";
 	}
 		
 	

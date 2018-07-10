@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,6 +98,7 @@ public class MemberController {
 		System.out.println("login");
 	} 	
 	
+/*	@CacheEvict(cacheNames="login",allEntries=true)*/
 	@RequestMapping("/member/logon_proc")
 	public @ResponseBody 
 	String logon_proc(HttpServletRequest req, MemberDto dto)

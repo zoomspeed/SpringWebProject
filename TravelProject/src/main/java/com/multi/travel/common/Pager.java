@@ -27,13 +27,13 @@ public class Pager {
 
 		 //<a href=\"" + contextPath + "/resources/images/board/def/pg_first.gif\" class=\"page-link\" />
 		//<li class="page-item disabled"><a href="#" class="page-link">Previous</a></li>
-		String beginLabel1 	= "<img src=\"" + contextPath + "/resources/images/board/def/pg_first.gif\" alt=\"첫번째 페이지\" />";
+		//String beginLabel1 	= "<img src=\"" + contextPath + "/resources/images/board/def/pg_first.gif\" alt=\"첫번째 페이지\" />";
+		String beginLabel="";
+		String prevLabel="";
+		String nextLabel="";
+		String endLabel="";	
 
-		String beginLabel 	= "<li class=\"page-item\"><a href=\"\"  class=\"page-link\"><<</a></li>";
-		String prevLabel 	= "<li class=\"page-item\"><a href=\"\"  class=\"page-link\"><</a></li>";
-		String nextLabel 	= "<li class=\"page-item\"><a href=\"\"  class=\"page-link\">></a></li>";
-		String endLabel 	= "<li class=\"page-item\"><a href=\"\"  class=\"page-link\">>></a></li>";	
-
+	
 		
 		try {
 
@@ -51,6 +51,20 @@ public class Pager {
 			pageTotal = (total - 1) / pageSize;
 			//total - 전체 데이터 건수 
 			//전체 페이지 개수 구하기 
+			
+			
+			
+			
+			
+			beginLabel 	= "<li class=\"page-item\"><a href=\"javascript:goPage('0')\"  class=\"page-link\"><<</a></li>";
+			prevLabel 	= "<li class=\"page-item\"><a href=\"javascript:goPage('0')\"  class=\"page-link\"><</a></li>";
+			nextLabel 	= "<li class=\"page-item\"><a href=\"javascript:goPage('"+(pageTotal)+"')\"  class=\"page-link\">></a></li>";
+			endLabel 	= "<li class=\"page-item\"><a href=\"javascript:goPage('"+(pageTotal)+"')\"  class=\"page-link\">>></a></li>";	
+			
+			
+			
+			
+			
            
 			pageGroupStart = (int) (cpage / pageGroupSize) * pageGroupSize;
 			pageGroupEnd = pageGroupStart + pageGroupSize;

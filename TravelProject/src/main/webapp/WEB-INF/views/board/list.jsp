@@ -48,13 +48,14 @@
 					<p>
 						<label for="target" class="desc">Target</label>
 						
+
+						
+						<label for="keyword" class="desc">Keyword</label>
 						<select id="sel" name="sel">
 							<option value="all" <%if(sel.equals("all")){%>selected<%}%>>전체</option>
 							<option value="title" <%if(sel.equals("title")){%>selected<%}%>>제목</option>
 							<option value="contents" <%if(sel.equals("contents")){%>selected<%}%>>내용</option>
-						</select>
-						
-						<label for="keyword" class="desc">Keyword</label>
+						</select>				
 						<input type="text" id="key" name="key"
 						    value="${param.key}"  
 							class="keyword" size="30" 
