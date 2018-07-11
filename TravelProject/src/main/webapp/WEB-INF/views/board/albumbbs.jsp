@@ -3,9 +3,11 @@
     pageEncoding="utf-8"%>
 <%@page import="java.util.*"%>    
 <%@page import="com.multi.travel.common.*"%>
-<%@include file="../include/common4.jsp"%>
-
-	<%@include file="../include/header2.jsp"%>
+<%@page import="com.multi.travel.image.dto.*"%>
+<%@include file="../include/common_main.jsp"%>
+	<%@include file="../include/startheader.jsp"%>
+	
+	<%@include file="../include/mainheader.jsp"%>
 
 <%
 sel="title";
@@ -27,14 +29,14 @@ if(request.getParameter("sel")!=null)
 
 		</div>
 
-
+	<form id="mform" name="mform"> 
 		<div class="fh5co-listing">
 			<div class="container">
 				<div class="row">
 				
 				
 				
-				<form id="mform" name="mform"> 
+				
 					<label for="sel" class="desc">실시간 업로드 사진</label>
 					<!-- <button id="Ggg" name="Ggg" value="ddd" onclick="go_AlbumList()"> -->
 <%-- 					
@@ -46,27 +48,35 @@ if(request.getParameter("sel")!=null)
 					 --%>
 		
 					 <br/><br/><br/><br/><br/><br/>
-			 
-					 					<input type="text" id="sel" name="sel" value=""/>
+<!-- 			 
+					 <input type="text" id="sel" name="sel" value=""/>
 					<input type="button" onclick="go_AlbumList('date')"   value="날짜순"/>
 					<input type="text" onclick="go_AlbumList('title')" value="제목순"/>
 					<input type="text" onclick="go_AlbumList('hit')" value="조회순"/>
-					<!-- <input type="hidden" name="num"  value="6"/>	 -->			
+					<input type="hidden" name="num"  value="6"/>				
+
+ -->
+
 				
-					<br/><br/><br/>
+
+
+
 				
-				
+<%-- 
 	<% 
 		List<String> ImageList =(ArrayList<String>)request.getAttribute("ImageList");
-	%>
-	
+	%> 
+	--%>
+	<% 
+		List<ImageDto> ImageList =(ArrayList<ImageDto>)request.getAttribute("ImageList");
+	%>	
 			<%for(int i=0; i<ImageList.size(); i++){ %>
 				
 					<div class="col-md-4 fh5co-item-wrap">
 						<a class="fh5co-listing-item">
-							<img id="ImageSrc<%=(i+1)%>" name="ImageSrcs" src="${commonURL}/upload/image/<%=ImageList.get(i)%>" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive">
+							<img id="ImageSrc<%=(i+1)%>" name="ImageSrcs" src="${commonURL}/upload/image/<%=ImageList.get(i).getTitle()%>" style="width:400px; height:300px;" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive">
 							<div class="fh5co-listing-copy">
-								<h2 id="h<%=(i+1)%>" name="h<%=(i+1)%>"><%=ImageList.get(i) %></h2>
+								<h2 id="h<%=(i+1)%>" name="h<%=(i+1)%>"><%=ImageList.get(i).getTitle() %></h2>
 								<span class="icon">
 									<i class="icon-chevron-right"></i>
 								</span>
@@ -75,16 +85,37 @@ if(request.getParameter("sel")!=null)
 					</div>
 				
 			<%} %>
-				</form>
+				
 					<!-- END 3 row -->
 
 				</div>
 			</div>
+			
+			
+			
+			
 		</div>
+ 				<input type="hidden" name="pg" value="<%=pg%>" id="pg" />
+				<input type="text" id="key" name="key"  value="${param.key}" class="keyword"  placeholder="Search..." />
+				<input type="hidden" name="search" id="search" onclick="goSearch()"/>
+				
+				
+				<select id="sel" name="sel">
+					<option value="all" <%if(sel.equals("all")){%>selected<%}%>>전체</option>				
+<%-- 					<option value="date" <%if(sel.equals("date")){%>selected<%}%>>날짜</option> --%>
+					<option value="title" <%if(sel.equals("title")){%>selected<%}%>>제목</option>
+					<option value="userid" <%if(sel.equals("userid")){%>selected<%}%>>아이디</option>
+				</select>	
 
+				<% 
+					int total = Integer.parseInt(request.getAttribute("total").toString());
+					out.print(Pager.makeTag(request, 12,total));
+				%>	
+				
+					<br/><br/><br/>
 
 		
-	<%@include file="../include/footer2.jsp"%>
+	<%@include file="../include/footer.jsp"%>
 	
 
 
@@ -94,11 +125,36 @@ if(request.getParameter("sel")!=null)
 	</div>
 	END fh5co-wrapper
  -->
-	</body>
+ </form>	
+</body>
 </html>
+<!-- <style>
 
 
+#sel {
 
+    position:absolute;
+    left:70%;
+    /*left:42%;*/
+}
+
+#key {
+
+    position:absolute;
+    left:50%;
+    /*left:42%;*/
+}
+
+#page-item,.page-item {
+
+    position:relative;
+    left:30%;
+    /*left:42%;*/
+}
+
+
+</style> -->
+<%-- 
 
 
 <script>
@@ -165,4 +221,56 @@ function go_AlbumList(recvData)
 		//$("#ImageSrc").attr("src","${commonURL}/upload/image/"+ImageList1);
 		
 } 
+</script>
+
+
+ --%>
+
+<script>
+var input = document.getElementById("key");
+input.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("search").click();
+    }
+});
+
+
+function goSearch()
+{
+	/*var frm = document.mform;
+	frm.pg.value="0";//검색누르면 첫번째 페이지로 이동
+	frm.action="${commonURL}/board/list.mt";
+	frm.submit();*/
+	
+	$("#pg").val("0"); 
+	$("#mform").attr("action", "${commonURL}/board/albumbbs.do");
+	$("#mform").prop("action", "${commonURL}/board/albumbbs.do");
+
+	$("#mform").submit();
+}
+
+</script>
+
+<script>
+
+			
+		
+function goPage(pg)
+{
+	/*var frm = document.mform;
+	frm.pg.value=pg;
+	frm.action="${commonURL}/board/list.mt";
+	frm.submit();*/
+			
+	$("#pg").val(pg); //frm.pg.value=pg;
+	//jquery버전이나 브라우저에 따라서 attr이 
+	//먹는 경우가 있고 prop가 먹는 경우가 있다 
+	$("#mform").attr("action", "${commonURL}/board/albumbbs.do");
+	$("#mform").prop("action", "${commonURL}/board/albumbbs.do");
+
+	$("#mform").submit();
+}
+		
+		
 </script>

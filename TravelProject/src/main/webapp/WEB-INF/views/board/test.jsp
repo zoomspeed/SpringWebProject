@@ -2,12 +2,10 @@
     contentType="text/html;charset=utf-8"
     pageEncoding="utf-8"%>
 <%@page import="com.multi.travel.common.*"%>    
-<%@include file="../include/common4.jsp"%>
+<%@include file="../include/common_main.jsp"%>
 
-	<%@include file="../include/header2.jsp"%>
-	
-	<%-- <%@include file="../include/header3.jsp"%>	  --%>
-	<%@include file="../include/header3.jsp"%>
+	<%@include file="../include/startheader.jsp"%>
+	<%@include file="../include/listheader.jsp"%>
 	<%-- <%@include file="../include/left.jsp"%>	 --%>	
 		
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
@@ -149,11 +147,11 @@
 				<input type="hidden" name="search" id="search" onclick="goSearch()"/>
 				
 				
-						<select id="sel" name="sel">
-							<option value="all" <%if(sel.equals("all")){%>selected<%}%>>전체</option>
-							<option value="title" <%if(sel.equals("title")){%>selected<%}%>>제목</option>
-							<option value="contents" <%if(sel.equals("contents")){%>selected<%}%>>내용</option>
-						</select>				
+				<select id="sel" name="sel">
+					<option value="all" <%if(sel.equals("all")){%>selected<%}%>>전체</option>
+					<option value="title" <%if(sel.equals("title")){%>selected<%}%>>제목</option>
+					<option value="contents" <%if(sel.equals("contents")){%>selected<%}%>>내용</option>
+				</select>				
 			<br/>
 				
 	
@@ -170,60 +168,8 @@
 		</div>
 	</div>
 </form>
-<%@include file="../include/footer2.jsp"%>
-<style>
-.wrap-table100 ul{
+<%@include file="../include/footer.jsp"%>
 
-    position:absolute;
-    left:32%;
-    /*left:42%;*/
-}
-
-
-
-#sel {
-	position:absolute;
-    left:38%;
-    font-size: 28px;
-}
-
-#mform input[type="text"] {
-    background: url(search-white.png) no-repeat 10px 6px #fcfcfc;
-    border: 1px solid #d1d1d1;
-    font: bold 12px Arial,Helvetica,Sans-serif;
-    color: #bebebe;
-    width: 150px;
-    padding: 6px 15px 6px 35px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    border-radius: 20px;
-    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
-    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
-    -webkit-transition: all 0.7s ease 0s;
-    -moz-transition: all 0.7s ease 0s;
-    -o-transition: all 0.7s ease 0s;
-    transition: all 0.7s ease 0s;
-    }
-
-#mform input[type="text"]:focus {
-    position:absolute;
-    left:43%;
-    width: 500px;
-    font-size: 35px;
-    }
-#mform input[type="text"] {
-	position:absolute;
-    left:43%;
-	font-size: 25px;
-    height:40px;
-    width:300px;
-    /*style="height:40px; width:400px; "*/
-    }
-
-
-</style>
 <script>
 var input = document.getElementById("key");
 input.addEventListener("keyup", function(event) {
@@ -250,16 +196,7 @@ function goSearch()
 
 </script>
 
-<!--===============================================================================================-->	
-	<script src="${commonURL}/resources/table_template/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="${commonURL}/resources/table_template/vendor/bootstrap/js/popper.js"></script>
-	<script src="${commonURL}/resources/table_template/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="${commonURL}/resources/table_template/vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="${commonURL}/resources/table_template/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script>
+<script>
 		$('.js-pscroll').each(function(){
 			var ps = new PerfectScrollbar(this);
 
@@ -286,12 +223,10 @@ function goSearch()
 		}
 		
 		
-	</script>
+</script>
 	
 	
 	
-<!--===============================================================================================-->
-	<script src="${commonURL}/resources/table_template/js/main.js"></script>
 
 </body>
 </html>

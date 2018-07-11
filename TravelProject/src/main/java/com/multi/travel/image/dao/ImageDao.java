@@ -9,7 +9,7 @@ public interface ImageDao {
 	List<ImageDto> getList(ImageDto dto);
 	List<String> getMainImage(ImageDto dto);
 	
-	ImageDto getView(String board_seq);
+	ImageDto getView(String image_seq);
 	ImageDto getPrev(ImageDto dto);
 	ImageDto getNext(ImageDto dto);
 	

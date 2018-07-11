@@ -3,7 +3,7 @@
     pageEncoding="utf-8"%>
 <%@page import="com.multi.travel.board.dto.*"%>
   
-<%@include file="../include/common.jsp"%>
+<%@include file="../include/common_old.jsp"%>
 
 <%
 BoardDto viewDto = (BoardDto)request.getAttribute("viewDto");
@@ -132,7 +132,7 @@ BoardDto nextDto = (BoardDto)request.getAttribute("nextDto");
 	</div>
 	<!-- section E -->
 
-	<%@include file="../include/footer.jsp"%>
+	<%@include file="../include/footer_ami.jsp"%>
 
 </div>
 <!-- site align E -->

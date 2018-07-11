@@ -91,17 +91,7 @@ public class BoardController {
 	}	
 	
 	
-	@RequestMapping("/board/testview")
-	public void gettestView(Model model, BoardDto dto)
-	{
-/*		BoardDto viewDto = boardService.getView(dto.getBoard_seq());
-		BoardDto prevDto = boardService.getPrev(viewDto);
-		BoardDto nextDto = boardService.getNext(viewDto);
-		
-		model.addAttribute("viewDto", viewDto);
-		model.addAttribute("prevDto", prevDto);
-		model.addAttribute("nextDto", nextDto);*/
-	}	
+
 	
 
 	//board/save.mt?title=test&contents=³»¿ë&userid=test
@@ -314,11 +304,20 @@ public class BoardController {
 	@RequestMapping("/board/albumbbs")
 	public String  albumlisting(ImageDto dto, Model model)
 	{
-		List<String> ImageList = new ArrayList<String>();	
+		//List<String> ImageList = new ArrayList<String>();	
+		List<ImageDto> ImageList = new ArrayList<ImageDto>();
 		dto.setNum("12");
 		System.out.println("dto.getNum() : ~~~ "+dto.getNum());
-		ImageList = imageService.getMainImage(dto);	
-		model.addAttribute("ImageList",ImageList);	
+		
+		int total = imageService.getTotal(dto);
+		//ImageList = imageService.getMainImage(dto);	
+		ImageList = imageService.getList(dto);
+		
+		System.out.println("total  :   "+total);
+		model.addAttribute("ImageList",ImageList);
+		model.addAttribute("total",total);
+		//ImageList = imageService.getList(dto);
+		//model.addAttribute("ImageList", ImageLisst);
 		
 		return "board/albumbbs";
 	}

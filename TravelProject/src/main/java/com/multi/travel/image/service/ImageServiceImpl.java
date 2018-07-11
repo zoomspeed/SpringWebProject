@@ -21,33 +21,33 @@ public class ImageServiceImpl implements ImageService{
 	ImageDao imageDao;
 
 	@Override
-	public List<ImageDao> getList(ImageDao dto) {
+	public List<ImageDto> getList(ImageDto dto) {
 		// TODO Auto-generated method stub
-		return null;
+		return imageDao.getList(dto);
 	}
 
 	@Override
-	public int getTotal(ImageDao dto) {
+	public int getTotal(ImageDto dto) {
 		// TODO Auto-generated method stub
-		return 0;
+		return imageDao.getTotal(dto);
 	}
 
 	@Override
-	public ImageDao getView(String board_seq) {
+	public ImageDto getView(String image_seq) {
 		// TODO Auto-generated method stub
-		return null;
+		return imageDao.getView(image_seq);
 	}
 
 	@Override
-	public ImageDao getPrev(ImageDao paramDto) {
+	public ImageDto getPrev(ImageDto paramDto) {
 		// TODO Auto-generated method stub
-		return null;
+		return imageDao.getPrev(paramDto);
 	}
 
 	@Override
-	public ImageDao getNext(ImageDao paramDto) {
+	public ImageDto getNext(ImageDto paramDto) {
 		// TODO Auto-generated method stub
-		return null;
+		return imageDao.getNext(paramDto);
 	}
 
 	@Override
@@ -57,19 +57,19 @@ public class ImageServiceImpl implements ImageService{
 	}
 
 	@Override
-	public void update(ImageDao dto) {
+	public void update(ImageDto dto) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(ImageDao dto) {
+	public void delete(ImageDto dto) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void reply(ImageDao dto) {
+	public void reply(ImageDto dto) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -13,20 +13,39 @@
  
       select * from
       (
-      from tl_image
-      where delyn='N'
-         <if test="sel!=null">
-            <if test="sel==1">
-            	order by image_seq desc 
+      select
+         A.image_seq
+         ,nvl(B.username, 'noname') username
+         ,A.userid
+         ,A.title
+         ,nvl(A.hit , 0) hit
+         ,to_char(A.regdate, 'yyyy-mm-dd') regdate
+         ,to_char(A.moddate, 'yyyy-mm-dd') moddate
+         ,A.ip_addr
+         ,ceil(row_number () over (order by image_seq desc)/#{num}-1) as pg
+         from tl_image A
+         left outer join tl_member B on A.userid=B.userid
+         where delyn='N'
+         <if test="sel!=null and key!=null">
+            <if test="sel.equals('all')">
+               and (title like '%'||#{key}||'%'
+               or
+               A.userid like '%'||#{key}||'%'
+               or
+               image_seq like '%'||#{key}||'%')
             </if>
-            <if test="sel==2">
-               order by hit desc
+<!--             <if test="sel.equals('date')">
+				and regdate like '%'||#{key}||'%'
+            </if>   -->          
+            <if test="sel.equals('title')">
+               and title like '%'||#{key}||'%'
             </if>
-            <if test="sel==3">
-               order by title asc
-            </if>
+            <if test="sel.equals('userid')">
+               and A.userid like '%'||#{key}||'%'
+            </if>            
          </if>
       )where pg=#{pg}
+
 
    </select>
    <!-- PreparedStatement 사용하면서 파라미터를 ?로 했는데 이게 mybatis는 #{변수명} 으로 대체 #{pg} 
@@ -78,9 +97,6 @@
       (
 	    select * 
 	    from tl_image
-      
-
-      
       <if test="sel!=null">   
          <if test="sel.equals('date')">
 			order by image_seq desc
@@ -90,7 +106,7 @@
          </if>
          <if test="sel.equals('hit')">
 			order by hit desc
-         </if>
+         </if>        
 	  </if>	 
       )
       where <![CDATA[rownum<=#{num}]]> 
@@ -100,20 +116,170 @@
    <select id="Image.getTotalCount" parameterType="ImageDto"
       resultType="Integer">
       select count(*)
-      from tl_image
+      from tl_image A
+      left outer join tl_member B on A.userid=B.userid
       where delyn='N'
-      <if test="sel!=null and key!=null">
-         <if test="sel.equals('all')">
-            and (title like '%'||#{key}||'%'
-            or
-            userid like '%'||#{key}||'%')
+         <if test="sel!=null and key!=null">
+            <if test="sel.equals('all')">
+               and (title like '%'||#{key}||'%'
+               or
+               A.userid like '%'||#{key}||'%'
+               or
+               image_seq like '%'||#{key}||'%')
+            </if>
+            <if test="sel.equals('date')">
+				and image_seq like '%'||#{key}||'%'
+            </if>            
+            <if test="sel.equals('title')">
+               and title like '%'||#{key}||'%'
+            </if>
+            <if test="sel.equals('userid')">
+               and A.userid like '%'||#{key}||'%'
+            </if>            
          </if>
-         <if test="sel.equals('title')">
-            and title like '%'||#{key}||'%'
-         </if>
-         <if test="sel.equals('userid')">
-            and userid like '%'||#{key}||'%'
-         </if>
-      </if>
    </select>
+   
+   
+	<select id="Image.getView" parameterType="String"
+		resultType="ImageDto">
+		select
+			image_seq
+			,nvl((select username from tl_member B 
+			where A.userid=B.userid), 'noname') username --B.email??
+			,userid
+			,title
+			,latitude
+			,longitude
+			,altitude
+			,to_char(regdate, 'yyyy-mm-dd') moddate
+			,filesize
+			,nvl(hit , 0) hit --조회수
+			,to_char(regdate, 'yyyy-mm-dd') regdate
+			,nvl(ip_addr,'') ip_addr
+			from tl_image A
+			where image_seq=#{image_seq}
+	</select>
+
+	<!-- reply -->
+	<insert id="Image.reply" parameterType="ImageDto">
+	<selectKey resultType="String" keyProperty="image_seq"
+         order="BEFORE">
+         select nvl(max(board_seq),0)+1 as board_seq
+         from tl_board
+      </selectKey>
+		insert into tl_board(
+		board_seq
+		,title
+		,contents
+		,userid
+		,hit
+		,group_id
+		,depth
+		,g_level
+		,regdate
+		,delyn
+		,ip_addr
+		)values(
+		#{board_seq}
+		,#{title}
+		,#{contents}
+		,#{userid}
+		,0
+		,#{group_id}
+		,#{depth}+1
+		,#{g_level}+1
+		,sysdate
+		,'N'
+		,#{ip_addr}
+		)
+	</insert>
+
+	<!-- 조회수 업데이트 -->
+	<update id="Image.updateHit" parameterType="String">
+		update
+		tl_image
+		set hit=hit+1
+		where image_seq=#{image_seq}
+	</update>
+
+	<!-- 부모글 형제들 level 업하기 -->
+	<update id="Image.updateLevel" parameterType="ImageDto">
+	 <![CDATA[
+		update tl_board set
+		   g_level=g_level+1
+		where group_id=#{group_id}
+		and g_level>#{g_level}
+	 ]]>
+	</update>
+	<!-- 이전글 -->
+	<select id="Image.getPrev" parameterType="ImageDto"
+		resultType="ImageDto">
+	<![CDATA[		
+		select * from(
+			select
+				image_seq
+				,nvl((select username from tl_member B 
+				where A.userid=B.userid), 'noname') username --B.email??
+				,userid
+				,title
+				,latitude
+				,longitude
+				,altitude
+				,to_char(regdate, 'yyyy-mm-dd') moddate
+				,filesize
+				,nvl(hit , 0) hit --조회수
+				,to_char(regdate, 'yyyy-mm-dd') regdate
+				,nvl(ip_addr,'') ip_addr
+			from tl_image A
+			where image_seq < #{image_seq} 
+        	order by image_seq desc
+     )where rownum=1
+     ]]>
+	</select>
+
+
+	<!-- 다음글 -->
+	<select id="Image.getNext" parameterType="ImageDto"
+		resultType="ImageDto">
+	<![CDATA[		
+		select * from(
+			select
+				image_seq
+				,nvl((select username from tl_member B 
+				where A.userid=B.userid), 'noname') username --B.email??
+				,userid
+				,title
+				,latitude
+				,longitude
+				,altitude
+				,to_char(regdate, 'yyyy-mm-dd') moddate
+				,filesize
+				,nvl(hit , 0) hit --조회수
+				,to_char(regdate, 'yyyy-mm-dd') regdate
+				,nvl(ip_addr,'') ip_addr
+			from tl_image A
+			where image_seq > #{image_seq} 
+        	order by image_seq asc
+     )where rownum=1
+     ]]>
+	</select>
+
+	<!-- 수정용 -->
+	<update id="Image.update" parameterType="ImageDto">
+		update 	tl_board
+			set title = #{title}
+			,contents = #{contents}
+			,filename1 = #{filename1}
+			,filename2 = #{filename2}
+			,filename3 = #{filename3}
+		where board_seq=#{board_seq}
+	</update>
+
+	<!-- 삭제용 -->
+	<update id="Image.delete" parameterType="ImageDto">
+		update	tl_board
+		set delyn='Y'
+		where board_seq=#{board_seq}
+	</update>
+   
 </mapper>

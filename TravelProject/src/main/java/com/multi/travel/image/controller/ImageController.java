@@ -167,10 +167,12 @@ public class ImageController {
 			System.out.println(dto.getNum());
 
 			List<String> dataList = imageService.getMainImage(dto);
+
 			
 			for(int i=0; i<dataList.size(); i++) {
 				resultMap.put("ImageList"+(i+1), dataList.get(i));
 			}
+
 			//resultMap.put("sel", dto.getSel());
 			
 			for(int i=0; i<dataList.size(); i++) {
@@ -182,7 +184,21 @@ public class ImageController {
 			
 			return resultMap;
 		}			
+		
+		@RequestMapping("/board/imageview")
+		public void getView(Model model, ImageDto dto)
+		{
+			ImageDto viewDto = imageService.getView(dto.getImage_seq());
+			ImageDto prevDto = imageService.getPrev(viewDto);
+			ImageDto nextDto = imageService.getNext(viewDto);
+			
+			model.addAttribute("viewDto", viewDto);
+			model.addAttribute("prevDto", prevDto);
+			model.addAttribute("nextDto", nextDto);
+		}		
 }
+
+
 
 
 

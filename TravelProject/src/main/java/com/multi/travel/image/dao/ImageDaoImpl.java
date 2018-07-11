@@ -19,19 +19,21 @@ public class ImageDaoImpl implements ImageDao{
 	@Override
 	public List<ImageDto> getList(ImageDto dto) {
 		// TODO Auto-generated method stub
-		return null;
+		return sm.selectList("Image.getList", dto);
 	}
 
 	@Override
 	public int getTotal(ImageDto dto) {
 		// TODO Auto-generated method stub
-		return 0;
+		int total = (Integer) sm.selectOne("Image.getTotalCount", dto);
+		return total;
 	}
 
 	@Override
-	public ImageDto getView(String board_seq) {
+	public ImageDto getView(String image_seq) {
 		// TODO Auto-generated method stub
-		return null;
+		sm.update("Image.updateHit", image_seq);
+		return sm.selectOne("Image.getView",image_seq);
 	}
 
 	@Override

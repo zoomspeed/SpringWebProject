@@ -9,7 +9,7 @@
 				<div class="container">
 					<div class="nav-header">
 						<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
-						<h1 id="fh5co-logo"><a href="index.html">Listing</a></h1>
+						<h1 id="fh5co-logo"><a href="${commonURL}">Listing</a></h1>
 						<!-- START #fh5co-menu-wrap -->
 						<nav id="fh5co-menu-wrap" role="navigation">
 							<ul class="sf-menu" id="fh5co-primary-menu">
@@ -19,12 +19,13 @@
 								<li>
 									<a href="${commonURL}/board/test.do" class="fh5co-sub-ddown">게시판</a>
 									<ul class="fh5co-sub-menu">
-										<li><a href="${commonURL}/board/list.do" target="_blank">자유게시판</a></li>
-										<li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">Q&A 게시판</a></li>
-										<li><a href="http://freehtml5.co/preview/?item=light-free-html5-template-bootstrap" target="_blank">앨범게시판</a></li>
-										<li><a href="http://freehtml5.co/preview/?item=relic-free-html5-template-using-bootstrap" target="_blank">공지사항</a></li>
-										<li><a href="${commonURL}/board/test.do" target="_blank">Test</a></li>
-										<li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">Sprint</a></li>
+										<li><a href="${commonURL}/board/test.do" target="_blank">자유게시판</a></li>									
+										<li><a href="${commonURL}" target="_blank">Q&A 게시판</a></li>
+										<li><a href="${commonURL}/board/albumbbs.do" target="_blank">앨범게시판</a></li>
+										<li><a href="${commonURL}" target="_blank">공지사항</a></li>
+										<li><a href="${commonURL}/board/list.do" target="_blank">자유게시판(ami)</a></li>
+										<li><a href="${commonURL}/board/testview.do" target="_blank">testview</a></li>
+										<li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">템플릿참고</a></li>
 									</ul>
 								</li>
 								<li>

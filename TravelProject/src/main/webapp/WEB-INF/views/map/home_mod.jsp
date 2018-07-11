@@ -3,6 +3,7 @@
     pageEncoding="utf-8"%>
 <%@page import="java.util.*"%>    
 <%@page import="com.multi.travel.common.*"%>
+<%@page import="com.multi.travel.image.dto.*"%>
 <%@include file="../include/common_main.jsp"%>
 
 	<%@include file="../include/startheader.jsp"%>
@@ -39,8 +40,10 @@ if(request.getParameter("sel")!=null)
 		
 
 	<% 
-		List<String> ImageList =(ArrayList<String>)request.getAttribute("ImageList");
+		List<ImageDto> ImageList =(ArrayList<ImageDto>)request.getAttribute("ImageList");
 	%>
+
+
 
 			
 
@@ -65,12 +68,17 @@ if(request.getParameter("sel")!=null)
 					</select>
 					<input type="button" onclick="go_AlbumList()" value="전송하기"/>
 					<input type="hidden" name="num"  value="6"/>
+					<input tpye="hidden" name="key" value=""/>
 					<!-- </form> -->
 			</div>
 		<!-- </form> -->	
 		<!--  </div> -->
 		<!--  </div>  -->
 				<br/><br/><br/><br/><br/>
+				
+				
+				
+				
 				
 				<%for(int i=0; i<ImageList.size(); i++){ %>
 					<div class="col-md-4 col-sm-4 fh5co-item-wrap">
@@ -79,10 +87,10 @@ if(request.getParameter("sel")!=null)
 							<img src="${commonURL}/upload/image/<%=ImageList.get(i)%>" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive" style="width: 100%; height: 100%;">
 							 -->
 							 
-							<img id="ImageSrc<%=(i+1)%>" name="ImageSrcs" src="${commonURL}/upload/image/<%=ImageList.get(i)%>" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive" style="width: 700px; height: 282px;">
-							<input type="hidden" id="ImageName<%=i%>" name="ImageNames" onclick="goChange('<%=i+1%>')" value="<%=ImageList.get(i) %>"/>
+							<img id="ImageSrc<%=(i+1)%>" name="ImageSrcs" src="${commonURL}/upload/image/<%=ImageList.get(i).getTitle()%>" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive" style="width: 700px; height: 282px;">
+							<input type="hidden" id="ImageName<%=i%>" name="ImageNames" onclick="goChange('<%=i+1%>')" value="<%=ImageList.get(i).getTitle() %>"/>
 							<div class="fh5co-listing-copy">
-								<h2 id="h<%=(i+1)%>" name="h<%=(i+1)%>"><%=ImageList.get(i) %></h2>
+								<h2 id="h<%=(i+1)%>" name="h<%=(i+1)%>"><%=ImageList.get(i).getTitle() %></h2>
 								<span class="icon">
 									<i class="icon-chevron-right"></i>
 								</span>
@@ -148,6 +156,7 @@ if(request.getParameter("sel")!=null)
 <script>
 function go_AlbumList()
 {
+
 	var sel = document.getElementById('sel').value;
 	
 	var data = {}
@@ -156,6 +165,7 @@ function go_AlbumList()
 /* 	data["location"] = $('#location').val();
 	data["sel"] = sel;
 	console.log(JSON.stringify(data)); */
+
   
  	$.ajax({
  		contentType:'application/json; charset=utf-8',
@@ -184,8 +194,11 @@ function go_AlbumList()
 	  
 	//$("#mform").submit();
 }
+
+
  function changeImage(data){
 	
+
 		<%
 			for(int i=0; i<ImageList.size(); i++){
 		%>	

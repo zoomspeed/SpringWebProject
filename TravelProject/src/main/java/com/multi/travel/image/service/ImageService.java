@@ -7,16 +7,16 @@ import com.multi.travel.image.dao.ImageDao;
 import com.multi.travel.image.dto.ImageDto;
 
 public interface ImageService {
-	List<ImageDao> getList(ImageDao dto);
+	List<ImageDto> getList(ImageDto dto);
 	List<String> getMainImage(ImageDto dto);	
 	
-	int getTotal(ImageDao dto);
-	ImageDao getView(String board_seq);
-	ImageDao getPrev(ImageDao paramDto);
-	ImageDao getNext(ImageDao paramDto);
+	int getTotal(ImageDto dto);
+	ImageDto getView(String board_seq);
+	ImageDto getPrev(ImageDto paramDto);
+	ImageDto getNext(ImageDto paramDto);
 	
 	void insert(ImageDto dto);
-	void update(ImageDao dto);
-	void delete(ImageDao dto);
-	void reply(ImageDao dto);
+	void update(ImageDto dto);
+	void delete(ImageDto dto);
+	void reply(ImageDto dto);
 }

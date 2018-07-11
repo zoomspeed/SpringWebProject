@@ -4,7 +4,7 @@
 <%@page import="com.multi.travel.board.dto.*"%>
 <%@page import="java.util.*"%>
   
-<%@include file="../include/common.jsp"%>
+<%@include file="../include/common_old.jsp"%>
 
 <body class="admin" lang="en">
 <form name="mform" id="mform" 
