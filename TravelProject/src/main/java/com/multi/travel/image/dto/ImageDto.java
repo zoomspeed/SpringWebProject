@@ -11,7 +11,10 @@ public class ImageDto {
 	private String key="";
 	private String num="6";
 	
+	private String hit="";
 
+	private String username="";
+	
 	private String  mod="";
 	private String 	image_seq="";
 	private String 	userid="";
@@ -278,6 +281,22 @@ public class ImageDto {
 
 	public void setMod(String mod) {
 		this.mod = mod;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getHit() {
+		return hit;
+	}
+
+	public void setHit(String hit) {
+		this.hit = hit;
 	}
 	
 

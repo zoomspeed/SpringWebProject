@@ -1,34 +1,31 @@
 <%@ page language="java" 
     contentType="text/html;charset=utf-8"
     pageEncoding="utf-8"%>
+<%@page import="java.util.*"%>    
 <%@page import="com.multi.travel.image.dto.*"%>
 <%@page import="com.multi.travel.common.*"%>
  <%@include file="../include/common_main.jsp"%>	
 <%@include file="../include/startheader.jsp"%>
 <%@include file="../include/viewheader.jsp"%>
+<%@include file="../include/writeheader.jsp"%>
 <%@include file="../include/mainheader.jsp"%>
 
 <br/><br/><br/><br/>	
-<%
-ImageDto viewDto = (ImageDto)request.getAttribute("viewDto");
-ImageDto prevDto = (ImageDto)request.getAttribute("prevDto");
-ImageDto nextDto = (ImageDto)request.getAttribute("nextDto");
 
-
-%>
-<body class="admin" lang="en" >
-<form name="mform" id="mform">
-	<input type="hidden" name="pg" id="pg"
-	     value="${param.pg}">
-	<input type="hidden" name="sel" id="sel"
-	     value="${param.sel}">
-	<input type="hidden" name="key" id="key"
-	     value="${param.key}">
-	<input type="hidden" name="image_seq" id="image_seq"
-	     value="${param.board_seq}">
-	<input type="hidden" name="mode" id="mode"
-	     value="">
-	     
+<!-- <body class="admin" lang="en" > -->
+<form name="mform" id="mform" method="post" enctype="multipart/form-data">   
+	<input type="text" name="group_id"
+	   id="group_id" value="${resultDto.group_id}">
+	<input type="text" name="depth"
+	   id="depth" value="${resultDto.depth}">
+	<input type="text" name="g_level"
+	   id="g_level" value="${resultDto.g_level}"> 
+	<input type="text" name="board_seq"
+	   id="board_seq" value="${param.board_seq}"> 
+ 	<input type="text" name="mode"
+	   id="mode" value="${param.mode}">
+	<input type="text" name="userid" id="userid" value="${userid}">
+ 	     
 <!------ Include the above in your HEAD tag ---------->
 <style>
 
@@ -39,7 +36,7 @@ max-height:730px;
 /* body {
     background-image: url("${commonURL}/resources/table_template/images/simple_blue_background-t2.jpg"), url("./pexels-photo-531880.jpeg");
 
-${commonURL}/resources/images/board/def/search_title.gif
+${commonURL}/resouㄴrces/images/board/def/search_title.gif
 
 }
 body {
@@ -67,7 +64,6 @@ body {
             
             
               <div class="row">
-              <div class="col-md-8 col-lg-8 " align="left"> <img alt="User Pic" id="user_pic" name="user_pic" src="${commonURL}<%=CommonConst.IMAGE_PATH%>/<%=viewDto.getTitle() %>"> </div>
 <!-- 여기부분이 사진 프로필 동그랗게 나옴 -->                
 <!--
                  <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
@@ -84,94 +80,74 @@ body {
                     <dd>Male</dd>
                   </dl>
                 </div>-->
-                <div class=" col-md-4 col-lg-4 " algin="right"> 
+                <div class=" col-md-12 col-lg-12 " algin="right"> 
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
-                        <td>userid:</td>
-                        <td><%=viewDto.getUserid() %></td>
+                        <td>제목:</td>
+                        <td>
+                        <input type="text" id="title" name="title" size="70" value="${param.title }"/></td>
                       </tr>
                       <tr>
-                        <td>username:</td>
-                        <td><%=viewDto.getUsername()%></td>
+                        <td>작성자:</td>
+                        <td>${userid}</td>
                       </tr>
                       <tr>
-                        <td>title</td>
-                        <td><%=viewDto.getTitle()%></td>
+                        <td>내용</td>
+                        <td><textarea id="editor" name="contents" rows="10" style="width:100%;">${resultDto.contents}</textarea></td>
                       </tr>
                       <tr>
-                        <td>latitude</td>
-                        <td><%if(viewDto.getLatitude()==null || viewDto.getLatitude()==""){%>
-                        	위치정보가 등록되어 있지 않습니다.
-                        	<%}else {
-                        	out.println(viewDto.getLatitude());
-                        	}%>
-                        </td>
-                      </tr>
-                        <tr>
-                        <td>longitude</td>
-                        <td><%if(viewDto.getLongitude()==null || viewDto.getLongitude()==""){%>
-                        	위치정보가 등록되어 있지 않습니다.
-                        	<%}else {
-                        	out.println(viewDto.getLongitude());
-                        	}%>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>altitude</td>
-                        <td><%if(viewDto.getAltitude()==null || viewDto.getAltitude()==""){%>
-                        	위치정보가 등록되어 있지 않습니다.
-                        	<%}else {
-                        	out.println(viewDto.getAltitude());
-                        	}%>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>regdate</td>
-                        <td><%=viewDto.getRegdate()%></td>
-                      </tr>
-                      <tr>
-                        <td>moddate</td>
-                        <td><%=viewDto.getModdate()%></td>
-                      </tr> 
-                      <tr>
-                        <td>filesize</td>
-                        <td><%=viewDto.getFilesize()%></td>
-                      </tr>                                                                  
-                      <tr>
-                      <tr>
-                        <td>ip_addr</td>
-                        <td><%=viewDto.getIp_addr()%></td>
-                      </tr>                                                                  
-                      <tr>
-                      <tr>
-                        <td>hit</td>
-                        <td><%=viewDto.getHit()%></td>
-                      </tr>                                                                  
-                      <tr>                                            
-                        <td>Email</td>
-                        <td><a href="mailto:info@support.com">info@support.com</a></td>
-                      </tr>
-                        <td>Phone Number</td>
-                        <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
-                        </td>
-                           
-                      </tr>
+						<%
+						String mode=request.getParameter("mode");
+						for(int i=0; i<3; i++)
+						{
+							if(!mode.equals("update")){
+							
+						%>
+					<tr>
+						<td scope="row" class="first"><label for="atchfile">첨부파일</label></td>
+						<td class="last"><input type="file" id="files<%=(i+1)%>" name="files" size="50" class="atchfile" /></td>
+					</tr>
+						<%  }
+							else{
+							Hashtable<String, String> map =
+								(Hashtable<String, String>)
+								request.getAttribute("filemap");
+							
+						%>
+						<tr>
+							<th scope="row" class="first"><label for="atchfile">첨부파일</label></th>
+							<td class="last">
+														
+							<input type="file"   id="files<%=(i+1)%>" name="files" size="50" class="atchfile" />
+							<input type="checkbox" id="del<%=(i+1)%>" 
+							             onclick="goChange('<%=i+1%>')" value="<%=(i+1)%>" >삭제 
+							&nbsp;&nbsp;
+							<%=map.get("filename"+(i+1))%>
+							<input type="hidden" name="old_name" 
+							     id="old_name" 
+							value="<%=map.get("filename"+(i+1))%>" >
+							</td>
+						</tr>
+						<%		
+							}
+						}
+						%>
                     </tbody>
                   </table>
                   
-                  <a href="#" class="btn btn-primary">My Sales Performance</a>
-                  <a href="#" class="btn btn-primary">Team Sales Performance</a>
+                  <a href="#" class="btn btn-primary" onclick="history.go(-1)">취소</a>
+                  <input type="button" id="btnWrite" name="btnWrite" class="btn btn-primary" value="확인" />
                 </div>
               </div>
             </div>
-                 <div class="panel-footer">
+            <div class="panel-footer">
                         <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
                         <span class="pull-right">
                             <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
                             <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
                         </span>
-                    </div>
+            </div>
             
           </div>
         </div>
@@ -224,6 +200,9 @@ body {
 
 <script>
 $(document).ready(function() {
+	
+	initSample(); 
+	
     var panels = $('.user-infos');
     var panelsButton = $('.dropdown-user');
     panels.hide();
@@ -250,11 +229,105 @@ $(document).ready(function() {
     });
 
 
-    $('[data-toggle="tooltip"]').tooltip();
+    //$('[data-toggle="tooltip"]').tooltip();
 
     $('button').click(function(e) {
         e.preventDefault();
         alert("This is a demo.\n :-)");
     });
+    
+    
+    
+	
+	$("#btnWrite").click(function(){
+		var data = CKEDITOR.instances.editor.getData()
+		//textarea 객체에 값 전달하기 
+		$("#editor").val(data);
+		
+		//에러체크 (제목, 내용, 아이디)
+		if( $("#title").val().length==0)
+		{
+			alert("제목을 입력하세요");
+			$("#title").focus();
+			return false;
+		}
+		
+		if( $("#editor").val().length==0)
+		{
+			alert("내용을 입력하세요");
+			$("#editor").focus();
+			return false;
+		}
+		
+		//데이타 전송하기 위해서 form에 있는
+		//모든 값들을 parameter 화한다 
+		var form = $("#mform")[0];
+		
+		var formData = new FormData(form);
+		alert(formData);
+		/*
+		첨부된 파일 수정시 어려운 이유?
+		1. 삭제만 누르고, 파일 첨부 안하는 경우 
+		2. 파일을 전부 또는 차례대로 삭제 안하고 
+		   부분 부분 삭제를 한다 
+		   배열로 넘어가서, 실제 삭제 된 대상이 
+		   누군지 알아 낸 다음 
+		   업데이트 될 필드가 뭔지 정확하게 알
+		   아야 한다 
+		   
+		   
+		*/
+		if('${param.mode}'=='update')
+		{
+			for(i=1; i<=3; i++)
+			{
+				if(document.getElementById("del"+i).checked==true)
+				 	formData.append("del", $("#del"+i).val());
+				else
+					formData.append("del", "");
+			}
+		}
+		// title=제목1&contents=내용1
+		console.log(formData.getAll("files").length);
+		//return false;
+		
+		//파일의 경우 반드시 추가로 뭔가를 해줘야 한다 
+					     
+		var url="${commonURL}/board/save.do";
+		if('${param.mode}'=='update')
+			url="${commonURL}/board/update.do";
+		else if('${param.mode}'=='reply' )
+			url="${commonURL}/board/reply.do";
+			
+		//첨부파일 처리 
+		$.ajax({
+			url:url,
+			processData:false, //fileupload시 꼭 필요
+			contentType:false, //fileupload시 꼭 필요
+			data:formData, 
+			enctype:"multipart/form-data",
+			timeout:600000,
+			dataType: 'text',
+			type:'POST',  //fileupload시 꼭 post
+			success:function(result){
+				//서버호출 성공시 
+				if('${param.mode}'=='update')
+					alert('글이 수정 되었습니다');
+				else if('${param.mode}'=='reply')
+					alert('답글이 달렸습니다');
+				else
+					alert('글이 등록되었습니다');
+				
+				location.href="<%=commonURL%>/board/test.do";
+			},
+			error:function(request, status, error){
+				//서버호출 실패시 
+				alert("파일 용량이 너무 커서 못올립니다");
+			}
+		});
+		
+		
+	});
+    
 });
 </script>

@@ -102,6 +102,15 @@ BoardDto nextDto = (BoardDto)request.getAttribute("nextDto");
 			</div>
 			<!-- bbs footer E -->
 
+
+
+
+		</div>
+		<!-- content E -->
+
+	</div>
+	<!-- section E -->
+
 			<!-- other list S -->
 			<div class="otl">
 				<dl>
@@ -124,13 +133,6 @@ BoardDto nextDto = (BoardDto)request.getAttribute("nextDto");
 				</dl>
 			</div>
 			<!-- other list E -->
-
-
-		</div>
-		<!-- content E -->
-
-	</div>
-	<!-- section E -->
 
 	<%@include file="../include/footer_ami.jsp"%>
 

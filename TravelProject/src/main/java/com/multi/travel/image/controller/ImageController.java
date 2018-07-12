@@ -188,13 +188,39 @@ public class ImageController {
 		@RequestMapping("/board/imageview")
 		public void getView(Model model, ImageDto dto)
 		{
+			System.out.println("image seq~ :"+dto.getImage_seq());
+			
 			ImageDto viewDto = imageService.getView(dto.getImage_seq());
-			ImageDto prevDto = imageService.getPrev(viewDto);
-			ImageDto nextDto = imageService.getNext(viewDto);
+			//ImageDto prevDto = imageService.getPrev(viewDto);
+			//ImageDto nextDto = imageService.getNext(viewDto);
 			
 			model.addAttribute("viewDto", viewDto);
-			model.addAttribute("prevDto", prevDto);
-			model.addAttribute("nextDto", nextDto);
+			//model.addAttribute("prevDto", prevDto);
+			//model.addAttribute("nextDto", nextDto);
+		}	
+		
+		
+		
+		@RequestMapping("/board/albumbbs")
+		public String  albumlisting(ImageDto dto, Model model)
+		{
+			//List<String> ImageList = new ArrayList<String>();	
+			List<ImageDto> ImageList = new ArrayList<ImageDto>();
+			dto.setNum("12");
+			
+			
+			int total = imageService.getTotal(dto);
+			//ImageList = imageService.getMainImage(dto);	
+			ImageList = imageService.getList(dto);
+			
+			System.out.println("dto.getImage_seq() : ~~~ "+ImageList.get(0).getImage_seq());
+			System.out.println("total  :   "+total);
+			model.addAttribute("ImageList",ImageList);
+			model.addAttribute("total",total);
+			//ImageList = imageService.getList(dto);
+			//model.addAttribute("ImageList", ImageLisst);
+			
+			return "board/albumbbs";
 		}		
 }
 

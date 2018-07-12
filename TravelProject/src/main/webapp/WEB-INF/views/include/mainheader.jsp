@@ -3,7 +3,7 @@
     pageEncoding="utf-8"%>
 	</head>	
 <!-- header S -->
-	<body>
+	<body >
 		<div id="fh5co-header">
 			<header id="fh5co-header-section">
 				<div class="container">
@@ -24,7 +24,7 @@
 										<li><a href="${commonURL}/board/albumbbs.do" target="_blank">앨범게시판</a></li>
 										<li><a href="${commonURL}" target="_blank">공지사항</a></li>
 										<li><a href="${commonURL}/board/list.do" target="_blank">자유게시판(ami)</a></li>
-										<li><a href="${commonURL}/board/testview.do" target="_blank">testview</a></li>
+										<li><a href="${commonURL}/board/boardwrite.do" target="_blank">testview</a></li>
 										<li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">템플릿참고</a></li>
 									</ul>
 								</li>

@@ -1,7 +1,7 @@
 <%@ page language="java" 
     contentType="text/html;charset=utf-8"
     pageEncoding="utf-8"%>
-<%@page import="com.multi.travel.image.dto.*"%>
+<%@page import="com.multi.travel.board.dto.*"%>
 <%@page import="com.multi.travel.common.*"%>
  <%@include file="../include/common_main.jsp"%>	
 <%@include file="../include/startheader.jsp"%>
@@ -10,9 +10,9 @@
 
 <br/><br/><br/><br/>	
 <%
-ImageDto viewDto = (ImageDto)request.getAttribute("viewDto");
-ImageDto prevDto = (ImageDto)request.getAttribute("prevDto");
-ImageDto nextDto = (ImageDto)request.getAttribute("nextDto");
+BoardDto viewDto = (BoardDto)request.getAttribute("viewDto");
+BoardDto prevDto = (BoardDto)request.getAttribute("prevDto");
+BoardDto nextDto = (BoardDto)request.getAttribute("nextDto");
 
 
 %>
@@ -24,7 +24,7 @@ ImageDto nextDto = (ImageDto)request.getAttribute("nextDto");
 	     value="${param.sel}">
 	<input type="hidden" name="key" id="key"
 	     value="${param.key}">
-	<input type="hidden" name="image_seq" id="image_seq"
+	<input type="hidden" name="image_seq" id="board_seq"
 	     value="${param.board_seq}">
 	<input type="hidden" name="mode" id="mode"
 	     value="">
@@ -33,19 +33,14 @@ ImageDto nextDto = (ImageDto)request.getAttribute("nextDto");
 <style>
 
 #user_pic{
-max-width:730px; 
-max-height:730px;
+max-width:250px; 
+max-height:500px;
 }
-/* body {
-    background-image: url("${commonURL}/resources/table_template/images/simple_blue_background-t2.jpg"), url("./pexels-photo-531880.jpeg");
-
-${commonURL}/resources/images/board/def/search_title.gif
+#row2{
+max-width:1000px; 
+max-height:1000px;
 
 }
-body {
-    background-image: url("${commonURL}/resources/table_template/images/view-image.jpg"), url("./pexels-photo-531880.jpeg");
-
-}  */
 </style>
  <div class="container" style="width:100%; height:100%; background-image:url('${commonURL}/resources/table_template/images/purple-gradient.png');">
 <%-- <div class="container" style="width:100%; height:100%;""background-image= "url('${commonURL}/resources/table_template/images/simple_blue_background-t2.jpg')"> --%>
@@ -58,33 +53,23 @@ body {
 <p class=" text-info">May 05,2014,03:00 pm </p>
       </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0  toppad" >
-   			<!-- class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" -->
-          <div class="panel panel-info">
+   
+   
+          <div class="panel panel-info" id="panel-info">
             <div class="panel-heading">
               <h3 class="panel-title">Sheena Shrestha</h3>
             </div>
             <div class="panel-body">
             
-            
-              <div class="row">
-              <div class="col-md-8 col-lg-8 " align="left"> <img alt="User Pic" id="user_pic" name="user_pic" src="${commonURL}<%=CommonConst.IMAGE_PATH%>/<%=viewDto.getTitle() %>"> </div>
+           
+              <div class="row" id="row">
 <!-- 여기부분이 사진 프로필 동그랗게 나옴 -->                
 <!--
                  <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
  -->                
-                <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
-                  <dl>
-                    <dt>DEPARTMENT:</dt>
-                    <dd>Administrator</dd>
-                    <dt>HIRE DATE</dt>
-                    <dd>11/12/2013</dd>
-                    <dt>DATE OF BIRTH</dt>
-                       <dd>11/12/2013</dd>
-                    <dt>GENDER</dt>
-                    <dd>Male</dd>
-                  </dl>
-                </div>-->
-                <div class=" col-md-4 col-lg-4 " algin="right"> 
+ 				<div class="col-md-3 col-lg-3 "  align="center"> <img alt="User Pic" id="user_pic" name="user_pic" src="${commonURL}<%=CommonConst.BOARD_PATH%>/<%=viewDto.getFilename1() %>" class="img-circle img-responsive"> </div>
+
+                <div class=" col-md-9 col-lg-9 " name="row2"id="row2"> 
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
@@ -100,31 +85,16 @@ body {
                         <td><%=viewDto.getTitle()%></td>
                       </tr>
                       <tr>
-                        <td>latitude</td>
-                        <td><%if(viewDto.getLatitude()==null || viewDto.getLatitude()==""){%>
-                        	위치정보가 등록되어 있지 않습니다.
-                        	<%}else {
-                        	out.println(viewDto.getLatitude());
-                        	}%>
-                        </td>
+                        <td>contents:</td>
+                        <td></td>
                       </tr>
-                        <tr>
-                        <td>longitude</td>
-                        <td><%if(viewDto.getLongitude()==null || viewDto.getLongitude()==""){%>
-                        	위치정보가 등록되어 있지 않습니다.
-                        	<%}else {
-                        	out.println(viewDto.getLongitude());
-                        	}%>
-                        </td>
+                       <tr>
+                        <td>regdate</td>
+                        <td><%=viewDto.getRegdate()%></td>                        
                       </tr>
                       <tr>
-                        <td>altitude</td>
-                        <td><%if(viewDto.getAltitude()==null || viewDto.getAltitude()==""){%>
-                        	위치정보가 등록되어 있지 않습니다.
-                        	<%}else {
-                        	out.println(viewDto.getAltitude());
-                        	}%>
-                        </td>
+                        <td>moddate</td>
+                        <td><%=viewDto.getModdate()%></td>
                       </tr>
                       <tr>
                         <td>regdate</td>
@@ -134,16 +104,29 @@ body {
                         <td>moddate</td>
                         <td><%=viewDto.getModdate()%></td>
                       </tr> 
-                      <tr>
-                        <td>filesize</td>
-                        <td><%=viewDto.getFilesize()%></td>
-                      </tr>                                                                  
-                      <tr>
+                      <%if(viewDto.getFilename1()!=null || viewDto.getFilename1()!=""){ %>                                                                  
+	                      <tr>
+	                        <td>filename1</td>
+	                        <td><a href="<%=commonURL%>/down.do?id=board&filename=<%=viewDto.getFilename1()%>"><%=viewDto.getFilename1()%></a></td>
+	                      </tr>
+                      <%} %>
+                      <%if(viewDto.getFilename2()!=null || viewDto.getFilename2()!=""){ %>                                                                  
+	                      <tr>
+	                        <td>filename2</td>
+	                        <td><a href="<%=commonURL%>/down.do?id=board&filename=<%=viewDto.getFilename2()%>"><%=viewDto.getFilename2()%></a></td>
+	                      </tr>
+                      <%} %>
+                      <%if(viewDto.getFilename3()!=null || viewDto.getFilename3()!=""){ %>                                                                  
+	                      <tr>
+	                        <td>filename3</td>
+	                        <td><a href="<%=commonURL%>/down.do?id=board&filename=<%=viewDto.getFilename3()%>"><%=viewDto.getFilename3()%></a></td>
+	                      </tr>  
+                      <%} %>                      
                       <tr>
                         <td>ip_addr</td>
                         <td><%=viewDto.getIp_addr()%></td>
                       </tr>                                                                  
-                      <tr>
+                      
                       <tr>
                         <td>hit</td>
                         <td><%=viewDto.getHit()%></td>
@@ -152,6 +135,7 @@ body {
                         <td>Email</td>
                         <td><a href="mailto:info@support.com">info@support.com</a></td>
                       </tr>
+                      <tr>
                         <td>Phone Number</td>
                         <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
                         </td>

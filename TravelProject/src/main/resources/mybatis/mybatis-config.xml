@@ -15,16 +15,16 @@
    			type="com.multi.travel.member.dto.MemberDto"/>
    		<typeAlias alias="ImageDto" 
    			type="com.multi.travel.image.dto.ImageDto"/>
-   				   			
+   		<typeAlias alias="QnaDto" 
+   			type="com.multi.travel.board.Qna.dto.QnaDto"/>
+   			   				   			
 	</typeAliases>
 
 	<mappers>
- 	  <mapper resource=
-	  			"/com/multi/travel/board/data/Board.xml"/>
-	  <mapper resource=
-	  			"/com/multi/travel/member/data/Member.xml"/>
-	  <mapper resource=
-	  			"/com/multi/travel/image/data/Image.xml"/>	  			
+ 	  <mapper resource="/com/multi/travel/board/data/Board.xml"/>
+	  <mapper resource="/com/multi/travel/member/data/Member.xml"/>
+	  <mapper resource="/com/multi/travel/image/data/Image.xml"/>
+	  <mapper resource="/com/multi/travel/board/Qna/data/Qna.xml"/>	  				  			
 	</mappers>
 	
 </configuration>

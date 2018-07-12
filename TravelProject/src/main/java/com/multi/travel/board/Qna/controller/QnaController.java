@@ -1,4 +1,4 @@
-package com.multi.travel.board.controller;
+package com.multi.travel.board.Qna.controller;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.multi.travel.board.dto.BoardDto;
-import com.multi.travel.board.service.BoardService;
+import com.multi.travel.board.Qna.dto.QnaDto;
+import com.multi.travel.board.Qna.service.QnaService;
 import com.multi.travel.common.CommonConst;
 import com.multi.travel.common.FileUploader;
 import com.multi.travel.common.IP;
@@ -26,35 +26,33 @@ import com.multi.travel.image.dto.ImageDto;
 import com.multi.travel.image.service.ImageService;
 
 @Controller 
-public class BoardController {
-	@Resource(name="boardServiceImpl")
-	BoardService boardService;
+public class QnaController {
+	@Resource(name="qnaServiceImpl")
+	QnaService qnaService;
 	
-	@Resource(name="imageServiceImpl")
-	ImageService imageService;
 	
 	//컨트롤러에서 직접 dao 사용하지 말고 서비스 
 	//통해서 
-	@RequestMapping("/board/list")
-	public void list(Model model, BoardDto dto)
+	@RequestMapping("/Qna/list")
+	public void QnAlist(Model model, QnaDto dto)
 	{
-		System.out.println("@@@@@@boardSel@@@@@@@ : "+dto.getSel());
-		List<BoardDto> list = boardService.getList(dto);
-		int total = boardService.getTotal(dto);
+		System.out.println("@@@@@@QnaSel@@@@@@@ : "+dto.getSel());
+		List<QnaDto> list = qnaService.getList(dto);
+		int total = qnaService.getTotal(dto);
 		
 		if(dto == null) {
 			System.out.println("dto is null");
 		}
 		else {
 			System.out.println("dto is not null");
-			System.out.println("boardSeq 리스트꺼");
+			System.out.println("QnaSeq 리스트꺼");
 			
-			if(dto.getBoard_seq() == null || dto.getBoard_seq().equals("")) {
-				System.out.println("boardSeq is null");
+			if(dto.getQna_seq() == null || dto.getQna_seq().equals("")) {
+				System.out.println("QnaSeq is null");
 			}
 			else {
-				System.out.println("boardSeq is not null");
-				System.out.println(dto.getBoard_seq());	
+				System.out.println("QnaSeq is not null");
+				System.out.println(dto.getQna_seq());	
 			}
 		}
 		
@@ -63,7 +61,7 @@ public class BoardController {
 		
 		for(int i=0; i<list.size(); i++)
 		{
-			BoardDto temp = list.get(i);
+			QnaDto temp = list.get(i);
 			System.out.println(temp.getTitle());
 		}
 		System.out.println("전체 개수 : "+total);
@@ -72,18 +70,18 @@ public class BoardController {
 	
 	
 	
-	@RequestMapping("/board/test")
-	public void test(Model model, BoardDto dto)
+	@RequestMapping("/Qna/test")
+	public void test(Model model, QnaDto dto)
 	{
-		List<BoardDto> list = boardService.getList(dto);
-		int total = boardService.getTotal(dto);
+		List<QnaDto> list = qnaService.getList(dto);
+		int total = qnaService.getTotal(dto);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("total", total);
 		
 		for(int i=0; i<list.size(); i++)
 		{
-			BoardDto temp = list.get(i);
+			QnaDto temp = list.get(i);
 			System.out.println(temp.getTitle());
 			System.out.println(temp.getModdate());
 		}
@@ -94,13 +92,13 @@ public class BoardController {
 
 	
 
-	//board/save.mt?title=test&contents=내용&userid=test
-	@RequestMapping("/board/save")
-	public @ResponseBody String save(HttpServletRequest req, BoardDto dto)
+	//Qna/save.mt?title=test&contents=내용&userid=test
+	@RequestMapping("/Qna/save")
+	public @ResponseBody String save(HttpServletRequest req, QnaDto dto)
 	{		
 		ServletContext ctx= req.getServletContext();
 		
-		String path = ctx.getRealPath(CommonConst.BOARD_PATH);
+		String path = ctx.getRealPath(CommonConst.QnA_PATH);
 		System.out.println(path);
 		
 		String ip = IP.getClientIP(req);
@@ -121,17 +119,17 @@ public class BoardController {
 			dto.getFieldNameList().add("filename"+(i+1));
 		}
 		
-		boardService.insert(dto);
+		qnaService.insert(dto);
 		
 		return "success";
 	}
-	// /board/view.mt?seq=200
-	@RequestMapping("/board/view")
-	public void getView(Model model, BoardDto dto)
+	// /Qna/view.mt?seq=200
+	@RequestMapping("/Qna/view")
+	public void getView(Model model, QnaDto dto)
 	{
-		BoardDto viewDto = boardService.getView(dto.getBoard_seq());
-		BoardDto prevDto = boardService.getPrev(viewDto);
-		BoardDto nextDto = boardService.getNext(viewDto);
+		QnaDto viewDto = qnaService.getView(dto.getQna_seq());
+		QnaDto prevDto = qnaService.getPrev(viewDto);
+		QnaDto nextDto = qnaService.getNext(viewDto);
 		
 		model.addAttribute("viewDto", viewDto);
 		model.addAttribute("prevDto", prevDto);
@@ -140,22 +138,22 @@ public class BoardController {
 	
 	
 	
-	@RequestMapping("/board/write")
-	public void write(BoardDto dto, String mode,Model model)
+	@RequestMapping("/Qna/write")
+	public void write(QnaDto dto, String mode,Model model)
 	{
-		//board/write.jsp 로 이동 
+		//Qna/write.jsp 로 이동 
 		/*
 		 * 1.등록할때 - 작업할거 없음  
 		 * 2.수정할때 - 수정할대상을 불러와야 함 
 		 * 3.답글달때 - 부모글의 정보를 가져와야 한다
 		 */
-		BoardDto resultDto=null;
+		QnaDto resultDto=null;
 		System.out.println("mode : " + mode);
 		Hashtable<String, String> map = new Hashtable<String, String>();
 
 		if(mode!=null && !mode.equals("") && !mode.equals("insert"))
 		{
-			resultDto = boardService.getView(dto.getBoard_seq());
+			resultDto = qnaService.getView(dto.getQna_seq());
 			System.out.println(resultDto.getTitle());
 
 			if(mode.equals("reply"))
@@ -178,10 +176,10 @@ public class BoardController {
 		}
 		
 		if(mode.equals("insert")) {
-/*			resultDto = new BoardDto();
+/*			resultDto = new QnaDto();
 			resultDto.setUserid(dto.getUserid());
 			System.out.println(resultDto.getUserid());*/
-			//resultDto = boardService.getView(dto.getBoard_seq());
+			//resultDto = QnaService.getView(dto.getQna_seq());
 			System.out.println("RESULT DTO USERID"+dto.getUserid());
 		}
 		
@@ -191,15 +189,15 @@ public class BoardController {
 		model.addAttribute("resultDto", resultDto);
 		model.addAttribute("filemap", map);
 		//jsp단에서는 
-		//BoardDto dto = 
-		//  (BoardDto)request.getAttribute("resultDto")
+		//QnaDto dto = 
+		//  (QnaDto)request.getAttribute("resultDto")
 		
 	}
 
 	
-	@RequestMapping("/board/update")
+	@RequestMapping("/Qna/update")
 	public @ResponseBody 
-	String update(BoardDto dto,
+	String update(QnaDto dto,
 			   HttpServletRequest req,
 			   String []del,
 			   String []old_name)
@@ -208,7 +206,7 @@ public class BoardController {
 		dto.setFilename2(old_name[1]);
 		dto.setFilename3(old_name[2]);
 		ServletContext ctx= req.getServletContext();
-		String path = ctx.getRealPath(CommonConst.BOARD_PATH);
+		String path = ctx.getRealPath(CommonConst.QnA_PATH);
 		System.out.println(path);
 		//파일 업로드 경로잡기 
 		FileUploader.setFilePath(path);
@@ -233,19 +231,19 @@ public class BoardController {
 				dto.setFilename3(filename);
 		}
 		
-		boardService.update(dto);
+		qnaService.update(dto);
 		
 		return "success";
 	}
 	
 	
-	@RequestMapping("/board/reply")
+	@RequestMapping("/Qna/reply")
 	public @ResponseBody 
-	String  reply(  HttpServletRequest req, BoardDto dto)
+	String  reply(  HttpServletRequest req, QnaDto dto)
 	{		
 		ServletContext ctx= req.getServletContext();
 		
-		String path = ctx.getRealPath(CommonConst.BOARD_PATH);
+		String path = ctx.getRealPath(CommonConst.QnA_PATH);
 		System.out.println(path);
 		
 		//파일 업로드 경로잡기 
@@ -254,7 +252,7 @@ public class BoardController {
 		//Client Ip 설정.
 		String ip = IP.getClientIP(req);
 		dto.setIp_addr(ip);
-/*		board_seq
+/*		Qna_seq
 		,title
 		,contents
 		,userid
@@ -267,7 +265,7 @@ public class BoardController {
 		,ip_addr*/
 		System.out.println("시작");
 		
-/*		System.out.println(dto.getBoard_seq());
+/*		System.out.println(dto.getQna_seq());
 		System.out.println(dto.getTitle());
 		System.out.println(dto.getContents());
 		System.out.println(dto.getUserid());
@@ -289,26 +287,26 @@ public class BoardController {
 			dto.getFieldNameList().add("filename"+(i+1));
 		}
 			
-		boardService.reply(dto);
+		qnaService.reply(dto);
 		return "success";
 	}
 	
-	@RequestMapping("/board/delete")
+	@RequestMapping("/Qna/delete")
 	public @ResponseBody 
-	String  delete(BoardDto dto)
+	String  delete(QnaDto dto)
 	{
-		boardService.delete(dto);
+		qnaService.delete(dto);
 		return "success";
 	}
 	
 
-	// /board2/view.mt?seq=200
-	@RequestMapping("/board/boardview")
-	public void getBoardView(Model model, BoardDto dto)
+	// /Qna2/view.mt?seq=200
+	@RequestMapping("/Qna/Qnaview")
+	public void getQnaView(Model model, QnaDto dto)
 	{
-		BoardDto viewDto = boardService.getView(dto.getBoard_seq());
-		BoardDto prevDto = boardService.getPrev(viewDto);
-		BoardDto nextDto = boardService.getNext(viewDto);
+		QnaDto viewDto = qnaService.getView(dto.getQna_seq());
+		QnaDto prevDto = qnaService.getPrev(viewDto);
+		QnaDto nextDto = qnaService.getNext(viewDto);
 		
 		model.addAttribute("viewDto", viewDto);
 		model.addAttribute("prevDto", prevDto);
@@ -318,22 +316,22 @@ public class BoardController {
 	
 	
 	
-	@RequestMapping("/board/boardwrite")
-	public void boardwrite(BoardDto dto, String mode,Model model)
+	@RequestMapping("/Qna/Qnawrite")
+	public void Qnawrite(QnaDto dto, String mode,Model model)
 	{
-		//board/write.jsp 로 이동 
+		//Qna/write.jsp 로 이동 
 		/*
 		 * 1.등록할때 - 작업할거 없음  
 		 * 2.수정할때 - 수정할대상을 불러와야 함 
 		 * 3.답글달때 - 부모글의 정보를 가져와야 한다
 		 */
-		BoardDto resultDto=null;
+		QnaDto resultDto=null;
 		System.out.println("mode : " + mode);
 		Hashtable<String, String> map = new Hashtable<String, String>();
 
 		if(mode!=null && !mode.equals("") && !mode.equals("insert"))
 		{
-			resultDto = boardService.getView(dto.getBoard_seq());
+			resultDto = qnaService.getView(dto.getQna_seq());
 			System.out.println(resultDto.getTitle());
 
 			if(mode.equals("reply"))
@@ -356,10 +354,10 @@ public class BoardController {
 		}
 		
 		if(mode.equals("insert")) {
-/*			resultDto = new BoardDto();
+/*			resultDto = new QnaDto();
 			resultDto.setUserid(dto.getUserid());
 			System.out.println(resultDto.getUserid());*/
-			//resultDto = boardService.getView(dto.getBoard_seq());
+			//resultDto = QnaService.getView(dto.getQna_seq());
 			System.out.println("RESULT DTO USERID"+dto.getUserid());
 		}
 		
@@ -369,8 +367,8 @@ public class BoardController {
 		model.addAttribute("resultDto", resultDto);
 		model.addAttribute("filemap", map);
 		//jsp단에서는 
-		//BoardDto dto = 
-		//  (BoardDto)request.getAttribute("resultDto")
+		//QnaDto dto = 
+		//  (QnaDto)request.getAttribute("resultDto")
 		
 	}	
 	

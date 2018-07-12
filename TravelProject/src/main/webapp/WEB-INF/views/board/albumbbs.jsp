@@ -71,9 +71,9 @@ if(request.getParameter("sel")!=null)
 		List<ImageDto> ImageList =(ArrayList<ImageDto>)request.getAttribute("ImageList");
 	%>	
 			<%for(int i=0; i<ImageList.size(); i++){ %>
-				
+					
 					<div class="col-md-4 fh5co-item-wrap">
-						<a class="fh5co-listing-item">
+						<a class="fh5co-listing-item" href="${commonURL}/board/imageview.do?image_seq=<%=ImageList.get(i).getImage_seq() %>">
 							<img id="ImageSrc<%=(i+1)%>" name="ImageSrcs" src="${commonURL}/upload/image/<%=ImageList.get(i).getTitle()%>" style="width:400px; height:300px;" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive">
 							<div class="fh5co-listing-copy">
 								<h2 id="h<%=(i+1)%>" name="h<%=(i+1)%>"><%=ImageList.get(i).getTitle() %></h2>
