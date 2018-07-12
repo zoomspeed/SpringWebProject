@@ -33,28 +33,13 @@ public class QnaController {
 	
 	//컨트롤러에서 직접 dao 사용하지 말고 서비스 
 	//통해서 
-	@RequestMapping("/Qna/list")
+	@RequestMapping("/board/qna/list")
 	public void QnAlist(Model model, QnaDto dto)
 	{
 		System.out.println("@@@@@@QnaSel@@@@@@@ : "+dto.getSel());
 		List<QnaDto> list = qnaService.getList(dto);
 		int total = qnaService.getTotal(dto);
 		
-		if(dto == null) {
-			System.out.println("dto is null");
-		}
-		else {
-			System.out.println("dto is not null");
-			System.out.println("QnaSeq 리스트꺼");
-			
-			if(dto.getQna_seq() == null || dto.getQna_seq().equals("")) {
-				System.out.println("QnaSeq is null");
-			}
-			else {
-				System.out.println("QnaSeq is not null");
-				System.out.println(dto.getQna_seq());	
-			}
-		}
 		
 		model.addAttribute("list", list);
 		model.addAttribute("total", total);
@@ -68,32 +53,11 @@ public class QnaController {
 	}
 
 	
-	
-	
-	@RequestMapping("/Qna/test")
-	public void test(Model model, QnaDto dto)
-	{
-		List<QnaDto> list = qnaService.getList(dto);
-		int total = qnaService.getTotal(dto);
-		
-		model.addAttribute("list", list);
-		model.addAttribute("total", total);
-		
-		for(int i=0; i<list.size(); i++)
-		{
-			QnaDto temp = list.get(i);
-			System.out.println(temp.getTitle());
-			System.out.println(temp.getModdate());
-		}
-		System.out.println("전체 개수 : "+total);
-	}	
-	
-	
 
 	
 
 	//Qna/save.mt?title=test&contents=내용&userid=test
-	@RequestMapping("/Qna/save")
+	@RequestMapping("/board/qna/save")
 	public @ResponseBody String save(HttpServletRequest req, QnaDto dto)
 	{		
 		ServletContext ctx= req.getServletContext();
@@ -124,7 +88,7 @@ public class QnaController {
 		return "success";
 	}
 	// /Qna/view.mt?seq=200
-	@RequestMapping("/Qna/view")
+	@RequestMapping("/board/qna/view")
 	public void getView(Model model, QnaDto dto)
 	{
 		QnaDto viewDto = qnaService.getView(dto.getQna_seq());
@@ -138,7 +102,7 @@ public class QnaController {
 	
 	
 	
-	@RequestMapping("/Qna/write")
+	@RequestMapping("/board/qna/write")
 	public void write(QnaDto dto, String mode,Model model)
 	{
 		//Qna/write.jsp 로 이동 
@@ -195,7 +159,7 @@ public class QnaController {
 	}
 
 	
-	@RequestMapping("/Qna/update")
+	@RequestMapping("/board/qna/update")
 	public @ResponseBody 
 	String update(QnaDto dto,
 			   HttpServletRequest req,
@@ -237,7 +201,7 @@ public class QnaController {
 	}
 	
 	
-	@RequestMapping("/Qna/reply")
+	@RequestMapping("/board/qna/reply")
 	public @ResponseBody 
 	String  reply(  HttpServletRequest req, QnaDto dto)
 	{		
@@ -291,7 +255,7 @@ public class QnaController {
 		return "success";
 	}
 	
-	@RequestMapping("/Qna/delete")
+	@RequestMapping("/board/qna/delete")
 	public @ResponseBody 
 	String  delete(QnaDto dto)
 	{
@@ -299,78 +263,7 @@ public class QnaController {
 		return "success";
 	}
 	
-
-	// /Qna2/view.mt?seq=200
-	@RequestMapping("/Qna/Qnaview")
-	public void getQnaView(Model model, QnaDto dto)
-	{
-		QnaDto viewDto = qnaService.getView(dto.getQna_seq());
-		QnaDto prevDto = qnaService.getPrev(viewDto);
-		QnaDto nextDto = qnaService.getNext(viewDto);
-		
-		model.addAttribute("viewDto", viewDto);
-		model.addAttribute("prevDto", prevDto);
-		model.addAttribute("nextDto", nextDto);
-	}
 	
-	
-	
-	
-	@RequestMapping("/Qna/Qnawrite")
-	public void Qnawrite(QnaDto dto, String mode,Model model)
-	{
-		//Qna/write.jsp 로 이동 
-		/*
-		 * 1.등록할때 - 작업할거 없음  
-		 * 2.수정할때 - 수정할대상을 불러와야 함 
-		 * 3.답글달때 - 부모글의 정보를 가져와야 한다
-		 */
-		QnaDto resultDto=null;
-		System.out.println("mode : " + mode);
-		Hashtable<String, String> map = new Hashtable<String, String>();
-
-		if(mode!=null && !mode.equals("") && !mode.equals("insert"))
-		{
-			resultDto = qnaService.getView(dto.getQna_seq());
-			System.out.println(resultDto.getTitle());
-
-			if(mode.equals("reply"))
-			{
-				resultDto.setTitle("답글:");
-				resultDto.setContents("");
-			}
-			
-			//배열이 아니고 필드명이 filename1, filename2, filename3
-			//for문 사용 안되니까 배열 구조로 바꾸기
-			//해쉬테이블 사용하기 
-			
-			System.out.println(resultDto.getFilename1());
-			System.out.println(resultDto.getFilename2());
-			System.out.println(resultDto.getFilename3());
-				
-			map.put("filename1", resultDto.getFilename1());
-			map.put("filename2", resultDto.getFilename2());
-			map.put("filename3", resultDto.getFilename3());
-		}
-		
-		if(mode.equals("insert")) {
-/*			resultDto = new QnaDto();
-			resultDto.setUserid(dto.getUserid());
-			System.out.println(resultDto.getUserid());*/
-			//resultDto = QnaService.getView(dto.getQna_seq());
-			System.out.println("RESULT DTO USERID"+dto.getUserid());
-		}
-		
-		//System.out.println("getUserid:~~~~~~~~~~~~~");
-		//System.out.println(resultDto.getUserid());		
-		//jsp로 전달 작업 
-		model.addAttribute("resultDto", resultDto);
-		model.addAttribute("filemap", map);
-		//jsp단에서는 
-		//QnaDto dto = 
-		//  (QnaDto)request.getAttribute("resultDto")
-		
-	}	
 	
 }
 

@@ -68,8 +68,8 @@
 										
 										
 										<a href='
-										<c:url value="/board/boardview.do">
-											<c:param name="board_seq" value="${item.board_seq}"/>
+										<c:url value="/board/qna/view.do">
+											<c:param name="qna_seq" value="${item.qna_seq}"/>
 											<c:param name="pg" value="${param.pg}"/>
 											<c:param name="sel" value="${param.sel}"/>
 											<c:param name="key" value="${param.key}"/>
@@ -189,8 +189,8 @@ function goSearch()
 	frm.submit();*/
 	
 	$("#pg").val("0"); 
-	$("#mform").attr("action", "${commonURL}/board/test.do");
-	$("#mform").prop("action", "${commonURL}/board/test.do");
+	$("#mform").attr("action", "${commonURL}/board/qna/list.do");
+	$("#mform").prop("action", "${commonURL}/board/qna/list.do");
 
 	$("#mform").submit();
 }
@@ -217,8 +217,8 @@ function goSearch()
 			$("#pg").val(pg); //frm.pg.value=pg;
 			//jquery버전이나 브라우저에 따라서 attr이 
 			//먹는 경우가 있고 prop가 먹는 경우가 있다 
-			$("#mform").attr("action", "${commonURL}/board/test.do");
-			$("#mform").prop("action", "${commonURL}/board/test.do");
+			$("#mform").attr("action", "${commonURL}/board/qna/list.do");
+			$("#mform").prop("action", "${commonURL}/board/qna/list.do");
 
 			$("#mform").submit();
 		}
@@ -234,8 +234,8 @@ function goSearch()
 				$("#key").val("");
 				$("#mode").val("insert");
 				
-				$("#mform").attr("action", "${commonURL}/board/boardwrite.do");
-				$("#mform").prop("action", "${commonURL}/board/boardwrite.do");
+				$("#mform").attr("action", "${commonURL}/board/qna/write.do");
+				$("#mform").prop("action", "${commonURL}/board/qna/write.do");
 
 				$("#mform").submit();
 			});
@@ -246,7 +246,7 @@ function goSearch()
 				$("#sel").val("all");
 				$("#key").val("");
 				
-				$("#mform").prop("action", "${commonURL}/board2/list.mt");
+				$("#mform").prop("action", "${commonURL}/board/qna/list.do");
 
 				$("#mform").submit();
 			})

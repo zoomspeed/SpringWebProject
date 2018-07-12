@@ -201,6 +201,7 @@ public class BoardController2 {
 				CommonConst.BOARD_PATH);
 		System.out.println(path);
 		
+		System.out.println(dto.getFieldNameList());
 		//파일 업로드 경로잡기 
 		FileUploader.setFilePath(path);
 		

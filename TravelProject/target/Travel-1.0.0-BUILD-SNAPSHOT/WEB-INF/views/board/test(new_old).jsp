@@ -1,8 +1,8 @@
 <%@ page language="java" 
     contentType="text/html;charset=utf-8"
     pageEncoding="utf-8"%>
-<%@include file="../include/common4.jsp"%>
-	<%@include file="../include/header2.jsp"%>
+<%@include file="../include/common_main.jsp"%>
+	<%@include file="../include/startheader.jsp"%>
 	<%@include file="../include/left.jsp"%>	
 
 

@@ -2,235 +2,262 @@
     contentType="text/html;charset=utf-8"
     pageEncoding="utf-8"%>
 <%@page import="com.multi.travel.common.*"%>    
-<%@include file="../include/common4.jsp"%>
-	<%@include file="../include/header2.jsp"%>
-	<%@include file="../include/left.jsp"%>			
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@include file="../include/common_main.jsp"%>
 
-<!-- 
-</head>
-
-<body>
- -->
-<form name="mform" id="mform">
- 
- 
- <input type="text" name="pg" value="<%=pg%>" id="pg" />
-	<input type="text" name="mode" id="mode" />
-	<input type="text" name="board_seq" id="board_seq" />
- 
- <br/><br/><br/><br/>
-    <div class="container">
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-5">
-						<h2> <b>자유게시판</b></h2>
-					</div>
-					<div class="col-sm-7">
-						<a href="#" class="btn btn-primary"><i class="material-icons">&#xE147;</i> <span>Add New User</span></a>
-						<a href="#" class="btn btn-primary"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>						
-					</div>
-                </div>
-            </div>
-            
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Seq</th>
-                        <th>Name</th>						
-						<th>Date Created</th>
-						<th>Role</th>
-                        <th>Status</th>
-						<th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                
-                
-                
-                
-                
-                
-                
-                <c:forEach var="item" items="${list}" >
-					<tr>
-						<td class="first">
-							<c:out value="${total-item.num+1}"/>
-						</td>
-						<td class="list">
-						    <c:forEach var="i" begin="1" 
-						          end="${item.depth}">
-						          &nbsp;&nbsp;&nbsp;
-						    </c:forEach> 
-							<c:if test="${item.depth!='0'}">
-								ㄴ>  
-							</c:if>
-
-							<a href='
-							<c:url value="/board2/view.do">
-								<c:param name="board_seq" value="${item.board_seq}"/>
-								<c:param name="pg" value="${param.pg}"/>
-								<c:param name="sel" value="${param.sel}"/>
-								<c:param name="key" value="${param.key}"/>
-							</c:url>'>
-							<c:out value="${item.title}"/>
-							</a>
-							
-							
-						</td>
-						<td>
-							<c:out value="${item.userid}"/>
-						</td>
-						<td>
-							<c:out value="${item.regdate}"/>
-						</td>
-						<td>
-							<c:out value="${item.hit}"/>
-						</td>
-						<td class="last">
-							<a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-							<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-						</td>
-					</tr>
-				</c:forEach>
-                
-                
-                
-          <!--       
-                
-                    <tr>
-                        <td>1</td>
-                        <td><a href="#"><img src="/examples/images/avatar/1.jpg" class="avatar" alt="Avatar"> Michael Holz</a></td>
-                        <td>04/10/2013</td>                        
-                        <td>Admin</td>
-						<td><span class="status text-success">&bull;</span> Active</td>
-						<td>
-							<a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-							<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-						</td>
-                    </tr>
-					<tr>
-                        <td>2</td>
-                        <td><a href="#"><img src="/examples/images/avatar/2.jpg" class="avatar" alt="Avatar"> Paula Wilson</a></td>
-                        <td>05/08/2014</td>                       
-						<td>Publisher</td>
-						<td><span class="status text-success">&bull;</span> Active</td>
-						<td>
-							<a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-							<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-						</td>
-                    </tr>
-					<tr>
-                        <td>3</td>
-                        <td><a href="#"><img src="/examples/images/avatar/3.jpg" class="avatar" alt="Avatar"> Antonio Moreno</a></td>
-                        <td>11/05/2015</td>
-						<td>Publisher</td>
-                        <td><span class="status text-danger">&bull;</span> Suspended</td>                        
-						<td>
-							<a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-							<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-						</td>                        
-                    </tr>
-					<tr>
-                        <td>4</td>
-                        <td><a href="#"><img src="/examples/images/avatar/4.jpg" class="avatar" alt="Avatar"> Mary Saveley</a></td>
-                        <td>06/09/2016</td>
-						<td>Reviewer</td>
-						<td><span class="status text-success">&bull;</span> Active</td>
-						<td>
-							<a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-							<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-						</td>
-                    </tr>
-					<tr>
-                        <td>5</td>
-                        <td><a href="#"><img src="${commonURL}/resources/images/admin/header/logout.gif" class="avatar" alt="Avatar"> Martin Sommer</a></td>
-                        <td>12/08/2017</td>                        
-                        <td>Moderator</td>
-						<td><span class="status text-warning">&bull;</span> Inactive</td>
-						<td>
-							<a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-							<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-						</td>
-                    </tr>
-           -->      
-           
-            
-                </tbody>
-            </table>
-			<div class="clearfix">
-                <div class="hint-text">Showing <b>10</b> out of <b>${total}</b> entries</div>
-                
-                	<% 
-					int total = Integer.parseInt(request.getAttribute("total").toString());
-					out.print(Pager.makeTag(request, 10,total));
-					%>
-          
-               <!--  <ul class="pagination">
-                
-                	
-					<li class="page-item disabled"><a href="#" class="page-link">Previous</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                    <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                     
-                </ul>
-               -->
-            </div>
-        </div>
-    </div>     
-    				
-				
-    
-				<!-- pagination S -->
-				
-
+	<%@include file="../include/startheader.jsp"%>
+	<%@include file="../include/listheader.jsp"%>
+	<%-- <%@include file="../include/left.jsp"%>	 --%>	
 		
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@include file="../include/mainheader.jsp"%>
+<form name="mform" id="mform">
+<input type="hidden" name="pg" value="<%=pg%>" id="pg" />
+<input type="hidden" name="mode" value="insert" id="mode" />
+<br/><br/><br/><br/>
+	<div class="limiter" >
+		<div class="container-table100" style="background-color:#e6e6ff">
+			<div class="wrap-table100">
 
-				<!-- pagination E -->
-</form>
-</body>
-</html>      
+				<br/><br/>
 
+
+				<div class="table100 ver1 m-b-110">
+					<div class="table100-head">
+						<table>
+							<thead>
+								<tr class="row100 head">
+									<th class="cell100 column5" style="width:12%;"><font size="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Number</font></th>
+									<th class="cell100 column3" style="width:17%;"><font size="4">Title</font></th>
+									<th class="cell100 column2" style="width:13%;"><font size="4">Userid</font></th>
+									<th class="cell100 column5" style="width:11%;"><font size="4">RegDate</font></th>
+									<th class="cell100 column5" style="width:11%;"><font size="4" >ModDate</font></th>
+									<th class="cell100 column5"><font size="4">Hit</font></th>
+									<th class="cell100 column5"><font size="4" >Ip_addr</font></th>
+									<th class="cell100 column6"><font size="4" >del/mod</font></th>
+									<th class="cell100 column6"><font size="4"></font></th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+
+					<div class="table100-body js-pscroll">
+						<table>
+							<tbody>
+							
+							
+							
+							
+							
+								<c:forEach var="item" items="${list}" >
+								<tr class="row100 body">
+									<td  class="cell100 column5">
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										&nbsp;&nbsp;&nbsp;&nbsp;
+										<font size="4">
+										<c:out value="${total-item.num+1}"/>
+										</font>
+									</td>
+									<td class="cell100 column3">
+									    <c:forEach var="i" begin="1" 
+									          end="${item.depth}">
+									          &nbsp;&nbsp;&nbsp;
+									    </c:forEach> 
+										<c:if test="${item.depth!='0'}">
+											ㄴ>  	
+										</c:if>
+										
+										
+										<a href='
+										<c:url value="/board/boardview.do">
+											<c:param name="board_seq" value="${item.board_seq}"/>
+											<c:param name="pg" value="${param.pg}"/>
+											<c:param name="sel" value="${param.sel}"/>
+											<c:param name="key" value="${param.key}"/>
+										</c:url>'>
+										<font size="4" color="black">
+										<c:out value="${item.title}"/>
+										</font>
+										</a>
+										
+										
+										
+									</td>
+									<td class="cell100 column2">
+										<font size="4">
+										<c:out value="${item.userid}"/>
+										</font>
+									</td>
+									<td class="cell100 column5">
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<font size="4">
+										<c:out value="${item.regdate}"/>
+										</font>
+									</td>
+									<td class="cell100 column5">
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<font size="4">
+										<c:out value="${item.moddate}"/>
+										</font>
+									</td>									
+									<td class="cell100 column5">
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										&nbsp;&nbsp;&nbsp;&nbsp;
+										<font size="4">
+										<c:out value="${item.hit}"/>
+										</font>
+									</td>
+									<td class="cell100 column5">
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										&nbsp;&nbsp;&nbsp;&nbsp;
+										<%-- <c:out value="${item.username}"/> --%>
+										<font size="4">
+										<c:out value="${item.ip_addr}"/>
+										</font>
+										<!-- <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
+										<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a> -->
+									</td>
+									<td class="cell100 column6">
+										<a href="#" ><button type="button" class="btn btn-primary btn-sm"><font size="2">수정</font></button></a>
+									</td>
+									<td class="cell100 column6">
+										<a href="#" ><button type="button" class="btn btn-danger btn-sm"><font size="2">삭제</font></button></a>
+									</td>																
+								</tr>
+								</c:forEach>
+							
+							
+							
+<!-- 								<tr class="row100 body">
+									<td class="cell100 column5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100</td>
+									<td class="cell100 column1">Like a butterfly</td>
+									<td class="cell100 column2">Boxing</td>
+									<td class="cell100 column3">9:00 AM - 11:00 AM</td>
+									<td class="cell100 column4">Aaron Chapman</td>
+									<td class="cell100 column5">10</td>
+								</tr> -->
+
+
+							</tbody>
+						</table>
+
+					</div>
+
+				</div>
+				
+				<input id="key" name="key" type="text" value="${param.key}" class="keyword"  placeholder="Search..." />
+				<input type="hidden" name="search" id="search" onclick="goSearch()"/>
+				
+				
+				<select id="sel" name="sel">
+					<option value="all" <%if(sel.equals("all")){%>selected<%}%>>전체</option>
+					<option value="title" <%if(sel.equals("title")){%>selected<%}%>>제목</option>
+					<option value="contents" <%if(sel.equals("contents")){%>selected<%}%>>내용</option>
+				</select>				
+			<br/>
+				<button type="button" id="btnWrite" name="btnWrite" class="btn btn-primary btn-sm"><font size="2">글쓰기</font></button>
+	
+				<% 
+					int total = Integer.parseInt(request.getAttribute("total").toString());
+					out.print(Pager.makeTag(request, 16,total));
+				%>				
+			 
 					
-
-
-
+				 
+				
+			
+			</div>
+		</div>
+	</div>
+</form>
+<%@include file="../include/footer.jsp"%>
 
 <script>
-$(document).ready(function(){
-	$('[data-toggle="tooltip"]').tooltip();
+var input = document.getElementById("key");
+input.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("search").click();
+    }
 });
 
 
-
-function goPage(pg)
+function goSearch()
 {
 	/*var frm = document.mform;
-	frm.pg.value=pg;
+	frm.pg.value="0";//검색누르면 첫번째 페이지로 이동
 	frm.action="${commonURL}/board/list.mt";
 	frm.submit();*/
 	
-	$("#pg").val(pg); //frm.pg.value=pg;
-	//jquery버전이나 브라우저에 따라서 attr이 
-	//먹는 경우가 있고 prop가 먹는 경우가 있다 
+	$("#pg").val("0"); 
 	$("#mform").attr("action", "${commonURL}/board/test.do");
 	$("#mform").prop("action", "${commonURL}/board/test.do");
 
 	$("#mform").submit();
 }
 
-</script>	
+</script>
+
+<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+			
+		
+		function goPage(pg)
+		{
+			/*var frm = document.mform;
+			frm.pg.value=pg;
+			frm.action="${commonURL}/board/list.mt";
+			frm.submit();*/
+			
+			$("#pg").val(pg); //frm.pg.value=pg;
+			//jquery버전이나 브라우저에 따라서 attr이 
+			//먹는 경우가 있고 prop가 먹는 경우가 있다 
+			$("#mform").attr("action", "${commonURL}/board/test.do");
+			$("#mform").prop("action", "${commonURL}/board/test.do");
+
+			$("#mform").submit();
+		}
+		
+		
+		
+		
+		$(document).ready(function(){
+			$("#btnWrite").click(function(){
+				//여기다 write로 전송하기 
+				$("#pg").val("0"); 
+				$("#sel").val("all"); 
+				$("#key").val("");
+				$("#mode").val("insert");
+				
+				$("#mform").attr("action", "${commonURL}/board/boardwrite.do");
+				$("#mform").prop("action", "${commonURL}/board/boardwrite.do");
+
+				$("#mform").submit();
+			});
+			
+			//다른거 초기화 하고 데이터 다시 불러오기 
+			$("#btnList").click(function(){
+				$("#pg").val(0);
+				$("#sel").val("all");
+				$("#key").val("");
+				
+				$("#mform").prop("action", "${commonURL}/board2/list.mt");
+
+				$("#mform").submit();
+			})
+		});		
+		
+		
+		
+</script>
+	
+	
 	
 
-
-
-
-
-
-
-
+</body>
+</html>

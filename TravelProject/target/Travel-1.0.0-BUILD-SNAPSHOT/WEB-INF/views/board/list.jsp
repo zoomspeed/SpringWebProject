@@ -1,28 +1,20 @@
 <%@ page language="java" 
     contentType="text/html;charset=utf-8"
     pageEncoding="utf-8"%>
-<%@page import="java.util.*"%>
-<%@page import="com.multi.travel.board.dto.*"%>
 <%@page import="com.multi.travel.common.*"%>
 
-<%@include file="../include/common.jsp"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+       
+<%@include file="../include/common_old2.jsp"%>
 
-<%
-String sel="all";
-if(request.getParameter("sel")!=null)
-	sel = request.getParameter("sel");
-String key="";
-if(request.getParameter("key")!=null)
-	key = request.getParameter("key");
-
-%>
 
 <body class="admin" lang="en">
 <form name="mform" id="mform">
 	<input type="text" name="pg" value="<%=pg%>" id="pg" />
 	<input type="hidden" name="mode" id="mode" />
 	<input type="hidden" name="board_seq" id="board_seq" />
-	        
+
+
 <!-- site align S -->
 <div class="sa">
 
@@ -54,15 +46,22 @@ if(request.getParameter("key")!=null)
 
 					<h3><img src="${commonURL}/resources/images/board/def/search_title.gif" width="46" height="9" alt="search" /></h3>
 					<p>
-						<label for="sel" class="desc">Target</label>
+						<label for="target" class="desc">Target</label>
+						
+
+						
+						<label for="keyword" class="desc">Keyword</label>
 						<select id="sel" name="sel">
 							<option value="all" <%if(sel.equals("all")){%>selected<%}%>>전체</option>
 							<option value="title" <%if(sel.equals("title")){%>selected<%}%>>제목</option>
 							<option value="contents" <%if(sel.equals("contents")){%>selected<%}%>>내용</option>
-						</select>
-						<label for="key" class="desc">Keyword</label>
-						<input type="text" id="key" name="key" 
-						   class="keyword" size="30" value="<%=key%>"/> <span class="inbtn inputBtn"><input type="button" onclick="goSearch()" class="submit" value="Search" /></span>
+						</select>				
+						<input type="text" id="key" name="key"
+						    value="${param.key}"  
+							class="keyword" size="30" 
+						/>
+						<span class="inbtn inputBtn"><input type="button" 
+						 onclick="goSearch()" class="submit" value="Search" /></span>
 					</p>
 
 				</fieldset>
@@ -71,7 +70,7 @@ if(request.getParameter("key")!=null)
 
 			<!-- bbs header S -->
 			<div class="bhd">
-				<p class="fl"><strong>100 건</strong> 의 게시물이 있습니다.</p>
+				<p class="fl"><strong><c:out value="${total}"/>건</strong> 의 게시물이 있습니다.</p>
 			</div>
 			<!-- bbs header E -->
 
@@ -79,12 +78,12 @@ if(request.getParameter("key")!=null)
 			<table cellspacing="0" summary="[게시판명 프로그램입력]의 게시물 목록 입니다." class="bdl">
 				<caption class="desc">[게시판명 프로그램입력] 목록</caption>
 				<colgroup>
-					<col width="8%" />
-					<col width="*" />
 					<col width="10%" />
-					<col width="12%" />
+					<col width="*" />
+					<col width="10%"  />
 					<col width="8%" />
-					<col width="14%" />
+					<col width="12%" />
+					<col width="12%" />
 				</colgroup>
 				<thead>
 					<tr>
@@ -92,43 +91,55 @@ if(request.getParameter("key")!=null)
 						<th scope="col">제목</th>
 						<th scope="col">작성자</th>
 						<th scope="col">작성일</th>
-						<th scope="col" >조회</th>
-						<th scope="col" >비고</th>
+						<th scope="col">조회</th>
+						<th scope="col" class="last">비고</th>
 					</tr>
 				</thead>
 
 				<tbody>
-				<%
-					List<BoardDto> list 
-					 = (List<BoardDto>)request.getAttribute("list");
-					int total = (Integer)request.getAttribute("total");
-								
-					for(int i=0; i<list.size(); i++){
-						BoardDto item = list.get(i);
-						int num= total-Integer.parseInt(item.getNum())+1;
-						String url=commonURL + "/board/view.do?board_seq="
-								+ item.getBoard_seq() + "&sel="+sel
-								+ "&key="+key;
-						
-						String reply="";
-						for(int j=0; j<Integer.parseInt(item.getDepth()); j++)
-							reply += "&nbsp;&nbsp;&nbsp;";
-						if(reply.length()>0)
-							reply +="ㄴ>";
-				%>
+				
+		<c:forEach var="item" items="${list}" >
 					<tr>
-						<td class="first"><%=num%></td>
-						
-						<td class="list"><%=reply%><a href="<%=url%>"><%=item.getTitle()%></a></td>
-						<td><%=item.getUserid()%></td>
-						<td><%=item.getRegdate()%></td>
-						<td><%=item.getHit()%></td>
+						<td class="first">
+							<c:out value="${total-item.num+1}"/>
+						</td>
+						<td class="list">
+						    <c:forEach var="i" begin="1" 
+						          end="${item.depth}">
+						          &nbsp;&nbsp;&nbsp;
+						    </c:forEach> 
+							<c:if test="${item.depth!='0'}">
+								ㄴ>  
+							</c:if>
+
+							<a href='
+							<c:url value="/board2/view.do">
+								<c:param name="board_seq" value="${item.board_seq}"/>
+								<c:param name="pg" value="${param.pg}"/>
+								<c:param name="sel" value="${param.sel}"/>
+								<c:param name="key" value="${param.key}"/>
+							</c:url>'>
+							<c:out value="${item.title}"/>
+							</a>
+							
+							
+						</td>
+						<td>
+							<c:out value="${item.userid}"/>
+						</td>
+						<td>
+							<c:out value="${item.regdate}"/>
+						</td>
+						<td>
+							<c:out value="${item.hit}"/>
+						</td>
 						<td class="last">
-							<a href="#none" class="btn" onclick="goModify('<%=item.getBoard_seq()%>')"><span>수정</span></a>
-							<a href="#none" class="btn" onclick="goDelete('<%=item.getBoard_seq()%>')"><span>삭제</span></a>
+							<a href="#" class="btn"><span>수정</span></a>
+							<a href="#" class="btn"><span>삭제</span></a>
 						</td>
 					</tr>
-		<%} %>
+		</c:forEach>
+					
 				</tbody>
 
 			</table>
@@ -146,7 +157,12 @@ if(request.getParameter("key")!=null)
 				<!-- pagination S -->
 				<div class="pg">
 
-					<%=Pager.makeTag(request, 10, total)%>
+		
+					<% 
+					int total = Integer.parseInt(
+							request.getAttribute("total").toString());
+					out.print(Pager.makeTag(request, 10,total));
+					%>
 				</div>
 				<!-- pagination E -->
 
@@ -154,7 +170,6 @@ if(request.getParameter("key")!=null)
 					<ul>
 						<li><a href="#none" id="btnList">목록</a></li>
 						<li><a href="#none" id="btnWrite">글쓰기</a></li>
-						
 					</ul>
 				</div>
 
@@ -169,12 +184,12 @@ if(request.getParameter("key")!=null)
 	</div>
 	<!-- section E -->
 
-	<%@include file="../include/footer.jsp"%>
+	<%@include file="../include/footer_ami.jsp"%>
 
 </div>
 <!-- site align E -->
 
-</form>
+
 </body>
 </html>
 
@@ -189,10 +204,8 @@ function goPage(pg)
 	$("#pg").val(pg); //frm.pg.value=pg;
 	//jquery버전이나 브라우저에 따라서 attr이 
 	//먹는 경우가 있고 prop가 먹는 경우가 있다 
-	$("#mform").attr("action", 
-			"${commonURL}/board/list.do");
-	$("#mform").prop("action", 
-	"${commonURL}/board/list.do");
+	$("#mform").attr("action", "${commonURL}/board2/list.mt");
+	$("#mform").prop("action", "${commonURL}/board2/list.mt");
 
 	$("#mform").submit();
 }
@@ -205,37 +218,35 @@ function goSearch()
 	frm.submit();*/
 	
 	$("#pg").val("0"); 
-	$("#mform").attr("action", 
-			"${commonURL}/board/list.do");
-	$("#mform").prop("action", 
-	"${commonURL}/board/list.do");
+	$("#mform").attr("action", "${commonURL}/board2/list.mt");
+	$("#mform").prop("action", "${commonURL}/board2/list.mt");
 
 	$("#mform").submit();
 }
 
-function goModify(board_seq)
+function goModify(seq)
 {
 	$("#mode").val("update");
-	$("#board_seq").val(board_seq);
-	var url="${commonURL}/board/write.do";
+	$("#seq").val(seq);
+	var url="${commonURL}/board2/write.mt";
 	$("#mform").attr("action",url);
 	$("#mform").prop("action",url);
 	$("#mform").submit();
 }
 
-function goDelete(board_seq)
+function goDelete(seq)
 {
 	if( confirm("삭제하시겠습니까? "))
 	{
-		var url="${commonURL}/board/delete.do";
+		var url="${commonURL}/board2/delete.mt";
 		$.ajax({
 			url:url,
-			data:{"board_seq":board_seq},
+			data:{"seq":seq},
 			dataType:"text",
 			success:function(data){
 				alert("글이 삭제되었습니다");
 				//현재 페이지 새로 고침하기 
-				//location.reload();
+				location.reload();
 			},
 			error:function(e){
 				alert("삭제 실패");
@@ -253,11 +264,22 @@ $(document).ready(function(){
 		$("#key").val("");
 		$("#mode").val("insert");
 		
-		$("#mform").attr("action", "${commonURL}/board/write.do");
-		$("#mform").prop("action", "${commonURL}/board/write.do");
+		$("#mform").attr("action", "${commonURL}/board2/write.mt");
+		$("#mform").prop("action", "${commonURL}/board2/write.mt");
 
 		$("#mform").submit();
 	});
+	
+	//다른거 초기화 하고 데이터 다시 불러오기 
+	$("#btnList").click(function(){
+		$("#pg").val(0);
+		$("#sel").val("all");
+		$("#key").val("");
+		
+		$("#mform").prop("action", "${commonURL}/board2/list.mt");
+
+		$("#mform").submit();
+	})
 });
 
 

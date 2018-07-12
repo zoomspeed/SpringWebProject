@@ -2,7 +2,7 @@
     contentType="text/html;charset=utf-8"
     pageEncoding="utf-8"%>
 <%@page import="java.util.*"%>    
-<%@page import="com.multi.travel.board.dto.*"%>
+<%@page import="com.multi.travel.board.Qna.dto.*"%>
 <%@page import="com.multi.travel.common.*"%>
  <%@include file="../../include/common_main.jsp"%>	
 <%@include file="../../include/startheader.jsp"%>
@@ -11,9 +11,9 @@
 <%@include file="../../include/mainheader.jsp"%>
 
 <%
-BoardDto viewDto = (BoardDto)request.getAttribute("viewDto");
-BoardDto prevDto = (BoardDto)request.getAttribute("prevDto");
-BoardDto nextDto = (BoardDto)request.getAttribute("nextDto");
+QnaDto viewDto = (QnaDto)request.getAttribute("viewDto");
+QnaDto prevDto = (QnaDto)request.getAttribute("prevDto");
+QnaDto nextDto = (QnaDto)request.getAttribute("nextDto");
 
 
 %>
@@ -28,7 +28,7 @@ BoardDto nextDto = (BoardDto)request.getAttribute("nextDto");
 	     value="${param.sel}">
 	<input type="hidden" name="key" id="key"
 	     value="${param.key}">
-	<input type="hidden" name="board_seq" id="board_seq"
+	<input type="hidden" name="qna_seq" id="qna_seq"
 	     value="${param.board_seq}">
 	<input type="hidden" name="mode" id="mode"
 	     value="">
@@ -129,7 +129,7 @@ body {
 					  	<td>이전글</td>
 					  	<td>						
 						  	<%if(prevDto!=null){%>
-								<a href="?board_seq=<%=prevDto.getBoard_seq()%>"><font color="black"><%=prevDto.getTitle()%></font></a>
+								<a href="?board_seq=<%=prevDto.getQna_seq()%>"><font color="black"><%=prevDto.getTitle()%></font></a>
 							<%}else{%>
 							글의 시작입니다 
 							<%}%>
@@ -139,7 +139,7 @@ body {
 					  	<td>다음글</td>
 					  	<td>
 							<%if(nextDto!=null){%>
-								<a href="?board_seq=<%=nextDto.getBoard_seq()%>"><font color="black"><%=nextDto.getTitle()%></font></a>
+								<a href="?board_seq=<%=nextDto.getQna_seq()%>"><font color="black"><%=nextDto.getTitle()%></font></a>
 							<%}else{%>
 							글의 마지막입니다 
 							<%}%>					  	
@@ -202,7 +202,7 @@ body {
       </div>
          <br/><br/><br/><br/><br/> 
     </div>
-<%@include file="../include/footer.jsp"%>
+<%@include file="../../include/footer.jsp"%>
     
 </form>
 

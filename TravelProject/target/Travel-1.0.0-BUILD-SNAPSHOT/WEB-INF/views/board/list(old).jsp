@@ -5,7 +5,7 @@
 <%@page import="com.multi.travel.board.dto.*"%>
 <%@page import="com.multi.travel.common.*"%>
 
-<%@include file="../include/common.jsp"%>
+<%@include file="../include/common_old.jsp"%>
 
 <%
 String sel="all";
@@ -169,7 +169,7 @@ if(request.getParameter("key")!=null)
 	</div>
 	<!-- section E -->
 
-	<%@include file="../include/footer.jsp"%>
+	<%@include file="../include/footer_ami.jsp"%>
 
 </div>
 <!-- site align E -->

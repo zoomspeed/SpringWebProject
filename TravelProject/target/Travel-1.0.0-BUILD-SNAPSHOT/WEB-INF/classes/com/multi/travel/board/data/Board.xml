@@ -24,8 +24,10 @@
          ,A.depth
          ,A.g_level
          ,to_char(A.regdate, 'yyyy-mm-dd') regdate
+         ,to_char(A.moddate, 'yyyy-mm-dd') moddate
+         ,A.ip_addr
          ,row_number() over (order by A.group_id desc, A.g_level asc) as num
-         ,ceil(row_number () over (order by A.group_id desc, A.g_level asc)/10-1) as pg
+         ,ceil(row_number () over (order by A.group_id desc, A.g_level asc)/16-1) as pg
          from tl_board A
          left outer join tl_member B on A.userid=B.userid
          where delyn='N'

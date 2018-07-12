@@ -162,6 +162,13 @@
 		,regdate
 		,delyn
 		,ip_addr
+      <if test="fieldNameList.size()!=0">
+         ,
+         <foreach collection="fieldNameList" item="item" index="index"
+            separator=",">
+            ${item}
+         </foreach>
+      </if>
 		)values(
 		#{board_seq}
 		,#{title}
@@ -174,6 +181,13 @@
 		,sysdate
 		,'N'
 		,#{ip_addr}
+      <if test="fileNameList.size()!=0">
+         ,
+         <foreach collection="fileNameList" item="item" index="index"
+            separator=",">
+            '${item}'
+         </foreach>
+      </if>		
 		)
 	</insert>
 

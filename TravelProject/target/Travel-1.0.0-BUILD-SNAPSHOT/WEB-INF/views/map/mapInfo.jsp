@@ -3,7 +3,7 @@
     pageEncoding="utf-8"%>
 <%@page import="java.util.*"%>    
 <%@page import="com.multi.travel.common.*"%>
-<%@include file="../include/common4.jsp"%>
+<%@include file="../include/common_main.jsp"%>
 
 <!-- 
 https://console.cloud.google.com/home/dashboard?consoleReturnUrl=https:%2F%2Fcloud.google.com%2Fmaps-platform%2Fpricing%2F%3Fhl%3Dko&consoleUI=CLOUD&hl=ko&mods=metropolis_maps&project=travelproject-1530758275468
@@ -14,7 +14,7 @@ api key
 
 
 
-	<%@include file="../include/header2.jsp"%>
+	<%@include file="../include/startheader.jsp"%>
 
     <!-- This stylesheet contains specific styles for displaying
          the map on this page. Replace it with your own styles as
@@ -51,7 +51,7 @@ api key
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDSFJk-gBENhgfxPZ5I8BLrdMcYJdJP2c&callback=initMap"
         async defer></script>
-        	<%@include file="../include/footer2.jsp"%>
+        	<%@include file="../include/footer.jsp"%>
   </body>
 </html>
 

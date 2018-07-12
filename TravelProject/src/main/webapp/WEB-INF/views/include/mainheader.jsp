@@ -20,7 +20,7 @@
 									<a href="${commonURL}/board/test.do" class="fh5co-sub-ddown">게시판</a>
 									<ul class="fh5co-sub-menu">
 										<li><a href="${commonURL}/board/test.do" target="_blank">자유게시판</a></li>									
-										<li><a href="${commonURL}" target="_blank">Q&A 게시판</a></li>
+										<li><a href="${commonURL}/board/qna/list.do" target="_blank">Q&A 게시판</a></li>
 										<li><a href="${commonURL}/board/albumbbs.do" target="_blank">앨범게시판</a></li>
 										<li><a href="${commonURL}" target="_blank">공지사항</a></li>
 										<li><a href="${commonURL}/board/list.do" target="_blank">자유게시판(ami)</a></li>

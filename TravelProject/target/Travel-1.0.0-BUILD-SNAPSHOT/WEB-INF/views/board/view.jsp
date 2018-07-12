@@ -3,7 +3,7 @@
     pageEncoding="utf-8"%>
 <%@page import="com.multi.travel.board.dto.*"%>
   
-<%@include file="../include/common.jsp"%>
+<%@include file="../include/common_old.jsp"%>
 
 <%
 BoardDto viewDto = (BoardDto)request.getAttribute("viewDto");
@@ -102,6 +102,15 @@ BoardDto nextDto = (BoardDto)request.getAttribute("nextDto");
 			</div>
 			<!-- bbs footer E -->
 
+
+
+
+		</div>
+		<!-- content E -->
+
+	</div>
+	<!-- section E -->
+
 			<!-- other list S -->
 			<div class="otl">
 				<dl>
@@ -125,14 +134,7 @@ BoardDto nextDto = (BoardDto)request.getAttribute("nextDto");
 			</div>
 			<!-- other list E -->
 
-
-		</div>
-		<!-- content E -->
-
-	</div>
-	<!-- section E -->
-
-	<%@include file="../include/footer.jsp"%>
+	<%@include file="../include/footer_ami.jsp"%>
 
 </div>
 <!-- site align E -->

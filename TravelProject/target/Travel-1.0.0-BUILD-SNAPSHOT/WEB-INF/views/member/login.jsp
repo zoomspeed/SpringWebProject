@@ -1,17 +1,40 @@
 <%@ page language="java" contentType="text/html;charset=utf-8"
     pageEncoding="UTF-8"%>
-<%@include file="../include/common3.jsp"%>
+<%-- 
+<%@include file="../include/common_login_old.jsp"%>
+ --%>
+ 
+<%@include file="../include/common_main.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Social Login Form Flat Responsive widget Template :: w3layouts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Social Login Form Widget Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- font files  -->
+<link href='//fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+<!-- /font files  -->
+<!-- css files -->
+<link href="/travel/resources/template/css/style2.css" rel='stylesheet' type='text/css' media="all" />
+<!-- /css files -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head><!-- comonURL:${commonURL} -->
 
  
 
 <body>
 <h1>Social Login Form</h1>
-<div class="log">background="${commonURL}/resources/template/images/login/banner.jpg"
+<div class="log"><%-- background="${commonURL}/resources/template/images/login/banner.jpg" --%>
 <div class="social w3ls">
 		<li class="f"><a href="#"><img src="${commonURL}/resources/template/images/login/fb.png" alt=""></a></li>
 		<li class="t"><a href="#"><img src="${commonURL}/resources/template/images/login/twt.png" alt=""></a></li>
-		<li class="p"><a href="#"><i class="fa fa-google" style="font-size:36px; color:white"></i></a></li>
-		<li class="i"><a href="#"><img src="${commonURL}/resources/template/images/login/navermod.png" alt=""></a></li>
+		<!-- <li class="p"><a href="#"><i class="fa fa-google" style="font-size:36px; color:white"></i></a></li> -->
+		<li class="p"><a href="#"><img src="${commonURL}/resources/template/images/login/pin.png" alt=""></a></li>
+		<li class="i"><a href="#"><img src="${commonURL}/resources/template/images/login/ins.png" alt=""></a></li>
 		<div class="clear"></div>
 	</div>
 	<div class="content1 agileits">
@@ -49,6 +72,9 @@ $(function(){
 		
 	   var email = $("#email").val();
 	   var pwd = $("#password").val();
+	   
+/*  	   alert(email);
+	   alert(password); */ 
 	   $.ajax({
 		   //console.log();
 		   url:"${commonURL}/member/logon_proc.do",

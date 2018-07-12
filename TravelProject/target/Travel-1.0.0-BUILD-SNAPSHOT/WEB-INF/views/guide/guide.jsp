@@ -2,7 +2,7 @@
     contentType="text/html;charset=utf-8"
     pageEncoding="utf-8"%>
   
-<%@include file="../include/common.jsp"%>
+<%@include file="../include/common_old.jsp"%>
 
 
 <body class="admin" lang="en">
@@ -309,7 +309,7 @@
 	</div>
 	<!-- section E -->
 
-	<%@include file="../include/footer.jsp"%>
+	<%@include file="../include/footer_ami.jsp"%>
 
 </div>
 <!-- site align E -->

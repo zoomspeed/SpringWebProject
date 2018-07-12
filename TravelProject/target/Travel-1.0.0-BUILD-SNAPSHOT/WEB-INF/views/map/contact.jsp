@@ -3,9 +3,9 @@
     pageEncoding="utf-8"%>
 <%@page import="java.util.*"%>    
 <%@page import="com.multi.travel.common.*"%>
-<%@include file="../include/common4.jsp"%>
+<%@include file="../include/common_main.jsp"%>
 
-<%@include file="../include/header2.jsp"%>
+<%@include file="../include/startheader.jsp"%>
 	
 
 	
@@ -74,7 +74,7 @@
 		<!-- END map -->
 
 
-		<%@include file="../include/footer2.jsp"%>
+		<%@include file="../include/footer.jsp"%>
 
 	</div>
 	<!-- END fh5co-page -->

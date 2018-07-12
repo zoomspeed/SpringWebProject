@@ -85,7 +85,7 @@ body {
                     <tbody>
                       <tr>
                         <td>제목:</td>
-                        <td><%if(%>${param.title }<% ==null)%> 
+                        <td> 
                         <input type="text" id="title" name="title" size="70" value="${param.title }"/></td>
                       </tr>
                       <tr>
