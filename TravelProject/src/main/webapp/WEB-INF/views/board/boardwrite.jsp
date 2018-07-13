@@ -119,9 +119,9 @@ body {
 							<th scope="row" class="first"><label for="atchfile">첨부파일</label></th>
 							<td class="last">
 														
-							<input type="file"   id="files<%=(i+1)%>" name="files" size="50" class="atchfile" />
+							<input type="file"   id="files<%=(i+1)%>" name="files" size="50" class="atchfile"/>
 							<input type="checkbox" id="del<%=(i+1)%>" 
-							             onclick="goChange('<%=i+1%>')" value="<%=(i+1)%>" >삭제 
+							             onclick="goChange('<%=i+1%>')" value="<%=(i+1)%>">삭제 
 							&nbsp;&nbsp;
 							<%=map.get("filename"+(i+1))%>
 							<input type="hidden" name="old_name" 
@@ -274,13 +274,17 @@ $(document).ready(function() {
 		   누군지 알아 낸 다음 
 		   업데이트 될 필드가 뭔지 정확하게 알
 		   아야 한다 
-		   
+
 		   
 		*/
 		if('${param.mode}'=='update')
 		{
+			
 			for(i=1; i<=3; i++)
-			{
+			{		
+				if(<%=map.get("filename"+(i+1))%>!=null){
+					alert($("#file"+i).val());
+				}
 				if(document.getElementById("del"+i).checked==true)
 				 	formData.append("del", $("#del"+i).val());
 				else

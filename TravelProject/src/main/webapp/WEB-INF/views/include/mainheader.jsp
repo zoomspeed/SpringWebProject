@@ -19,21 +19,21 @@
 								<li>
 									<a href="${commonURL}/board/test.do" class="fh5co-sub-ddown">게시판</a>
 									<ul class="fh5co-sub-menu">
-										<li><a href="${commonURL}/board/test.do" target="_blank">자유게시판</a></li>									
-										<li><a href="${commonURL}/board/qna/list.do" target="_blank">Q&A 게시판</a></li>
-										<li><a href="${commonURL}/board/albumbbs.do" target="_blank">앨범게시판</a></li>
-										<li><a href="${commonURL}" target="_blank">공지사항</a></li>
-										<li><a href="${commonURL}/board/list.do" target="_blank">자유게시판(ami)</a></li>
-										<li><a href="${commonURL}/board/boardwrite.do" target="_blank">testview</a></li>
+										<li><a href="${commonURL}/board/test.do" target="_self">자유게시판</a></li>									
+										<li><a href="${commonURL}/board/qna/list.do" target="_self">Q&A 게시판</a></li>
+										<li><a href="${commonURL}/board/albumbbs.do" target="_self">앨범게시판</a></li>
+										<li><a href="${commonURL}" target="_self">공지사항</a></li>
+										<li><a href="${commonURL}/board/list.do" target="_self">자유게시판(ami)</a></li>
+										<li><a href="${commonURL}/board/boardwrite.do" target="_self">testview</a></li>
 										<li><a href="http://freehtml5.co/preview/?item=sprint-free-html5-template-bootstrap" target="_blank">템플릿참고</a></li>
 									</ul>
 								</li>
 								<li>
 									<a href="${commonURL}/file/upload.do" class="fh5co-sub-ddown">길찾기</a>
 									<ul class="fh5co-sub-menu">
-										<li><a href="${commonURL}/file/upload.do" target="_blank">사진위치로 길찾기</a></li>
-										<li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_blank">주변 관광지 찾기</a></li>
-										<li><a href="${commonURL}/map/mapInfo.do" target="_blank">가장빠른길 찾기</a></li>
+										<li><a href="${commonURL}/file/upload.do" target="_self">사진위치로 길찾기</a></li>
+										<li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_self">주변 관광지 찾기</a></li>
+										<li><a href="${commonURL}/map/mapInfo.do" target="_self">가장빠른길 찾기</a></li>
 									</ul>
 								</li>								
 								 
@@ -43,8 +43,8 @@
 								<li>
 									<a href="${commonURL}/member/login.do" class="fh5co-sub-ddown">Login</a>
 									<ul class="fh5co-sub-menu">
-										<li><a href="${commonURL}/member/login.do" target="_blank">Login</a></li>
-										<li><a href="${commonURL}/member/signup.do" target="_blank">SignUp</a></li>
+										<li><a href="${commonURL}/member/login.do" target="_self">Login</a></li>
+										<li><a href="${commonURL}/member/signup.do" target="_self">SignUp</a></li>
 									</ul>
 								</li>
 
@@ -55,7 +55,7 @@
 								<li>
 									<a href="${commonURL}/member/logout.do" class="fh5co-sub-ddown">Logout</a>
 									<ul class="fh5co-sub-menu">
-										<li><a href="${commonURL}/member/logout.do" target="_blank">Logout</a></li>
+										<li><a href="${commonURL}/member/logout.do" target="_self">Logout</a></li>
 									</ul>
 								</li>
 

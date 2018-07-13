@@ -78,8 +78,8 @@
       #{image_seq}
       ,#{userid}
       ,#{title}
-      ,LTRIM(#{latitude},'-')
-      ,LTRIM(#{longitude},'-')
+      ,#{latitude}
+      ,#{longitude}
       ,#{altitude}
       ,to_date(#{regdate},'YYYY:MM:DD:HH24:MI:SS')
       ,sysdate

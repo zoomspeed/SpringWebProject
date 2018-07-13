@@ -6,6 +6,8 @@
  <%@include file="../include/common_main.jsp"%>	
 <%@include file="../include/startheader.jsp"%>
 <%@include file="../include/viewheader.jsp"%>
+	<!-- Google Map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDSFJk-gBENhgfxPZ5I8BLrdMcYJdJP2c&callback=initMap" async defer></script>
 <%@include file="../include/mainheader.jsp"%>
 
 <br/><br/><br/><br/>	
@@ -16,7 +18,7 @@ ImageDto nextDto = (ImageDto)request.getAttribute("nextDto");
 
 
 %>
-<body class="admin" lang="en" >
+<!-- <body class="admin" lang="en" > -->
 <form name="mform" id="mform">
 	<input type="hidden" name="pg" id="pg"
 	     value="${param.pg}">
@@ -157,14 +159,34 @@ body {
                         </td>
                            
                       </tr>
+                      
+                      <tr>
+                      <td></td>
+                      <td></td>
+                      </tr>
                     </tbody>
+                    
                   </table>
                   
-                  <a href="#" class="btn btn-primary">My Sales Performance</a>
+                  
+                 
+                  
+                  
+<!--
+                   <a href="#" class="btn btn-primary">My Sales Performance</a>
                   <a href="#" class="btn btn-primary">Team Sales Performance</a>
-                </div>
+ -->       
+ 		         </div>
               </div>
             </div>
+            <%if(viewDto.getLatitude()!="" && viewDto.getLatitude()!=null && 
+            	viewDto.getLongitude()!="" && viewDto.getLongitude()!=null){ %>
+             <div id="map" class="fh5co-map"></div>
+             <%} %>
+					<br/><br/><br/>             
+                   <a href="#" class="btn btn-primary">My Sales Performance</a>
+                  <a href="#" class="btn btn-primary">Team Sales Performance</a>
+             	
                  <div class="panel-footer">
                         <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
                         <span class="pull-right">
@@ -256,5 +278,36 @@ $(document).ready(function() {
         e.preventDefault();
         alert("This is a demo.\n :-)");
     });
+    
+    
+    
+    
+    
+    
+
+    
 });
+
+function initMap() {
+    var myLatLng = {lat: <%=viewDto.getLatitude()%>, lng: <%=viewDto.getLongitude()%>};
+    //47° 24' 1.8" N
+    //12° 39' 5.4" E
+/*         var myLatLng = {lat: "47° 24' 1.8\" N", lng: "12° 39' 5.4\" E"}; */
+    // Create a map object and specify the DOM element
+    // for display.
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: myLatLng,
+      zoom: 6
+    });
+
+    // Create a marker and set its position.
+    var marker = new google.maps.Marker({
+      map: map,
+      position: myLatLng,
+      title: 'Hello World!'
+    });
+  }
+
+
+  
 </script>

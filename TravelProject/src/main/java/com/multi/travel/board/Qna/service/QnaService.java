@@ -8,7 +8,7 @@ import com.multi.travel.board.Qna.dto.QnaDto;
 public interface QnaService {
 	List<QnaDto> getList(QnaDto dto);
 	int getTotal(QnaDto dto);
-	QnaDto getView(String board_seq);
+	QnaDto getView(String qna_seq);
 	
 	QnaDto getPrev(QnaDto paramDto);
 	QnaDto getNext(QnaDto paramDto);

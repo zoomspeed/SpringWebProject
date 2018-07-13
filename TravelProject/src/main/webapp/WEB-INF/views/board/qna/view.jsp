@@ -29,7 +29,7 @@ QnaDto nextDto = (QnaDto)request.getAttribute("nextDto");
 	<input type="hidden" name="key" id="key"
 	     value="${param.key}">
 	<input type="hidden" name="qna_seq" id="qna_seq"
-	     value="${param.board_seq}">
+	     value="${param.qna_seq}">
 	<input type="hidden" name="mode" id="mode"
 	     value="">
  	     
@@ -129,7 +129,7 @@ body {
 					  	<td>이전글</td>
 					  	<td>						
 						  	<%if(prevDto!=null){%>
-								<a href="?board_seq=<%=prevDto.getQna_seq()%>"><font color="black"><%=prevDto.getTitle()%></font></a>
+								<a href="?qna_seq=<%=prevDto.getQna_seq()%>"><font color="black"><%=prevDto.getTitle()%></font></a>
 							<%}else{%>
 							글의 시작입니다 
 							<%}%>
@@ -139,7 +139,7 @@ body {
 					  	<td>다음글</td>
 					  	<td>
 							<%if(nextDto!=null){%>
-								<a href="?board_seq=<%=nextDto.getQna_seq()%>"><font color="black"><%=nextDto.getTitle()%></font></a>
+								<a href="?qna_seq=<%=nextDto.getQna_seq()%>"><font color="black"><%=nextDto.getTitle()%></font></a>
 							<%}else{%>
 							글의 마지막입니다 
 							<%}%>					  	
@@ -185,7 +185,7 @@ body {
 						<a href="#none" id="btnDelete" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>삭제</a>
 				   <%} %>
 				   
-						<button id="btnList" class="btn btn-primary"><a href="${commonURL}/board/test.do">목록</a></button>
+						<button id="btnList" class="btn btn-primary"><%-- <a href="${commonURL}/board/qna/list.do"> --%>목록<!-- </a> --></button>
 					
 				</div>
 
@@ -306,38 +306,39 @@ $(document).ready(function() {
     
     
 	
-/* 	$("#btnList").click(function(){
-		history.go(-1); //바로 전단계로 이동한다 
-	}); */
+ 	$("#btnList").click(function(){
+		//history.go(-1); //바로 전단계로 이동한다
+ 		location.href="${commonURL}/board/qna/list.do";
+	}); 
 	$("#btnReply").click(function(){
 		$("#mode").val("reply");
 		$("#mform").attr("action", 
-		"${commonURL}/board/write.do");
+		"${commonURL}/board/qna/write.do");
 		$("#mform").prop("action", 
-		"${commonURL}/board/write.do");
+		"${commonURL}/board/qna/write.do");
 		$("#mform").submit();
 	});
  	$("#btnUpdate").click(function(){
 		$("#mode").val("update");
 		$("#mform").attr("action", 
-		"${commonURL}/board/write.do");
+		"${commonURL}/board/qna/write.do");
 		$("#mform").prop("action", 
-		"${commonURL}/board/boardwrite.do");
+		"${commonURL}/board/qna/write.do");
 		$("#mform").submit();
 	}); 
 	
 	$("#btnDelete").click(function(){
 		if( confirm("삭제하시겠습니까? "))
 		{
-			var url="${commonURL}/board/delete.do";
+			var url="${commonURL}/board/qna/delete.do";
 			$.ajax({
 				url:url,
-				data:{"board_seq":$("#board_seq").val()},
+				data:{"qna_seq":$("#qna_seq").val()},
 				dataType:"text",
 				success:function(data){
 					alert("글이 삭제되었습니다");
 					//현재 페이지 새로 고침하기 
-					location.href="/${commonURL}/board/list.do";
+					location.href="${commonURL}/board/qna/list.do";
 				},
 				error:function(e){
 					alert("삭제 실패");

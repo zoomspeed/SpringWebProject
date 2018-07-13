@@ -29,10 +29,10 @@ api key
     <div id="map"></div>
     <script>
       function initMap() {
-        //var myLatLng = {lat: -25.363, lng: 131.044};
+        var myLatLng = {lat: -25.363, lng: 131.044};
         //47° 24' 1.8" N
         //12° 39' 5.4" E
-        var myLatLng = {lat: "47° 24' 1.8\" N", lng: "12° 39' 5.4\" E"};
+/*         var myLatLng = {lat: "47° 24' 1.8\" N", lng: "12° 39' 5.4\" E"}; */
         // Create a map object and specify the DOM element
         // for display.
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -49,8 +49,8 @@ api key
       }
 
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDSFJk-gBENhgfxPZ5I8BLrdMcYJdJP2c&callback=initMap"
-        async defer></script>
+<!--     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDSFJk-gBENhgfxPZ5I8BLrdMcYJdJP2c&callback=initMap"
+        async defer></script> -->
         	<%@include file="../include/footer.jsp"%>
   </body>
 </html>

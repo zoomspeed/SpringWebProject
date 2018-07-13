@@ -20,8 +20,8 @@
 	   id="depth" value="${resultDto.depth}">
 	<input type="text" name="g_level"
 	   id="g_level" value="${resultDto.g_level}"> 
-	<input type="text" name="board_seq"
-	   id="board_seq" value="${param.board_seq}"> 
+	<input type="text" name="qna_seq"
+	   id="qna_seq" value="${param.qna_seq}"> 
  	<input type="text" name="mode"
 	   id="mode" value="${param.mode}">
 	<input type="text" name="userid" id="userid" value="${userid}">
@@ -292,11 +292,11 @@ $(document).ready(function() {
 		
 		//파일의 경우 반드시 추가로 뭔가를 해줘야 한다 
 					     
-		var url="${commonURL}/board/save.do";
+		var url="${commonURL}/board/qna/save.do";
 		if('${param.mode}'=='update')
-			url="${commonURL}/board/update.do";
+			url="${commonURL}/board/qna/update.do";
 		else if('${param.mode}'=='reply' )
-			url="${commonURL}/board/reply.do";
+			url="${commonURL}/board/qna/reply.do";
 			
 		//첨부파일 처리 
 		$.ajax({
@@ -317,7 +317,7 @@ $(document).ready(function() {
 				else
 					alert('글이 등록되었습니다');
 				
-				location.href="<%=commonURL%>/board/test.do";
+				location.href="<%=commonURL%>/board/qna/list.do";
 			},
 			error:function(request, status, error){
 				//서버호출 실패시 

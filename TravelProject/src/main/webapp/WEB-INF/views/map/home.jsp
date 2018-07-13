@@ -14,20 +14,25 @@ if(request.getParameter("sel")!=null)
 %>
 
 		<div id="fh5co-wrapper">
+		
+		
+		
 		<div id="fh5co-page">
-
-		<div>  
-
-		 
-		</div>		
 		
 		<div class="fh5co-hero">
+		
 			<div class="fh5co-overlay"></div>
-			<div class="fh5co-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url(images/cover_bg_1.jpg);">
+			
+			<div class="fh5co-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url('${commonURL }/resources/images/img-4.jpg');">
+			
 				<div class="desc animate-box">
+
+
 					<h2>Travel Around The World.</h2>
 					<!-- <span>Lovely Crafted by <a href="http://frehtml5.co/" target="_blank" class="fh5co-site-name">FREEHTML5.co</a></span> -->
 					<span><a class="btn btn-primary btn-lg" href="/travel/board/list.do">Get Started</a></span>
+					
+					
 				</div>
 			</div>
 
@@ -205,4 +210,9 @@ function go_AlbumList()
 		//$("#ImageSrc").attr("src","${commonURL}/upload/image/"+ImageList1);
 		
 } 
+ 
+ 
+ 
 </script>
+
+

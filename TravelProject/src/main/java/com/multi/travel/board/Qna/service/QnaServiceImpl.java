@@ -32,9 +32,9 @@ public class QnaServiceImpl implements
 	}
 
 	@Override
-	public QnaDto getView(String board_seq) {
+	public QnaDto getView(String qna_seq) {
 		
-		return qnaDao.getView(board_seq);
+		return qnaDao.getView(qna_seq);
 	}
 
 	@Override

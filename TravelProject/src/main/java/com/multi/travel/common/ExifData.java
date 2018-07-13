@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.drew.lang.*;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.drew.imaging.ImageMetadataReader;
@@ -14,6 +16,7 @@ import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
+import com.drew.metadata.exif.GpsDirectory;
 import com.multi.travel.image.dto.ImageDto;
 import com.multi.travel.common.Util;
 public class ExifData {
@@ -22,8 +25,9 @@ public class ExifData {
 	private static List<File> file = null;
 	//private static ImageDto dto = null;
 	
-	
+	Directory gpsDirectory = metadata.getFirstDirectoryOfType(GpsDirectory.class);
 
+	
 	 
 	
 	public static ImageDto getExifData(MultipartFile mFile, ImageDto dto) {
@@ -42,7 +46,7 @@ public class ExifData {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  
-
+		
 		try {
 			metadata = ImageMetadataReader.readMetadata(file);
 		} catch (ImageProcessingException e) {
@@ -79,14 +83,34 @@ public class ExifData {
 		//https://www.google.com/maps/place/38%C2%B031'52.8%22N+0%C2%B009'49.8%22W/@38.5306485,-0.1654881,17.25z/data=!4m5!3m4!1s0x0:0x0!8m2!3d38.5313333!4d-0.1638333
 		
 		String temp="";
+		GpsDirectory gpsDirectory = metadata.getFirstDirectoryOfType(GpsDirectory.class);
+		//System.out.println("geoLocation@@@@@@@@@@@@@@@@222:   "+gpsDirectory.getGeoLocation());
+		//Directory directory = metadata.getFirstDirectoryOfType(GpsDirectory.class);
+		if(gpsDirectory!=null) {
+			System.out.println("null값뜸");
+			GeoLocation geoLocation = gpsDirectory.getGeoLocation();
 		
+			if(String.valueOf(geoLocation.getLatitude())!=null) {
+				dto.setLatitude(String.valueOf(geoLocation.getLatitude()));
+			}
+			if(String.valueOf(geoLocation.getLongitude())!=null) {
+				dto.setLongitude(String.valueOf(geoLocation.getLongitude()));
+			}	
+		}
+		
+		//위도 경도 이걸로 바꾸기
+		//System.out.println("getlat: "+geoLocation.getLatitude());
+		//System.out.println("GetLong: "+ geoLocation.getLongitude());
+		
+				
 		for (Directory directory : metadata.getDirectories()) {
+			
 		    for (Tag tag : directory.getTags()) {
-		        System.out.format(" [%s] - %s = %s \n",
-		            directory.getName(), tag.getTagName(), tag.getDescription());
+		       // System.out.format(" [%s] - %s = %s \n",
+		        //    directory.getName(), tag.getTagName(), tag.getDescription());
 		        //System.out.println("getDataType@@@@@@@@@@@@@@@@@@@@@ : "+tag.getTagName().equals("GPS"));
-		        
-		        if(tag.getTagName().equals("GPS Latitude Ref")) {
+/*			        
+	        	if(tag.getTagName().equals("GPS Latitude Ref")) {
 		        	System.out.println("GPS Latitude Ref "+tag.getDescription());
 		        	temp = tag.getDescription();
 		        	//dto.setLatitude(Util.getString(tag.getDescription()));
@@ -98,7 +122,7 @@ public class ExifData {
 		        	//dto.setLatitude(Util.getString(tag.getDescription()));
 		        }
 		        else if(tag.getTagName().equals("GPS Longitude Ref")) {
-		        	System.out.println("GPS Longitude Ref "+tag.getDescription());
+		        //	System.out.println("GPS Longitude Ref "+tag.getDescription());
 		        	temp = tag.getDescription();
 		        	//dto.setLatitude(Util.getString(tag.getDescription()));
 		        }
@@ -107,9 +131,9 @@ public class ExifData {
 		        	System.out.println("GPS Longitude "+tag.getDescription());
 		        	dto.setLongitude(tag.getDescription() +" "+temp);
 		        	//dto.setLongitude(Util.getString(tag.getDescription()));
-		        }
+		        }*/
 		        
-		        else if(tag.getTagName().equals("GPS Altitude")) {
+		        if(tag.getTagName().equals("GPS Altitude")) {
 		        	System.out.println("GPS Altitude "+tag.getDescription());
 		        	dto.setAltitude(tag.getDescription());
 		        	//dto.setAltitude(Util.getString(tag.getDescription()));
@@ -136,6 +160,7 @@ public class ExifData {
 		    }
 		    
 		}
+		
 		return dto;
 	}
 	
