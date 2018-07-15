@@ -57,19 +57,22 @@ public class ImageDaoImpl implements ImageDao{
 	@Override
 	public void update(ImageDto dto) {
 		// TODO Auto-generated method stub
-		
+		sm.update("Image.update", dto);
 	}
 
 	@Override
 	public void delete(ImageDto dto) {
 		// TODO Auto-generated method stub
-		
+		sm.update("Image.delete", dto);
 	}
 
 	@Override
 	public void reply(ImageDto dto) {
 		// TODO Auto-generated method stub
-		
+/*		
+ * 		sm.update("Image.updateLevel", dto);
+		sm.insert("Image.reply", dto);	
+*/
 	}
 
 	@Override

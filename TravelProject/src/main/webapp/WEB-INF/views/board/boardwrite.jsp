@@ -282,9 +282,9 @@ $(document).ready(function() {
 			
 			for(i=1; i<=3; i++)
 			{		
-				if(<%=map.get("filename"+(i+1))%>!=null){
+<%-- 				if(<%=map.get("filename"+(i+1))%>!=null){
 					alert($("#file"+i).val());
-				}
+				} --%>
 				if(document.getElementById("del"+i).checked==true)
 				 	formData.append("del", $("#del"+i).val());
 				else

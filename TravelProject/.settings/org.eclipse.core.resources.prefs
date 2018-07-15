@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/webapp/WEB-INF/views/file/fileUpload.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/include/left.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/include/mainheader.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/member/signup.jsp=UTF-8

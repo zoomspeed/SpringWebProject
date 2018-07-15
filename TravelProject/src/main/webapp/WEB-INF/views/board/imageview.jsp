@@ -181,7 +181,7 @@ body {
             </div>
             <%if(viewDto.getLatitude()!="" && viewDto.getLatitude()!=null && 
             	viewDto.getLongitude()!="" && viewDto.getLongitude()!=null){ %>
-             <div id="map" class="fh5co-map"></div>
+             <div id="map" class="fh5co-map" style="height:850px;"></div>
              <%} %>
 					<br/><br/><br/>             
                    <a href="#" class="btn btn-primary">My Sales Performance</a>
@@ -272,7 +272,7 @@ $(document).ready(function() {
     });
 
 
-    $('[data-toggle="tooltip"]').tooltip();
+ /*    $('[data-toggle="tooltip"]').tooltip(); */
 
     $('button').click(function(e) {
         e.preventDefault();
@@ -297,7 +297,7 @@ function initMap() {
     // for display.
     var map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
-      zoom: 6
+      zoom: 17
     });
 
     // Create a marker and set its position.

@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -53,6 +54,9 @@ public class ImageController {
 		@RequestMapping("/image/save")
 		public @ResponseBody String save(@RequestParam(value="file", required=true) List<MultipartFile> values,HttpServletRequest req, ImageDto dto)
 		{		
+			HttpSession session = req.getSession(true);
+			String userid = (String)session.getAttribute("userid");
+			
 			ServletContext ctx= req.getServletContext();
 			String ip = IP.getClientIP(req);
 			String filename = null;
@@ -67,11 +71,11 @@ public class ImageController {
 			System.out.println("values size @@@@@@ : "+values.size());
 			
 			dataList = ExifData.getExifData(values, dataList);
-/*			
+			
 			System.out.println("1번 :"+dataList.get(0).getFile().getOriginalFilename());
-			System.out.println("2번 :"+dataList.get(1).getFile().getOriginalFilename());
-			System.out.println("3번 :"+dataList.get(2).getFile().getOriginalFilename());
-*/			
+			//System.out.println("2번 :"+dataList.get(1).getFile().getOriginalFilename());
+			//System.out.println("3번 :"+dataList.get(2).getFile().getOriginalFilename());
+			
 			
 		/*	     
 			//exif data 가져오기 (gps정보, 파일크기, 생성시간, 수정시간)
@@ -90,7 +94,8 @@ public class ImageController {
 				filename = FileUploader.getNewFileName(dataList.get(i).getFile().getOriginalFilename());
 				System.out.println("file name : " + filename);
 				dataList.get(i).setTitle(filename);
-				dataList.get(i).setUserid(dto.getUserid());
+				//dataList.get(i).setUserid(dto.getUserid());
+				dataList.get(i).setUserid(userid);
 				dataList.get(i).setIp_addr(ip);
 				
 				String result = FileUploader.upload(dataList.get(i).getFile());
@@ -135,12 +140,12 @@ public class ImageController {
 
 		}
 
-		@RequestMapping("fileUpload")
+		@RequestMapping("/file/fileUpload")
 		public String filUpload() {
 			
 			
 
-			return "file/fileUpload";
+			return "/file/fileUpload";
 		}		
 		
 

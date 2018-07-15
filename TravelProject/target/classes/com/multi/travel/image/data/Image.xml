@@ -266,20 +266,17 @@
 
 	<!-- 수정용 -->
 	<update id="Image.update" parameterType="ImageDto">
-		update 	tl_board
+		update 	tl_image
 			set title = #{title}
-			,contents = #{contents}
-			,filename1 = #{filename1}
-			,filename2 = #{filename2}
-			,filename3 = #{filename3}
-		where board_seq=#{board_seq}
+			,ip_addr = #{ip_addr}
+		where image_seq=#{image_seq}
 	</update>
 
 	<!-- 삭제용 -->
 	<update id="Image.delete" parameterType="ImageDto">
-		update	tl_board
+		update	tl_image
 		set delyn='Y'
-		where board_seq=#{board_seq}
+		where image_seq=#{image_seq}
 	</update>
    
 </mapper>

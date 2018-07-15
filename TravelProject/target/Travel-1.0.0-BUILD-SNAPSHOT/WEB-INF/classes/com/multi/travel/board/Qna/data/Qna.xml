@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="Qna">
+   <!-- MyBatis ${필드명} 맵핑이 먼저 이루어진다 #{필드명} 맵핑이 나중에 이루어진다 쿼리를 콘솔에서 보면 $가 붙은건 
+      ? 가 아니라 실제 값으로 보여요 #이 붙은거는 ? 로 보인다 나중에 실제 값하고 결합한다 #붙은건 데이터 타입에 따라서 자동으로 
+      '를 붙여준다 $는 그냥 그 위치에 문자열을 내보낼 뿐이라서 '가 필요하면 직접 붙여줘야 한다 $는 데이터를 문자열을 줘도 그대로 
+      옮겨놓는다 테이블명이나 필드명이 추가되거나 할때는 ${필드명} 또는 ${테이블명} -->
+   <select id="Qna.getList" parameterType="QnaDto"
+      resultType="QnaDto">
+ 
+      select * from
+      (
+      select
+         A.board_seq
+         ,nvl(B.username, 'noname') username
+         ,A.userid
+         ,A.title
+         ,A.contents --내용
+         ,nvl(A.hit , 0) hit --조회수
+         ,A.group_id
+         ,A.depth
+         ,A.g_level
+         ,to_char(A.regdate, 'yyyy-mm-dd') regdate
+         ,to_char(A.moddate, 'yyyy-mm-dd') moddate
+         ,A.ip_addr
+         ,row_number() over (order by A.group_id desc, A.g_level asc) as num
+         ,ceil(row_number () over (order by A.group_id desc, A.g_level asc)/16-1) as pg
+         from tl_board A
+         left outer join tl_member B on A.userid=B.userid
+         where delyn='N'
+         <if test="sel!=null and key!=null">
+            <if test="sel.equals('all')">
+               and (title like '%'||#{key}||'%'
+               or
+               contents like '%'||#{key}||'%')
+            </if>
+            <if test="sel.equals('title')">
+               and title like '%'||#{key}||'%'
+            </if>
+            <if test="sel.equals('contents')">
+               and contents like '%'||#{key}||'%'
+            </if>
+         </if>
+      )where pg=#{pg}
+
+   </select>
+   <!-- PreparedStatement 사용하면서 파라미터를 ?로 했는데 이게 mybatis는 #{변수명} 으로 대체 #{pg} 
+      parameterType에 반드시 pg 라는 변수가 있어야 한다 그래서 getPg 라는 함수를 호출해서 값을 읽어와 끼워넣기 한다 
+      디비에서 데이타를 가져와서 select 쿼리가 데이타를 보낼때는 resultType에서 지정한 클래스 안에 각 필드들에 대한 변수가 
+      모두 있어야 한다. set변수명을 다 일일이 호출해서 데이터 넣어서 객체만들고 그 객체를 리스트에 저장해서 보낸다 -->
+
+   <insert id="Qna.insert" parameterType="QnaDto">
+      <!-- select 쿼리를 먼저 진행하도록 resultType 반환이 Integer타입 keyProperty 결과 받을 변수 
+         order 진행순서 BEFORE 를 쓰면 먼저 진행된다 -->
+      <selectKey resultType="String" keyProperty="board_seq"
+         order="BEFORE">
+         select nvl(max(board_seq),0)+1 as board_seq
+         from tl_board
+      </selectKey>
+      insert into tl_board(
+      board_seq
+      ,title
+      ,contents
+      ,userid
+      ,hit
+      ,group_id
+      ,depth
+      ,g_level
+      ,regdate
+      ,delyn
+      ,ip_addr
+      <if test="fieldNameList.size()!=0">
+         ,
+         <foreach collection="fieldNameList" item="item" index="index"
+            separator=",">
+            ${item}
+         </foreach>
+      </if>
+      )values(
+      #{board_seq}
+      ,#{title}
+      ,#{contents}
+      ,#{userid}
+      ,0
+      ,#{board_seq}
+      ,0
+      ,1
+      ,sysdate
+      ,'N'
+      ,#{ip_addr} 
+      <if test="fileNameList.size()!=0">
+         ,
+         <foreach collection="fileNameList" item="item" index="index"
+            separator=",">
+            '${item}'
+         </foreach>
+      </if>
+      )
+   </insert>
+
+   <select id="Qna.getTotalCount" parameterType="QnaDto"
+      resultType="Integer">
+      select count(*)
+      from tl_board
+      where delyn='N'
+      <if test="sel!=null and key!=null">
+         <if test="sel.equals('all')">
+            and (title like '%'||#{key}||'%'
+            or
+            contents like '%'||#{key}||'%')
+         </if>
+         <if test="sel.equals('title')">
+            and title like '%'||#{key}||'%'
+         </if>
+         <if test="sel.equals('contents')">
+            and contents like '%'||#{key}||'%'
+         </if>
+      </if>
+   </select>
+
+	<select id="Qna.getView" parameterType="String"
+		resultType="QnaDto">--여기부터 확인하기.
+		select
+			board_seq
+			,nvl((select username from tl_member B 
+			where A.userid=B.userid), 'noname') username --B.email??
+			,userid
+			,title
+			,contents --내용
+			,nvl(hit , 0) hit --조회수
+			,group_id
+			,depth
+			,g_level
+			,to_char(regdate, 'yyyy-mm-dd') regdate
+			,nvl(filename1, '') filename1
+			,nvl(filename2, '') filename2
+			,nvl(filename3, '') filename3
+			,nvl(ip_addr,'') ip_addr
+			from tl_board A
+			where board_seq=#{board_seq}
+	</select>
+
+	<!-- reply -->
+	<insert id="Qna.reply" parameterType="QnaDto">
+	<selectKey resultType="String" keyProperty="board_seq"
+         order="BEFORE">
+         select nvl(max(board_seq),0)+1 as board_seq
+         from tl_board
+      </selectKey>
+		insert into tl_board(
+		board_seq
+		,title
+		,contents
+		,userid
+		,hit
+		,group_id
+		,depth
+		,g_level
+		,regdate
+		,delyn
+		,ip_addr
+		)values(
+		#{board_seq}
+		,#{title}
+		,#{contents}
+		,#{userid}
+		,0
+		,#{group_id}
+		,#{depth}+1
+		,#{g_level}+1
+		,sysdate
+		,'N'
+		,#{ip_addr}
+		)
+	</insert>
+
+	<!-- 조회수 업데이트 -->
+	<update id="Qna.updateHit" parameterType="String">
+		update
+		tl_board
+		set hit=hit+1
+		where board_seq=#{board_seq}
+	</update>
+
+	<!-- 부모글 형제들 level 업하기 -->
+	<update id="Qna.updateLevel" parameterType="QnaDto">
+	 <![CDATA[
+		update tl_board set
+		   g_level=g_level+1
+		where group_id=#{group_id}
+		and g_level>#{g_level}
+	 ]]>
+	</update>
+	<!-- 이전글 -->
+	<select id="Qna.getPrev" parameterType="QnaDto"
+		resultType="QnaDto">
+	<![CDATA[		
+	select * from 
+	(
+ 		select board_seq, title from	tl_board 
+ 		where((group_id = #{group_id} 
+ 		        and g_level < #{g_level} )
+ 		     or 
+		    ( group_id > #{group_id}  )) 
+        order by group_id asc,  g_level desc
+     )where rownum=1
+     ]]>
+	</select>
+
+
+	<!-- 다음글 -->
+	<select id="Qna.getNext" parameterType="QnaDto"
+		resultType="QnaDto">
+	<![CDATA[		
+	select * from 
+	(
+ 		select board_seq, title from	tl_board 
+ 		where((group_id = #{group_id} 
+ 		        and g_level > #{g_level} )
+ 		     or 
+		    ( group_id < #{group_id}  )) 
+        order by group_id desc, g_level asc
+     )where rownum=1
+     ]]>
+	</select>
+
+	<!-- 수정용 -->
+	<update id="Qna.update" parameterType="QnaDto">
+		update 	tl_board
+			set title = #{title}
+			,contents = #{contents}
+			,filename1 = #{filename1}
+			,filename2 = #{filename2}
+			,filename3 = #{filename3}
+		where board_seq=#{board_seq}
+	</update>
+
+	<!-- 삭제용 -->
+	<update id="Qna.delete" parameterType="QnaDto">
+		update	tl_board
+		set delyn='Y'
+		where board_seq=#{board_seq}
+	</update>
+
+	<select id="Qna.getUserid" parameterType="String"
+		resultType="String">
+		select
+			userid from tl_board
+			where board_seq=#{seq}
+	</select>
+
+</mapper>
