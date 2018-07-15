@@ -1,14 +1,29 @@
 <%@ page language="java" 
     contentType="text/html;charset=utf-8"
     pageEncoding="utf-8"%>
-<%@include file="../include/common_main.jsp"%>  
+<%@include file="../include/common_main.jsp"%>
+
+
+ <%@include file="../include/startheader.jsp"%>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+    <!-- Custom styles -->
+    <link href="${commonURL}/resources/uploader-master/dist/css/jquery.dm-uploader.min.css" rel="stylesheet">
+    <link href="${commonURL}/resources/uploader-master/demo/styles.css" rel="stylesheet">
+<%@include file="../include/mainheader.jsp"%>   
+  
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+<%--  
+
 <!doctype html>
 <html lang="ko">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>jQuery Ajax File Uploader Widget</title>
+    <title>jQuery Ajax File Uploader Widget</title> 
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
@@ -16,9 +31,13 @@
     <!-- Custom styles -->
     <link href="${commonURL}/resources/uploader-master/dist/css/jquery.dm-uploader.min.css" rel="stylesheet">
     <link href="${commonURL}/resources/uploader-master/demo/styles.css" rel="stylesheet">
-  </head>
+
+  
+</head>
 
   <body>
+  
+    --%>
 <form name="mform" id="mform" method="post" enctype="multipart/form-data">  
 
 <input type="text" name="userid" id="userid" value="${userid }"/>
