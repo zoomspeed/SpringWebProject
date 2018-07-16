@@ -8,8 +8,12 @@
 <%@include file="../include/startheader.jsp"%>
 <%@include file="../include/viewheader.jsp"%>
 	<!-- Google Map -->
+<!-- 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDSFJk-gBENhgfxPZ5I8BLrdMcYJdJP2c&callback=initMap" async defer></script>
-<%@include file="../include/mainheader.jsp"%>
+ -->
+ <%@include file="../include/mainheader.jsp"%>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDSFJk-gBENhgfxPZ5I8BLrdMcYJdJP2c&libraries=places&callback=initMap" async defer></script>
+ 
 
 <br/><br/><br/><br/>	
 <%
@@ -50,9 +54,9 @@ body {
 
 }  */
 </style>
- <div class="container" style="width:100%; height:100%; background-image:url('${commonURL}/resources/table_template/images/purple-gradient.png');">
+ <div class="container" style="width:100%; height:100%; ">
 <%-- <div class="container" style="width:100%; height:100%;""background-image= "url('${commonURL}/resources/table_template/images/simple_blue_background-t2.jpg')"> --%>
-      <div class="row">
+      <div class="row"  style=" background-image:url('${commonURL}/resources/table_template/images/purple-gradient.png');">
       <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
            <A href="edit.html" >Edit Profile</A>
 
@@ -180,21 +184,42 @@ body {
  		         </div>
               </div>
             </div>
+
+					<br/><br/><br/>             
+
             <%if(viewDto.getLatitude()!="" && viewDto.getLatitude()!=null && 
             	viewDto.getLongitude()!="" && viewDto.getLongitude()!=null){ %>
-             <div id="map" class="fh5co-map" style="height:850px;"></div>
+           <!--   <div id="map" class="fh5co-map" style="height:850px;"> -->
+		    <div id="map"></div>
+		    <div id="right-panel">
+		      <h2>주변 시설 확인</h2>
+		      <ul id="places"></ul>
+		      <div id="markup"></div>
+		      <button id="more">결과 더보기</button>
+		    </div> 
+		    
+     
+         
              <%} %>
-					<br/><br/><br/>             
-                   <a href="#" class="btn btn-primary">My Sales Performance</a>
-                  <a href="#" class="btn btn-primary">Team Sales Performance</a>
-             	
+		       <a href="#" class="btn btn-primary">My Sales Performance</a>
+               <a href="#" class="btn btn-primary">Team Sales Performance</a>  
+               
+               
+               
                  <div class="panel-footer">
                         <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
                         <span class="pull-right">
                             <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
                             <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
                         </span>
-                    </div>
+                 </div>                   
+                         
+             </div>
+             
+
+
+             	
+
             
           </div>
         </div>
@@ -277,7 +302,7 @@ $(document).ready(function() {
 
     $('button').click(function(e) {
         e.preventDefault();
-        alert("This is a demo.\n :-)");
+        
     });
     
     
@@ -289,26 +314,160 @@ $(document).ready(function() {
     
 });
 
-function initMap() {
-    var myLatLng = {lat: <%=viewDto.getLatitude()%>, lng: <%=viewDto.getLongitude()%>};
-    //47° 24' 1.8" N
-    //12° 39' 5.4" E
-/*         var myLatLng = {lat: "47° 24' 1.8\" N", lng: "12° 39' 5.4\" E"}; */
-    // Create a map object and specify the DOM element
-    // for display.
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: myLatLng,
-      zoom: 17
-    });
 
-    // Create a marker and set its position.
+
+
+var map;
+
+function initMap() {
+	  
+	//var myLatLng = {lat: 39.74633333333333, lng: -105.02483333333333};  
+	  
+  // Create the map.
+  //var pyrmont = {lat: -33.866, lng: 151.196};
+  var myLatLng = {lat: <%=viewDto.getLatitude()%>, lng: <%=viewDto.getLongitude()%>};
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 17,        	
+    center: myLatLng
+    //center: pyrmont,
+
+  });
+  
+/*     	  google.maps.event.addListener(map, 'click', function(event) {
+	    addMarker(event.latLng, map);
+	  });      */
+
+  // Create the places service.
+  var service = new google.maps.places.PlacesService(map);
+  var getNextPage = null;
+  var moreButton = document.getElementById('more');
+  moreButton.onclick = function() {
+    moreButton.disabled = true;
+    if (getNextPage) getNextPage();
+  };
+
+  // Perform a nearby search.
+  service.nearbySearch(
+      //{location: pyrmont, radius: 500, type: ['store']},
+      {location: myLatLng, radius: 500, type: ['store']},
+      function(results, status, pagination) {
+        if (status !== 'OK') return;
+
+        createMarkers(results);
+        moreButton.disabled = !pagination.hasNextPage;
+        getNextPage = pagination.hasNextPage && function() {
+          pagination.nextPage();
+        };
+      });
+  
+   var marker = new google.maps.Marker({
+      map: map,
+      position: myLatLng
+      //position: myLatLng
+    }); 
+    
+    
+
+}
+
+function createMarkers(places) {
+  var bounds = new google.maps.LatLngBounds();
+  var placesList = document.getElementById('places');
+  var markup1 = document.getElementById('markup');
+
+  for (var i = 0, place; place = places[i]; i++) {
+    var image = {
+      url: place.icon,
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(25, 25)
+    };
+
     var marker = new google.maps.Marker({
       map: map,
-      position: myLatLng,
-      title: 'Hello World!'
+      icon: image,
+      title: place.name,
+      position: place.geometry.location
+      //position: myLatLng
     });
-  }
 
+    var li = document.createElement('li');
+    li.textContent = place.name;
+    placesList.appendChild(li);
+    $(li).addClass( "map_li" );
+    bounds.extend(place.geometry.location);
+  }
+  
+
+  map.fitBounds(bounds);
+}
+</script>
 
   
-</script>
+<style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #right-panel {
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+
+      #right-panel select, #right-panel input {
+        font-size: 15px;
+      }
+
+      #right-panel select {
+        width: 100%;
+      }
+
+      #right-panel i {
+        font-size: 12px;
+      }
+      #right-panel {
+        font-family: Arial, Helvetica, sans-serif;
+        position: absolute;
+        right: 5px;
+        top: 60%;
+        margin-top: -195px;
+        height: 330px;
+        width: 200px;
+        padding: 5px;
+        z-index: 5;
+        border: 1px solid #999;
+        background: #fff;
+      }
+
+      #places {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        height: 271px;
+        width: 200px;
+        overflow-y: scroll;
+      }
+      .map_li {
+        background-color: #f1f1f1;
+        padding: 10px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .map_li:nth-child(odd) {
+        background-color: #fcfcfc;
+      }
+      #more {
+        width: 100%;
+        margin: 5px 0 0 0;
+      }
+    </style>

@@ -17,10 +17,12 @@
     <div id="right-panel">
       <h2>Results</h2>
       <ul id="places"></ul>
-      <div id="markup"></div>
       <button id="more">More results</button>
     </div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDSFJk-gBENhgfxPZ5I8BLrdMcYJdJP2c&libraries=places&callback=initMap" async defer></script>
+<!--     
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDSFJk-gBENhgfxPZ5I8BLrdMcYJdJP2c&callback=initMap" async defer></script>
+ -->    
   </body>
 </html>
 
@@ -68,7 +70,7 @@
         background: #fff;
       }
 
-      ul {
+      #places {
         list-style-type: none;
         padding: 0;
         margin: 0;
@@ -76,14 +78,14 @@
         width: 200px;
         overflow-y: scroll;
       }
-      li {
+      .map_li {
         background-color: #f1f1f1;
         padding: 10px;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
       }
-      li:nth-child(odd) {
+      .map_li:nth-child(odd) {
         background-color: #fcfcfc;
       }
       #more {
@@ -111,9 +113,10 @@
         //var pyrmont = {lat: -33.866, lng: 151.196};
         var myLatLng = {lat: -33.866, lng: 151.196};
         map = new google.maps.Map(document.getElementById('map'), {
-          center: myLatLng,
+          zoom: 17,        	
+          center: myLatLng
           //center: pyrmont,
-          zoom: 17
+
         });
         
 /*     	  google.maps.event.addListener(map, 'click', function(event) {
@@ -143,12 +146,11 @@
               };
             });
         
-/*         var marker = new google.maps.Marker({
+         var marker = new google.maps.Marker({
             map: map,
-            title: place.name,
             position: myLatLng
             //position: myLatLng
-          }); */
+          }); 
           
           
      
@@ -179,9 +181,10 @@
           var li = document.createElement('li');
           li.textContent = place.name;
           placesList.appendChild(li);
-			
+          $(li).addClass( "map_li" );
           bounds.extend(place.geometry.location);
         }
+        
 
         map.fitBounds(bounds);
       }
