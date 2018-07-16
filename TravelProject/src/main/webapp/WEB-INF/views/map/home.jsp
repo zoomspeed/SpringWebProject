@@ -4,9 +4,12 @@
 <%@page import="java.util.*"%>    
 <%@page import="com.multi.travel.common.*"%>
 <%@include file="../include/common_main.jsp"%>
+<%@include file="../include/startheader.jsp"%>
+<%@include file="../include/animateheader.jsp"%>
+<%@include file="../include/mainheader.jsp"%>
 
-	<%@include file="../include/startheader.jsp"%>
-	<%@include file="../include/mainheader.jsp"%>
+
+
 <%
 sel="title";
 if(request.getParameter("sel")!=null)

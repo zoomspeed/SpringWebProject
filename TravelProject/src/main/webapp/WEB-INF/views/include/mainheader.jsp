@@ -1,6 +1,7 @@
 <%@ page language="java" 
     contentType="text/html;charset=utf-8"
     pageEncoding="utf-8"%>
+    
 	</head>	
 <!-- header S -->
 	<body >
@@ -29,9 +30,9 @@
 									</ul>
 								</li>
 								<li>
-									<a href="${commonURL}/file/upload.do" class="fh5co-sub-ddown">길찾기</a>
+									<a href="${commonURL}/file/fileUpload.do" class="fh5co-sub-ddown">길찾기</a>
 									<ul class="fh5co-sub-menu">
-										<li><a href="${commonURL}/file/fileUpload.do" target="_self">사진위치로 길찾기</a></li>
+										<li><a href="${commonURL}/file/fileUpload.do" target="_self">사진 업로드</a></li>
 										<li><a href="http://freehtml5.co/preview/?item=work-free-html5-template-bootstrap" target="_self">주변 관광지 찾기</a></li>
 										<li><a href="${commonURL}/map/mapInfo.do" target="_self">가장빠른길 찾기</a></li>
 									</ul>

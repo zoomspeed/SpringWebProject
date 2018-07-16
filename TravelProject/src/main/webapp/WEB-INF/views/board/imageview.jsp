@@ -3,7 +3,8 @@
     pageEncoding="utf-8"%>
 <%@page import="com.multi.travel.image.dto.*"%>
 <%@page import="com.multi.travel.common.*"%>
- <%@include file="../include/common_main.jsp"%>	
+ <%@include file="../include/common_main.jsp"%>
+  <%@include file="../include/animateheader.jsp"%>	
 <%@include file="../include/startheader.jsp"%>
 <%@include file="../include/viewheader.jsp"%>
 	<!-- Google Map -->

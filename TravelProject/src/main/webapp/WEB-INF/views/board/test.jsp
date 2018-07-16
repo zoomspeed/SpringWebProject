@@ -4,12 +4,14 @@
 <%@page import="com.multi.travel.common.*"%>    
 <%@include file="../include/common_main.jsp"%>
 
-	<%@include file="../include/startheader.jsp"%>
-	<%@include file="../include/listheader.jsp"%>
-	<%-- <%@include file="../include/left.jsp"%>	 --%>	
+<%@include file="../include/startheader.jsp"%>
+<%@include file="../include/animateheader.jsp"%>
+<%@include file="../include/listheader.jsp"%>
+<%-- <%@include file="../include/left.jsp"%>	 --%>	
 		
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%@include file="../include/mainheader.jsp"%>
+
 <form name="mform" id="mform">
 <input type="hidden" name="pg" value="<%=pg%>" id="pg" />
 <input type="hidden" name="mode" value="insert" id="mode" />

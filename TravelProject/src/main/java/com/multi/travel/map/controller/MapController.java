@@ -26,6 +26,12 @@ public class MapController {
 	public void mapInfo()
 	{}
 	
+	@RequestMapping("/map/route")
+	public void route()
+	{}	
 	
+	@RequestMapping("/map/place")
+	public void place()
+	{}
 
 }

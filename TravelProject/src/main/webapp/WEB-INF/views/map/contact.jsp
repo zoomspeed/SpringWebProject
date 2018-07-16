@@ -6,6 +6,9 @@
 <%@include file="../include/common_main.jsp"%>
 
 <%@include file="../include/startheader.jsp"%>
+<%@include file="../include/animateheader.jsp"%>
+<%@include file="../include/mainheader.jsp"%>
+
 	
 
 	

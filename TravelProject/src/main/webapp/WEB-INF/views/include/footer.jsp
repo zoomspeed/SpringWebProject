@@ -4,10 +4,10 @@ contentType="text/html;charset=utf-8"
 
 <!-- footer S -->
 		<footer>
-			<div id="footer">
-				<div class="container">
+			<div id="footer" >
+				<div class="container" align="center">
 					<div class="row">
-						<div class="col-md-6 col-md-offset-3 text-center">
+						<div class="col-md-6 col-md-offset-3 text-center" id="Divfooter">
 							<p class="fh5co-social-icons">
 								<a href="#"><i class="icon-twitter2"></i></a>
 								<a href="#"><i class="icon-facebook2"></i></a>

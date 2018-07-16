@@ -2,53 +2,39 @@
     contentType="text/html;charset=utf-8"
     pageEncoding="utf-8"%>
 <%@include file="../include/common_main.jsp"%>
-
-
  <%@include file="../include/startheader.jsp"%>
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+ 
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+<link href="${commonURL}/resources/uploader-master/dist/css/jquery.dm-uploader.min.css" rel="stylesheet">
+<link href="${commonURL}/resources/uploader-master/demo/styles.css" rel="stylesheet">
 
-    <!-- Custom styles -->
-    <link href="${commonURL}/resources/uploader-master/dist/css/jquery.dm-uploader.min.css" rel="stylesheet">
-    <link href="${commonURL}/resources/uploader-master/demo/styles.css" rel="stylesheet">
+<!-- Animate.css -->
+<link rel="stylesheet" href="${commonURL}/resources/template/css/animate.css">
+<!-- Icomoon Icon Fonts-->
+<link rel="stylesheet" href="${commonURL}/resources/template/css/icomoon.css">
+<link rel="stylesheet" href="${commonURL}/resources/template/css/superfish.css">
+<link rel="stylesheet" href="${commonURL}/resources/template/css/style.css">	
+
+<!-- Custom styles -->
 <%@include file="../include/mainheader.jsp"%>   
-  
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+ <br/>
 
-<%--  
 
-<!doctype html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<div style="width:100%; height:100%; background-image:url('${commonURL}/resources/uploader-master/demo/lightblue.gif');">
 
-    <title>jQuery Ajax File Uploader Widget</title> 
-
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-
-    <!-- Custom styles -->
-    <link href="${commonURL}/resources/uploader-master/dist/css/jquery.dm-uploader.min.css" rel="stylesheet">
-    <link href="${commonURL}/resources/uploader-master/demo/styles.css" rel="stylesheet">
-
-  
-</head>
-
-  <body>
-  
-    --%>
 <form name="mform" id="mform" method="post" enctype="multipart/form-data">  
-
-<input type="text" name="userid" id="userid" value="${userid }"/>
+<br/><br/>
     <main role="main" class="container">
 
-      <h1>jQuery Ajax File Uploader Widget</h1>
+<!--       
+	  <h1>jQuery Ajax File Uploader Widget</h1>
       <p class="lead mb-4">
         A very lightweight Plugin for file uploading using ajax(async) and includes support for queues, progress tracking and drag and drop.
         This page demostrates the default basic setup/config.
       </p>
-
+ -->
+ <br/><br/>
       <div class="row">
         <div class="col-md-6 col-sm-12">
           
@@ -71,13 +57,13 @@
 		
 		
         </div>
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-6 col-sm-12" >
           <div class="card h-100">
             <div class="card-header">
               File List
             </div>
 
-            <ul class="list-unstyled p-2 d-flex flex-column col" id="files">
+            <ul class="list-unstyled p-2 d-flex flex-column col" id="files" >
               <li class="text-muted text-center empty">No files uploaded.</li>
             </ul>
           </div>
@@ -104,9 +90,28 @@
 
     </main> <!-- /container -->
 
-    <footer class="text-center">
-        <p>&copy; Daniel Morales &middot; <a href="https://www.danielmg.org">www.danielmg.org</a></p>
-    </footer>
+<%@include file="../include/footer.jsp"%>
+
+    
+  </body>
+
+</form>  
+</div>
+</html>
+<style>
+#fh5co-header{
+    position: relative;
+    top: -60px;
+    
+}
+ #footer{
+    position: absolute;
+    top: 110%;
+    
+} 
+</style>
+
+
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
@@ -144,6 +149,13 @@
  <script>
  
 	$(document).ready(function(){
+		
+
+		$("#Divfooter").removeClass("col-md-6");
+		$("#Divfooter").addClass("col-md-12");
+		$("footer").height("200px");
+
+		출처: http://sharphail.tistory.com/45 [샤해의 포스트잇]
 		
 		$("#btnWrite").click(function(event){
 			//에러체크 (제목, 내용, 아이디)
@@ -210,7 +222,3 @@
 		});
 	});
  </script>  
-    
-  </body>
-</form>  
-</html>

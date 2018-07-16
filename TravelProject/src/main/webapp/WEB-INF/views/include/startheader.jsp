@@ -52,6 +52,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
  -->
+ 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- board template end -->
@@ -67,16 +68,8 @@
 
 	<!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'> -->
 	
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="${commonURL}/resources/template/css/animate.css">
-	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="${commonURL}/resources/template/css/icomoon.css">
-	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="${commonURL}/resources/template/css/bootstrap.css">
-	<!-- Superfish -->
-	<link rel="stylesheet" href="${commonURL}/resources/template/css/superfish.css">
-
-	<link rel="stylesheet" href="${commonURL}/resources/template/css/style.css">
+	
+<%-- 	<%@include file="../include/animateheader.jsp"%>	 --%>
 
 
 	<!-- Modernizr JS -->

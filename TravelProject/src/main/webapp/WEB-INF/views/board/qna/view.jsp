@@ -6,6 +6,7 @@
 <%@page import="com.multi.travel.common.*"%>
  <%@include file="../../include/common_main.jsp"%>	
 <%@include file="../../include/startheader.jsp"%>
+<%@include file="../../include/animateheader.jsp"%>
 <%@include file="../../include/viewheader.jsp"%>
 <%@include file="../../include/writeheader.jsp"%>
 <%@include file="../../include/mainheader.jsp"%>
