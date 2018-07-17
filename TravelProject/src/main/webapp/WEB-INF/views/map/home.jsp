@@ -3,6 +3,7 @@
     pageEncoding="utf-8"%>
 <%@page import="java.util.*"%>    
 <%@page import="com.multi.travel.common.*"%>
+<%@page import="com.multi.travel.image.dto.*" %>
 <%@include file="../include/common_main.jsp"%>
 <%@include file="../include/startheader.jsp"%>
 <%@include file="../include/animateheader.jsp"%>
@@ -47,7 +48,7 @@ if(request.getParameter("sel")!=null)
 		
 
 	<% 
-		List<String> ImageList =(ArrayList<String>)request.getAttribute("ImageList");
+		List<ImageDto> ImageList =(ArrayList<ImageDto>)request.getAttribute("ImageList");
 	%>
 
 			
@@ -67,9 +68,9 @@ if(request.getParameter("sel")!=null)
 					<label for="sel" class="desc">실시간 업로드 사진</label>
 					<!-- <button id="Ggg" name="Ggg" value="ddd" onclick="go_AlbumList()"> -->
 					<select id="sel" name="sel" class="btn btn-primary btn-lg">
-						<option value="date" <%if(sel.equals("date")){%>selected<%}%>" onclick="go_AlbumList()">날짜순</option>
-						<option value="title" <%if(sel.equals("title")){%>selected<%}%>" onclick="go_AlbumList()">제목순</option>
-						<option value="hit" <%if(sel.equals("hit")){%>selected<%}%>" onclick="go_AlbumList()">조회순</option>
+						<option value="date" <%if(sel.equals("date")){%>selected<%}%> onclick="go_AlbumList()">날짜순</option>
+						<option value="title" <%if(sel.equals("title")){%>selected<%}%> onclick="go_AlbumList()">제목순</option>
+						<option value="hit" <%if(sel.equals("hit")){%>selected<%}%> onclick="go_AlbumList()">조회순</option>
 					</select>
 					<input type="button" onclick="go_AlbumList()" value="전송하기"/>
 					<input type="hidden" name="num"  value="6"/>
@@ -82,15 +83,15 @@ if(request.getParameter("sel")!=null)
 				
 				<%for(int i=0; i<ImageList.size(); i++){ %>
 					<div class="col-md-4 col-sm-4 fh5co-item-wrap">
-						<a class="fh5co-listing-item">
-							<!-- 
+						<a id="a<%=(i+1)%>" class="fh5co-listing-item" href="${commonURL}/board/imageview.do?image_seq=<%=ImageList.get(i).getImage_seq()%>">
+							<!-- s
 							<img src="${commonURL}/upload/image/<%=ImageList.get(i)%>" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive" style="width: 100%; height: 100%;">
 							 -->
 							 
-							<img id="ImageSrc<%=(i+1)%>" name="ImageSrcs" src="${commonURL}/upload/image/<%=ImageList.get(i)%>" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive" style="width: 700px; height: 282px;">
-							<input type="hidden" id="ImageName<%=i%>" name="ImageNames" onclick="goChange('<%=i+1%>')" value="<%=ImageList.get(i) %>"/>
+							<img id="ImageSrc<%=(i+1)%>" name="ImageSrcs" src="${commonURL}/upload/image/<%=ImageList.get(i).getTitle()%>" alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive" style="width: 700px; height: 282px;">
+							<input type="hidden" id="ImageName<%=i%>" name="ImageNames" onclick="goChange('<%=i+1%>')" value="<%=ImageList.get(i).getTitle() %>"/>
 							<div class="fh5co-listing-copy">
-								<h2 id="h<%=(i+1)%>" name="h<%=(i+1)%>"><%=ImageList.get(i) %></h2>
+								<h2 id="h<%=(i+1)%>" name="h<%=(i+1)%>"><%=ImageList.get(i).getTitle() %></h2>
 								<span class="icon">
 									<i class="icon-chevron-right"></i>
 								</span>
@@ -176,24 +177,51 @@ function go_AlbumList()
 		type:'POST',
 		success:function(data){
 			alert("조회가 완료 되었습니다.");
-			
-			changeImage(data);
- 
-			//console.log(data.ImageList1);
-			//console.log(data.ImageList2);
+		
 			console.log(data);
+			var title = new Array();
+			var seq = new Array();
+			$.each(data, function(idx, val) {
+				title[idx] = val.title;
+				seq[idx] = val.image_seq;
+				//console.log(idx + " " + val.title);
+				//console.log(idx + " " + val.image_seq);
+			});		
+			
+			
+			changeImage(title,seq);
+			
+ 			
 		},
 		error:function(request,status,error){
 			alert(error);
 			alert(request.message);
 			//alert("조회 실패");
 		}
+		
+		
 	});	
 	  
 	//$("#mform").submit();
 }
- function changeImage(data){
+ function changeImage(title,seq){
 	
+	 	for(var i=0; i<title.length; i++){
+	 	
+	 		
+	 		console.log(title[i]);
+	 		console.log(seq[i]);
+	 		var imageSrc = '#ImageSrc'+(i+1);
+	 		var hTag = "#h"+(i+1);
+	 		var aTag = "#a"+(i+1);
+	 		$(hTag).html(title[i]);
+	 		$(aTag).attr("href","${commonURL}/board/imageview.do?image_seq="+seq[i]);
+	 		$(imageSrc).attr("src","${commonURL}/upload/image/"+title[i]);
+	 	}
+	 
+	 
+	 
+<%-- 		
 		<%
 			for(int i=0; i<ImageList.size(); i++){
 		%>	
@@ -209,11 +237,10 @@ function go_AlbumList()
 		<%		
 			}
 		%>
-		
+		 --%>
 		//$("#ImageSrc").attr("src","${commonURL}/upload/image/"+ImageList1);
 		
 } 
- 
  
  
 </script>

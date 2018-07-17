@@ -43,13 +43,13 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
 		String formattedDate = dateFormat.format(date);
-		List<String> ImageList = new ArrayList<String>();	
+/*		List<String> ImageList = new ArrayList<String>();	
 		
 
 		ImageList = imageService.getMainImage(dto);	
 		
 		model.addAttribute("serverTime", formattedDate );
-		model.addAttribute("ImageList",ImageList);		
+		model.addAttribute("ImageList",ImageList);	*/	
 		
 		return "redirect:/home.do";
 	}
@@ -66,9 +66,8 @@ public class HomeController {
 		
 		System.out.println("@@@@@@@@@@getSel@@@@@@@@@@@@@@@@ : "+dto.getSel());
 		System.out.println("key@@@@@@@@@@@@@2:"+dto.getKey());
-		List<String> ImageList = new ArrayList<String>();
-		ImageList = imageService.getMainImage(dto);
-
+		List<ImageDto> ImageList = new ArrayList<ImageDto>();
+		ImageList = imageService.getList(dto);
 		
 
 		model.addAttribute("serverTime", formattedDate );		

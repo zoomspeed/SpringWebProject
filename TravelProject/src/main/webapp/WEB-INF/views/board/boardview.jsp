@@ -189,7 +189,8 @@ body {
 				   <%} %>
 				   
 						<button id="btnList" class="btn btn-primary"><a href="${commonURL}/board/test.do">목록</a></button>
-					
+<button type="button" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-thumbs-up"></span> Like</button>
+<button type="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-thumbs-down"></span> Dislike</button>			
 				</div>
 
 			</div>

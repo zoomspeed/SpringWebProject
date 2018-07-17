@@ -8,7 +8,7 @@ import com.multi.travel.image.dto.ImageDto;
 
 public interface ImageService {
 	List<ImageDto> getList(ImageDto dto);
-	List<String> getMainImage(ImageDto dto);	
+	List<ImageDto> getMainImage(ImageDto dto);	
 	
 	int getTotal(ImageDto dto);
 	ImageDto getView(String board_seq);

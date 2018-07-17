@@ -91,9 +91,9 @@
    </insert>
 
    <select id="Image.getMainImage" parameterType="ImageDto"
-      resultType="String">
+      resultType="ImageDto">
  
-      select title from
+      select title,image_seq from
       (
 	    select * 
 	    from tl_image

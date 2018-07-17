@@ -154,7 +154,7 @@ public class ImageController {
 		  
 		@RequestMapping(value = "/ImageList", method = RequestMethod.POST)
 		public @ResponseBody
-		Map<String, Object> Submit2(@RequestBody ImageDto dto) {//@RequestBody Map<String,Object> params
+		List<ImageDto> Submit2(@RequestBody ImageDto dto) {//@RequestBody Map<String,Object> params
 			//@RequestParam("sel") String sel
 			Map<String, Object> resultMap = new HashMap<String,Object>();
 			//System.out.println(sel);
@@ -171,8 +171,8 @@ public class ImageController {
 			
 			System.out.println(dto.getNum());
 
-			List<String> dataList = imageService.getMainImage(dto);
-
+			//List<ImageDto> dataList = imageService.getMainImage(dto);
+			List<ImageDto> dataList = imageService.getMainImage(dto);
 			
 			for(int i=0; i<dataList.size(); i++) {
 				resultMap.put("ImageList"+(i+1), dataList.get(i));
@@ -181,13 +181,17 @@ public class ImageController {
 			//resultMap.put("sel", dto.getSel());
 			
 			for(int i=0; i<dataList.size(); i++) {
-				System.out.println(resultMap.get("ImageList"+(i+1)));
+				System.out.println(dataList.get(i).getTitle());
+				//System.out.println("resultMap@@@@@"+resultMap.get("ImageList"+(i+1)));
 			}
-			
+			//ImageDto temp = (ImageDto)resultMap.get("ImageList1");
+			//System.out.println("TEMP@@@@@"+temp.getTitle());
+
 			//model.addAttribute("resultMap", resultMap);
 			//System.out.println("ImgeList 호출완료");
 			
-			return resultMap;
+			
+			return dataList;
 		}			
 		
 		@RequestMapping("/board/imageview")

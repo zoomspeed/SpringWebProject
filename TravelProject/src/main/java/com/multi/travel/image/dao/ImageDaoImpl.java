@@ -76,9 +76,9 @@ public class ImageDaoImpl implements ImageDao{
 	}
 
 	@Override
-	public List<String> getMainImage(ImageDto dto) {
+	public List<ImageDto> getMainImage(ImageDto dto) {
 		// TODO Auto-generated method stub
-		List<String> list = sm.selectList("Image.getMainImage",dto);
+		List<ImageDto> list = sm.selectList("Image.getMainImage",dto);
 		return list;
 	}
 	

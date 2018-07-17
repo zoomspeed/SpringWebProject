@@ -75,7 +75,7 @@ public class ImageServiceImpl implements ImageService{
 	}
 
 	@Override
-	public List<String> getMainImage(ImageDto dto) {
+	public List<ImageDto> getMainImage(ImageDto dto) {
 		// TODO Auto-generated method stub
 		return imageDao.getMainImage(dto);
 	}

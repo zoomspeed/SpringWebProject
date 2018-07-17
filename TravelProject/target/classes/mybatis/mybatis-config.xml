@@ -17,6 +17,8 @@
    			type="com.multi.travel.image.dto.ImageDto"/>
    		<typeAlias alias="QnaDto" 
    			type="com.multi.travel.board.Qna.dto.QnaDto"/>
+   		<typeAlias alias="LikeDto" 
+   			type="com.multi.travel.board.Like.dto.LikeDto"/>   			
    			   				   			
 	</typeAliases>
 
@@ -24,7 +26,8 @@
  	  <mapper resource="/com/multi/travel/board/data/Board.xml"/>
 	  <mapper resource="/com/multi/travel/member/data/Member.xml"/>
 	  <mapper resource="/com/multi/travel/image/data/Image.xml"/>
-	  <mapper resource="/com/multi/travel/board/Qna/data/Qna.xml"/>	  				  			
+	  <mapper resource="/com/multi/travel/board/Qna/data/Qna.xml"/>	
+	  <mapper resource="/com/multi/travel/board/Like/data/Like.xml"/>		    				  			
 	</mappers>
 	
 </configuration>
