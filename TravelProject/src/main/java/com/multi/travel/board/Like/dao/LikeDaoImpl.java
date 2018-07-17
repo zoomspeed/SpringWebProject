@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.multi.travel.board.Like.dto.LikeDto;
 import com.multi.travel.board.Qna.dto.QnaDto;
 
 
@@ -54,8 +55,8 @@ public class LikeDaoImpl implements LikeDao{
 	}
 
 	@Override
-	public void update(QnaDto dto) {
-		sm.update("Qna.update", dto);
+	public void update(LikeDto dto) {
+		sm.update("Like.update", dto);
 		
 	}
 

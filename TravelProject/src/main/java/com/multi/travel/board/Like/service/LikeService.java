@@ -2,6 +2,7 @@ package com.multi.travel.board.Like.service;
 
 import java.util.List;
 
+import com.multi.travel.board.Like.dto.LikeDto;
 import com.multi.travel.board.Qna.dto.QnaDto;
 
 
@@ -14,7 +15,7 @@ public interface LikeService {
 	QnaDto getNext(QnaDto paramDto);
 	
 	void insert(QnaDto dto);
-	void update(QnaDto dto);
+	void update(LikeDto dto);
 	void delete(QnaDto dto);
 	void reply(QnaDto dto);
 }

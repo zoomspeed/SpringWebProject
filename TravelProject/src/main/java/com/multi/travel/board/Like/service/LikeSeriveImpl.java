@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.multi.travel.board.Qna.dto.QnaDto;
 import com.multi.travel.board.Like.dao.LikeDao;
+import com.multi.travel.board.Like.dto.LikeDto;
 import com.multi.travel.board.Qna.dao.QnaDao;
 
 import javax.annotation.Resource;
@@ -38,12 +39,12 @@ public class LikeSeriveImpl implements LikeService{
 	}
 
 	@Override
-	public void insert(QnaDto dto) {
+	public void insert(LikeDto dto) {
 		likeDao.insert(dto);
 	}
 
 	@Override
-	public void update(QnaDto dto) {
+	public void update(LikeDto dto) {
 		likeDao.update(dto);
 	}
 

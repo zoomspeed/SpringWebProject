@@ -57,8 +57,8 @@
          order 진행순서 BEFORE 를 쓰면 먼저 진행된다 -->
       <selectKey resultType="String" keyProperty="like_seq"
          order="BEFORE">
-         select nvl(max(qna_seq),0)+1 as qna_seq
-         from tl_question_answer
+         select nvl(max(qna_seq),0)+1 as like_seq
+         from tl_like
       </selectKey>
       insert into tl_question_answer(
       qna_seq
@@ -130,6 +130,8 @@
 		set delyn='Y'
 		where qna_seq=#{qna_seq}
 	</update>
+	
+	
 
 	<select id="Like.getUserid" parameterType="String"
 		resultType="String">

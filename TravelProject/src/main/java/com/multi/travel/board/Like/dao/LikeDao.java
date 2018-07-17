@@ -1,6 +1,8 @@
 package com.multi.travel.board.Like.dao;
 
 import java.util.List;
+
+import com.multi.travel.board.Like.dto.LikeDto;
 import com.multi.travel.board.Qna.dto.QnaDto;
 
 public interface LikeDao {
@@ -11,7 +13,7 @@ public interface LikeDao {
 	QnaDto getNext(QnaDto dto);
 	
 	void insert(QnaDto dto);
-	void update(QnaDto dto);
+	void update(LikeDto dto);
 	void delete(QnaDto dto);
 	void reply(QnaDto dto);
 	

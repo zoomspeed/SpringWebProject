@@ -11,18 +11,22 @@ public class LikeDto {
 	private String key="";
 	private String num="";
 	
-
+	private String mode="";
 	private String like_seq="";
 	private String userid="";
 	private String like_type="";
 	private String datatime="";
 	private String ip_addr="";
-	private String target_type="";
+	private String board_type="";
 	private String target_id="";
 	
 	//디폴트 생성자 
 	public LikeDto() 
 	{}
+	
+	public LikeDto(String mode) {
+		this.mode = mode;
+	}
 	
 	//파일을 받아오기 위해서 추가하는 필드 
 	List<MultipartFile> files;
@@ -133,12 +137,14 @@ public class LikeDto {
 		this.ip_addr = ip_addr;
 	}
 
-	public String getTarget_type() {
-		return target_type;
+
+
+	public String getBoard_type() {
+		return board_type;
 	}
 
-	public void setTarget_type(String target_type) {
-		this.target_type = target_type;
+	public void setBoard_type(String board_type) {
+		this.board_type = board_type;
 	}
 
 	public String getTarget_id() {
@@ -147,6 +153,14 @@ public class LikeDto {
 
 	public void setTarget_id(String target_id) {
 		this.target_id = target_id;
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
 
 

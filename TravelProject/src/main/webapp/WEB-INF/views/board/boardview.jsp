@@ -125,9 +125,8 @@ body {
 					  </tr>
 					  <tr>
 					  	<td></td>
-					  	<td><br/><br/><br/></td>
+					  	<td><br/><br/><br/><br/></td>
 					  </tr>
-					  
 					  <tr>
 					  	<td>이전글</td>
 					  	<td>						
@@ -151,25 +150,20 @@ body {
                     </tbody>
                   </table>
                   	
-                  
-                  
-                  
 
-			
-			
-			
-		
-                  
-                  
-                  
 <!--                   <a href="#" class="btn btn-primary" onclick="history.go(-1)">취소</a>
                   <input type="button" id="btnWrite" name="btnWrite" class="btn btn-primary" value="확인" /> -->
                 </div>
               </div>
+              <br/><br/>
+              <div align="center">
+				<button type="button" class="btn btn-success btn-sm" id="btnLike"><span class="glyphicon glyphicon-thumbs-up"></span> Like</button>
+				<button type="button" class="btn btn-danger btn-sm" id="btnDislike"><span class="glyphicon glyphicon-thumbs-down"></span> Dislike</button>								  	
+			  </div> 
+			  <br/><br/>
             </div>
             <div class="panel-footer">
-            
-            
+         
             <div class="bftv">
 
 				<div class="bb" align="right">
@@ -189,8 +183,6 @@ body {
 				   <%} %>
 				   
 						<button id="btnList" class="btn btn-primary"><a href="${commonURL}/board/test.do">목록</a></button>
-<button type="button" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-thumbs-up"></span> Like</button>
-<button type="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-thumbs-down"></span> Dislike</button>			
 				</div>
 
 			</div>
@@ -350,6 +342,33 @@ $(document).ready(function() {
 		}
 		
 	});
+	
+	
+	var form = $("#mform")[0];
+	var formData = new FormData(form);	
+	
+	
+	$("#btnLike").click(function(){
+
+			var url="${commonURL}/board/like/ThumbUp.do";
+			$("#mode").val("like");
+			$.ajax({
+				contentType:'application/json; charset=utf-8',
+				url:url, 				
+				type:"post",		
+				data:JSON.stringify({"mode":$("#mode").val(),"board_type":"freeboard"}),
+				dataType:"json",
+				success:function(data){
+					alert("글이 삭제되었습니다");
+					//현재 페이지 새로 고침하기 
+
+				},
+				error:function(e){
+					alert("삭제 실패");
+				}
+			});
+		
+	});	
     
 });
 </script>
