@@ -29,10 +29,16 @@ BoardDto nextDto = (BoardDto)request.getAttribute("nextDto");
 	     value="${param.sel}">
 	<input type="hidden" name="key" id="key"
 	     value="${param.key}">
-	<input type="hidden" name="board_seq" id="board_seq"
+	<input type="text" name="board_seq" id="board_seq"
 	     value="${param.board_seq}">
 	<input type="hidden" name="mode" id="mode"
 	     value="">
+	<input type="text" name="like_type" id="like_type"
+	     value="">
+<%-- 	<input type="text" name="target_id" id="target_id"
+		value="${param.target_id}">	  --%>
+	<input type="text" name="userid" id="userid"
+		value="${userid}">	 		    
 	<input type="hidden" name="title" id="mode" value="<%=viewDto.getTitle() %>">
 	
  	     
@@ -352,11 +358,13 @@ $(document).ready(function() {
 
 			var url="${commonURL}/board/like/ThumbUp.do";
 			$("#mode").val("like");
+			$("#like_type").val(1);
 			$.ajax({
 				contentType:'application/json; charset=utf-8',
 				url:url, 				
 				type:"post",		
-				data:JSON.stringify({"mode":$("#mode").val(),"board_type":"freeboard"}),
+				data:JSON.stringify({"mode":$("#mode").val(),"userid":$("#userid").val()
+									,"target_id":$("#board_seq").val(), "like_type":"1"}),
 				dataType:"json",
 				success:function(data){
 					alert("글이 삭제되었습니다");
@@ -369,6 +377,36 @@ $(document).ready(function() {
 			});
 		
 	});	
+	
+	
+	
+	
+	
+	$("#btnDislike").click(function(){
+
+		var url="${commonURL}/board/like/ThumbUp.do";
+		$("#mode").val("dislike");
+		$("#like_type").val(2);
+		$.ajax({
+			contentType:'application/json; charset=utf-8',
+			url:url, 				
+			type:"post",		
+			data:JSON.stringify({"mode":$("#mode").val(),"userid":$("#userid").val()
+								,"target_id":$("#board_seq").val(), "like_type":$("#like_type").val()}),
+			dataType:"json",
+			success:function(data){
+				alert("글이 삭제되었습니다");
+				//현재 페이지 새로 고침하기 
+
+			},
+			error:function(e){
+				alert("삭제 실패");
+			}
+		});
+	
+});		
+	
+	
     
 });
 </script>

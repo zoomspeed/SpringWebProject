@@ -20,6 +20,11 @@ public class LikeDto {
 	private String board_type="";
 	private String target_id="";
 	
+	private String isDel="";
+	private String delyn="";
+	private String pre_like_type="";
+	
+	private String isUpdate = "0";
 	//디폴트 생성자 
 	public LikeDto() 
 	{}
@@ -163,8 +168,40 @@ public class LikeDto {
 		this.mode = mode;
 	}
 
+	public String getDelyn() {
+		return delyn;
+	}
+
+	public void setDelyn(String delyn) {
+		this.delyn = delyn;
+	}
+
+	public String getIsUpdate() {
+		return isUpdate;
+	}
+
+	public void setIsUpdate(String isUpdate) {
+		this.isUpdate = isUpdate;
+	}
+
+	public String getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(String isDel) {
+		this.isDel = isDel;
+	}
+
+	public String getPre_like_type() {
+		return pre_like_type;
+	}
+
+	public void setPre_like_type(String pre_like_type) {
+		this.pre_like_type = pre_like_type;
+	}
 
 	
+
 	
 
 	

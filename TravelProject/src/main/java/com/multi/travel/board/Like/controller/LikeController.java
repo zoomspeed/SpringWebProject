@@ -39,14 +39,40 @@ public class LikeController {
 	
 
 	@RequestMapping(value = "/board/like/ThumbUp", method = RequestMethod.POST)
-	public @ResponseBody Map<String,Object>  ThumbUp(@RequestBody Map<String, Object> values)
+	public @ResponseBody Map<String,Object>  ThumbUp(@RequestBody Map<String, Object> values
+													,HttpServletRequest req)
 	{												//@RequestBody Map<String, Object> values, 
 		Map<String,Object> result = new HashMap<String,Object>();
 		LikeDto dto = new LikeDto();
+		
+		
 		dto.setMode((String)values.get("mode"));
 		dto.setBoard_type((String)values.get("mode"));
+		dto.setTarget_id((String)values.get("target_id"));
+		dto.setLike_type((String) values.get("like_type"));
+		dto.setUserid((String)values.get("userid"));
+		dto.setIp_addr(IP.getClientIP(req));
+
+		System.out.println("@@@@@@");
+		System.out.println(dto.getBoard_type());
+		System.out.println(dto.getTarget_id());
+		System.out.println(dto.getLike_type());
+		System.out.println(dto.getUserid());
+		System.out.println("@@@@@");
 		
-		//likeService.update(dto);
+		
+		int isUpdate = likeService.getTotal(dto);
+		//dto.setIsUpdate(String.valueOf(isUpdate));
+		System.out.println(dto.getIsUpdate());
+		
+		if(isUpdate ==0) {
+			likeService.insert(dto);
+		}
+		else if(isUpdate ==1) {
+			
+			likeService.update(dto);
+		}
+
 		return result;
 	}
 	

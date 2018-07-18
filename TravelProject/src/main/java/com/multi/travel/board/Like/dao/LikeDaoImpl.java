@@ -27,9 +27,9 @@ public class LikeDaoImpl implements LikeDao{
 	}
 
 	@Override
-	public int getTotal(QnaDto dto) {
+	public int getTotal(LikeDto dto) {
 		
-		int result = (Integer)sm.selectOne("Qna.getTotalCount", dto);
+		int result = (Integer)sm.selectOne("Like.getTotalCount", dto);
 		//selectOne 함수는 object를 반환
 		//object -> Integer -> int 로 바꿔야 한다 
 		//object -> int 로 바로 변경은 불가능 하다
@@ -47,11 +47,11 @@ public class LikeDaoImpl implements LikeDao{
 	}
 
 	@Override
-	public void insert(QnaDto dto) {
+	public void insert(LikeDto dto) {
 		
 		// Qna.xml의 insert 태그 
 		//id와 동일해야 한다 Qna.insert
-		sm.insert("Qna.insert", dto);
+		sm.insert("Like.insert", dto);
 	}
 
 	@Override
@@ -61,8 +61,8 @@ public class LikeDaoImpl implements LikeDao{
 	}
 
 	@Override
-	public void delete(QnaDto dto) {
-		sm.update("Qna.delete", dto);
+	public void delete(LikeDto dto) {
+		sm.update("Like.delete", dto);
 		
 	}
 

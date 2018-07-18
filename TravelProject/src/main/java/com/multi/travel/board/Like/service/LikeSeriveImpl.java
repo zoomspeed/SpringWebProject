@@ -27,7 +27,7 @@ public class LikeSeriveImpl implements LikeService{
 	}
 
 	@Override
-	public int getTotal(QnaDto dto) {
+	public int getTotal(LikeDto dto) {
 		
 		return likeDao.getTotal(dto);
 	}
@@ -38,18 +38,19 @@ public class LikeSeriveImpl implements LikeService{
 		return likeDao.getView(qna_seq);
 	}
 
-	@Override
+/*	@Override
 	public void insert(LikeDto dto) {
 		likeDao.insert(dto);
-	}
+	}*/
 
 	@Override
 	public void update(LikeDto dto) {
+		
 		likeDao.update(dto);
 	}
 
 	@Override
-	public void delete(QnaDto dto) {
+	public void delete(LikeDto dto) {
 		likeDao.delete(dto);
 	}
 
@@ -68,5 +69,12 @@ public class LikeSeriveImpl implements LikeService{
 	public QnaDto getNext(QnaDto paramDto) {
 		
 		return likeDao.getNext(paramDto);
+	}
+
+	@Override
+	public void insert(LikeDto dto) {
+		likeDao.insert(dto);
+		// TODO Auto-generated method stub
+		
 	}
 }

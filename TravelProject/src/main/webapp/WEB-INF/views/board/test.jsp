@@ -75,6 +75,7 @@
 											<c:param name="pg" value="${param.pg}"/>
 											<c:param name="sel" value="${param.sel}"/>
 											<c:param name="key" value="${param.key}"/>
+											<c:param name="target_id" value="${item.userid}"/>
 										</c:url>'>
 										<font size="4" color="black">
 										<c:out value="${item.title}"/>

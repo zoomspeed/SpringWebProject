@@ -10,7 +10,7 @@
       옮겨놓는다 테이블명이나 필드명이 추가되거나 할때는 ${필드명} 또는 ${테이블명} -->
    <select id="Like.getList" parameterType="LikeDto"
       resultType="LikeDto">
- 
+   
       select * from
       (
       select
@@ -57,70 +57,50 @@
          order 진행순서 BEFORE 를 쓰면 먼저 진행된다 -->
       <selectKey resultType="String" keyProperty="like_seq"
          order="BEFORE">
-         select nvl(max(qna_seq),0)+1 as qna_seq
-         from tl_question_answer
+         select nvl(max(like_seq),0)+1 as like_seq
+         from tl_like
       </selectKey>
-      insert into tl_question_answer(
-      qna_seq
-      ,title
-      ,contents
-      ,userid
-      ,hit
-      ,group_id
-      ,depth
-      ,g_level
-      ,regdate
-      ,delyn
-      ,ip_addr
-      <if test="fieldNameList.size()!=0">
-         ,
-         <foreach collection="fieldNameList" item="item" index="index"
-            separator=",">
-            ${item}
-         </foreach>
-      </if>
-      )values(
-      #{qna_seq}
-      ,#{title}
-      ,#{contents}
-      ,#{userid}
-      ,0
-      ,#{qna_seq}
-      ,0
-      ,1
-      ,sysdate
-      ,'N'
-      ,#{ip_addr} 
-      <if test="fileNameList.size()!=0">
-         ,
-         <foreach collection="fileNameList" item="item" index="index"
-            separator=",">
-            '${item}'
-         </foreach>
-      </if>
+      insert into tl_like(
+      	like_seq,
+      	userid,
+      	like_type,
+      	target_id,
+      	datetime,
+      	ip_addr,
+      	delyn
+      ) values (
+        #{like_seq},
+        #{userid},
+        #{like_type},
+        #{target_id},
+        sysdate,
+        #{ip_addr},
+        'N'
       )
    </insert>
 
    <select id="Like.getTotalCount" parameterType="LikeDto"
       resultType="Integer">
-      select count(*)
-      from tl_question_answer
-      where delyn='N'
-      <if test="sel!=null and key!=null">
-         <if test="sel.equals('all')">
-            and (title like '%'||#{key}||'%'
-            or
-            contents like '%'||#{key}||'%')
-         </if>
-         <if test="sel.equals('title')">
-            and title like '%'||#{key}||'%'
-         </if>
-         <if test="sel.equals('contents')">
-            and contents like '%'||#{key}||'%'
-         </if>
-      </if>
+    <![CDATA[  
+	select count(*) as isUpdate 
+	from tl_like 
+	where userid = #{userid} and target_id = #{target_id}
+	]]>
    </select>
 
+   <update id="Like.update" parameterType="LikeDto">
+	 <![CDATA[  
+		update tl_like 
+		 set   like_type = #{like_type}
+		       ,datetime = sysdate
+		       ,ip_addr = #{ip_addr}
+		       ,delyn = case when #{like_type} = (select like_Type from tl_like where userid = #{userid} and target_id=#{target_id} and delyn='N') then 'Y'
+		            when #{like_type} = (select like_Type from tl_like where userid = #{userid} and target_id=#{target_id} and delyn='Y') then 'N'
+		            else 'N'
+		            end    
+		where userid = #{userid} and target_id=#{target_id}
+    ]]>                
+ </update>
 
 
 
@@ -130,6 +110,8 @@
 		set delyn='Y'
 		where qna_seq=#{qna_seq}
 	</update>
+	
+	
 
 	<select id="Like.getUserid" parameterType="String"
 		resultType="String">
