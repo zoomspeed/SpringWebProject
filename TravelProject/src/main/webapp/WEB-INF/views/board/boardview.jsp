@@ -16,7 +16,8 @@ BoardDto viewDto = (BoardDto)request.getAttribute("viewDto");
 BoardDto prevDto = (BoardDto)request.getAttribute("prevDto");
 BoardDto nextDto = (BoardDto)request.getAttribute("nextDto");
 
-
+int like_total = (Integer)request.getAttribute("like_total");
+int dislike_total = (Integer)request.getAttribute("dislike_total");
 %>
 
 <br/><br/><br/><br/>	
@@ -163,8 +164,8 @@ body {
               </div>
               <br/><br/>
               <div align="center">
-				<button type="button" class="btn btn-success btn-sm" id="btnLike"><span class="glyphicon glyphicon-thumbs-up"></span> Like</button>
-				<button type="button" class="btn btn-danger btn-sm" id="btnDislike"><span class="glyphicon glyphicon-thumbs-down"></span> Dislike</button>								  	
+				<button type="button" class="btn btn-success btn-sm" id="btnLike" onclick="goThumbUp('1')"><span class="glyphicon glyphicon-thumbs-up"></span> Like <b id="b1"><%=like_total %></b></button>
+				<button type="button" class="btn btn-danger btn-sm" id="btnDislike" onclick="goThumbUp('2')"><span class="glyphicon glyphicon-thumbs-down"></span> Dislike <b id="b2"><%=dislike_total %></b></button>								  	
 			  </div> 
 			  <br/><br/>
             </div>
@@ -327,6 +328,7 @@ $(document).ready(function() {
 		"${commonURL}/board/boardwrite.do");
 		$("#mform").submit();
 	}); 
+ 	
 	
 	$("#btnDelete").click(function(){
 		if( confirm("삭제하시겠습니까? "))
@@ -354,7 +356,7 @@ $(document).ready(function() {
 	var formData = new FormData(form);	
 	
 	
-	$("#btnLike").click(function(){
+	$("#btnLike1").click(function(){
 
 			var url="${commonURL}/board/like/ThumbUp.do";
 			$("#mode").val("like");
@@ -382,7 +384,7 @@ $(document).ready(function() {
 	
 	
 	
-	$("#btnDislike").click(function(){
+	$("#btnDislike1").click(function(){
 
 		var url="${commonURL}/board/like/ThumbUp.do";
 		$("#mode").val("dislike");
@@ -406,7 +408,39 @@ $(document).ready(function() {
 	
 });		
 	
+
+	
 	
     
 });
+
+function goThumbUp(data){
+
+	var url="${commonURL}/board/like/ThumbUp.do";
+	$("#mode").val("dislike");
+	$("#like_type").val(data);
+	$.ajax({
+		contentType:'application/json; charset=utf-8',
+		url:url, 				
+		type:"post",		
+		data:JSON.stringify({"mode":$("#mode").val(),"userid":$("#userid").val()
+							,"target_id":$("#board_seq").val(), "like_type":$("#like_type").val()}),
+		dataType:"json",
+		success:function(data){
+			alert("전송완료");
+			console.log(data.like_total);
+			console.log(data.dislike_total);
+			//if(data.like_type == 1){
+				$("#b1").html(data.like_total);
+			//}
+			//if(data.like_type == 2){
+				$("#b2").html(data.dislike_total);		
+			//}
+
+		},
+		error:function(e){
+			alert("전송실패");
+		}
+	});	
+}
 </script>

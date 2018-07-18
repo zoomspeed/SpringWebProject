@@ -39,31 +39,29 @@ public class LikeController {
 	
 
 	@RequestMapping(value = "/board/like/ThumbUp", method = RequestMethod.POST)
-	public @ResponseBody Map<String,Object>  ThumbUp(@RequestBody Map<String, Object> values
-													,HttpServletRequest req)
+	public @ResponseBody Map<String,Object>  ThumbUp(@RequestBody Map<String, Object> values, HttpServletRequest req)
 	{												//@RequestBody Map<String, Object> values, 
 		Map<String,Object> result = new HashMap<String,Object>();
 		LikeDto dto = new LikeDto();
 		
 		
 		dto.setMode((String)values.get("mode"));
-		dto.setBoard_type((String)values.get("mode"));
 		dto.setTarget_id((String)values.get("target_id"));
 		dto.setLike_type((String) values.get("like_type"));
 		dto.setUserid((String)values.get("userid"));
 		dto.setIp_addr(IP.getClientIP(req));
 
-		System.out.println("@@@@@@");
-		System.out.println(dto.getBoard_type());
+/*		System.out.println("@@@@@@");
 		System.out.println(dto.getTarget_id());
 		System.out.println(dto.getLike_type());
 		System.out.println(dto.getUserid());
-		System.out.println("@@@@@");
+		System.out.println("@@@@@");*/
 		
-		
+		dto.setSel("getUserTotal");		
 		int isUpdate = likeService.getTotal(dto);
 		//dto.setIsUpdate(String.valueOf(isUpdate));
 		System.out.println(dto.getIsUpdate());
+
 		
 		if(isUpdate ==0) {
 			likeService.insert(dto);
@@ -72,7 +70,13 @@ public class LikeController {
 			
 			likeService.update(dto);
 		}
-
+		
+		dto.setSel("getTargetTotal");
+		dto.setLike_type("1");
+		result.put("like_total", likeService.getTotal(dto));
+		dto.setLike_type("2");
+		result.put("dislike_total", likeService.getTotal(dto));		
+		result.put("like_type", dto.getLike_type());
 		return result;
 	}
 	

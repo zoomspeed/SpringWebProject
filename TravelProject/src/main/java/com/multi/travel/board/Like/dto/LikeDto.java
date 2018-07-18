@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
  
 public class LikeDto {
 	private String pg="0";
-	private String sel="all";
+	private String sel="";
 	private String key="";
 	private String num="";
 	

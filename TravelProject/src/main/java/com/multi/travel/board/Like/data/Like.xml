@@ -81,11 +81,21 @@
 
    <select id="Like.getTotalCount" parameterType="LikeDto"
       resultType="Integer">
-    <![CDATA[  
+      
 	select count(*) as isUpdate 
 	from tl_like 
-	where userid = #{userid} and target_id = #{target_id}
-	]]>
+	where 1 = 1 
+	  <if test="sel!=null">
+		<if test="sel.equals('getUserTotal')">	   
+		  and	userid = #{userid} and target_id = #{target_id}
+		</if>
+		<if test="sel.equals('getTargetTotal')">		  
+		  and target_id = #{target_id} and like_type=#{like_type} and delyn = 'N'
+	   </if>
+	   <if test="sel.equals('getBoardTotal')">
+          and delyn = 'N'
+       </if>
+	  </if>
    </select>
 
    <update id="Like.update" parameterType="LikeDto">
@@ -94,10 +104,22 @@
 		 set   like_type = #{like_type}
 		       ,datetime = sysdate
 		       ,ip_addr = #{ip_addr}
-		       ,delyn = case when #{like_type} = (select like_Type from tl_like where userid = #{userid} and target_id=#{target_id} and delyn='N') then 'Y'
-		            when #{like_type} = (select like_Type from tl_like where userid = #{userid} and target_id=#{target_id} and delyn='Y') then 'N'
-		            else 'N'
-		            end    
+		       ,delyn = case when #{like_type} = (
+		       										select like_Type 
+		       										from tl_like 
+		       										where userid = #{userid} 
+		       											  and target_id=#{target_id}
+		       									    	  and delyn='N'
+		       									  ) then 'Y'
+		            	when #{like_type} =       (
+		            		 						select like_Type 
+		            		 						from tl_like 
+		            		 						where userid = #{userid}
+		            		 						 	  and target_id=#{target_id}
+		            		 							  and delyn='Y'
+		            		 					  ) then 'N'
+		           		else 'N'
+		            	end    
 		where userid = #{userid} and target_id=#{target_id}
     ]]>                
  </update>

@@ -57,7 +57,7 @@ public class LikeDaoImpl implements LikeDao{
 	@Override
 	public void update(LikeDto dto) {
 		sm.update("Like.update", dto);
-		
+
 	}
 
 	@Override

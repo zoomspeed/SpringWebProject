@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.multi.travel.board.Like.dto.LikeDto;
+import com.multi.travel.board.Like.service.LikeService;
 import com.multi.travel.board.dto.BoardDto;
 import com.multi.travel.board.service.BoardService;
 import com.multi.travel.common.CommonConst;
@@ -32,6 +34,9 @@ public class BoardController {
 	
 	@Resource(name="imageServiceImpl")
 	ImageService imageService;
+
+	@Resource(name="likeServiceImpl")
+	LikeService likeService;	
 	
 	//컨트롤러에서 직접 dao 사용하지 말고 서비스 
 	//통해서 
@@ -306,6 +311,8 @@ public class BoardController {
 	@RequestMapping("/board/boardview")
 	public void getBoardView(Model model, BoardDto dto)
 	{
+		LikeDto likedto = new LikeDto();
+		
 		BoardDto viewDto = boardService.getView(dto.getBoard_seq());
 		BoardDto prevDto = boardService.getPrev(viewDto);
 		BoardDto nextDto = boardService.getNext(viewDto);
@@ -313,6 +320,20 @@ public class BoardController {
 		model.addAttribute("viewDto", viewDto);
 		model.addAttribute("prevDto", prevDto);
 		model.addAttribute("nextDto", nextDto);
+		
+		
+		
+		likedto.setSel("getTargetTotal");
+		likedto.setTarget_id(dto.getBoard_seq());
+		likedto.setLike_type("1");
+		model.addAttribute("like_total", (Integer)likeService.getTotal(likedto));
+/*		System.out.println("like_total     "+(Integer)likeService.getTotal(likedto));*/
+		likedto.setLike_type("2");
+		model.addAttribute("dislike_total", (Integer)likeService.getTotal(likedto));
+/*		System.out.println("dislike_total     "+(Integer)likeService.getTotal(likedto));*/
+		model.addAttribute("like_type", likedto.getLike_type());		
+		
+		
 	}
 	
 	
