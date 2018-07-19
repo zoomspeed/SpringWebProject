@@ -2,8 +2,10 @@ package com.multi.travel.board.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
@@ -311,7 +313,7 @@ public class BoardController {
 	@RequestMapping("/board/boardview")
 	public void getBoardView(Model model, BoardDto dto)
 	{
-		LikeDto likedto = new LikeDto();
+		Map<String, Object>  Likelist = new HashMap<String,Object>();
 		
 		BoardDto viewDto = boardService.getView(dto.getBoard_seq());
 		BoardDto prevDto = boardService.getPrev(viewDto);
@@ -322,16 +324,21 @@ public class BoardController {
 		model.addAttribute("nextDto", nextDto);
 		
 		
+		LikeDto ldto = new LikeDto();
+		ldto.setTarget_id(dto.getBoard_seq());
+		Likelist = likeService.getView(dto.getBoard_seq());
+	
+
+			System.out.println("@@@"+Likelist.get("1"));
+			System.out.println("@@!"+Likelist.get("2"));
 		
-		likedto.setSel("getTargetTotal");
-		likedto.setTarget_id(dto.getBoard_seq());
-		likedto.setLike_type("1");
-		model.addAttribute("like_total", (Integer)likeService.getTotal(likedto));
-/*		System.out.println("like_total     "+(Integer)likeService.getTotal(likedto));*/
-		likedto.setLike_type("2");
-		model.addAttribute("dislike_total", (Integer)likeService.getTotal(likedto));
-/*		System.out.println("dislike_total     "+(Integer)likeService.getTotal(likedto));*/
-		model.addAttribute("like_type", likedto.getLike_type());		
+		
+/*		System.out.println("@@@"+Likelist.get(0).get("1"));
+		System.out.println("@@@"+Likelist.get(1).get("num"));*/
+		model.addAttribute("like", Likelist.get("1"));
+		model.addAttribute("dislike", Likelist.get("2"));
+
+
 		
 		
 	}

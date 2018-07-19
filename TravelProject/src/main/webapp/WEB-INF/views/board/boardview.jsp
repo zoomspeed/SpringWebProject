@@ -16,8 +16,8 @@ BoardDto viewDto = (BoardDto)request.getAttribute("viewDto");
 BoardDto prevDto = (BoardDto)request.getAttribute("prevDto");
 BoardDto nextDto = (BoardDto)request.getAttribute("nextDto");
 
-int like_total = (Integer)request.getAttribute("like_total");
-int dislike_total = (Integer)request.getAttribute("dislike_total");
+String like = (String)request.getAttribute("like");
+String dislike = (String)request.getAttribute("dislike");
 %>
 
 <br/><br/><br/><br/>	
@@ -164,8 +164,8 @@ body {
               </div>
               <br/><br/>
               <div align="center">
-				<button type="button" class="btn btn-success btn-sm" id="btnLike" onclick="goThumbUp('1')"><span class="glyphicon glyphicon-thumbs-up"></span> Like <b id="b1"><%=like_total %></b></button>
-				<button type="button" class="btn btn-danger btn-sm" id="btnDislike" onclick="goThumbUp('2')"><span class="glyphicon glyphicon-thumbs-down"></span> Dislike <b id="b2"><%=dislike_total %></b></button>								  	
+				<button type="button" class="btn btn-success btn-sm" id="btnLike" onclick="goThumbUp('1')"><span class="glyphicon glyphicon-thumbs-up"></span> Like <b id="b1"><%=like %></b></button>
+				<button type="button" class="btn btn-danger btn-sm" id="btnDislike" onclick="goThumbUp('2')"><span class="glyphicon glyphicon-thumbs-down"></span> Dislike <b id="b2"><%=dislike %></b></button>								  	
 			  </div> 
 			  <br/><br/>
             </div>
@@ -431,10 +431,10 @@ function goThumbUp(data){
 			console.log(data.like_total);
 			console.log(data.dislike_total);
 			//if(data.like_type == 1){
-				$("#b1").html(data.like_total);
+				$("#b1").html(data.like);
 			//}
 			//if(data.like_type == 2){
-				$("#b2").html(data.dislike_total);		
+				$("#b2").html(data.dislike);		
 			//}
 
 		},

@@ -8,44 +8,18 @@
       ? 가 아니라 실제 값으로 보여요 #이 붙은거는 ? 로 보인다 나중에 실제 값하고 결합한다 #붙은건 데이터 타입에 따라서 자동으로 
       '를 붙여준다 $는 그냥 그 위치에 문자열을 내보낼 뿐이라서 '가 필요하면 직접 붙여줘야 한다 $는 데이터를 문자열을 줘도 그대로 
       옮겨놓는다 테이블명이나 필드명이 추가되거나 할때는 ${필드명} 또는 ${테이블명} -->
-   <select id="Like.getList" parameterType="LikeDto"
-      resultType="LikeDto">
+   <select id="Like.getView" parameterType="String"
+      resultType="String">
    
-      select * from
-      (
-      select
-         A.qna_seq
-         ,nvl(B.username, 'noname') username
-         ,A.userid
-         ,A.title
-         ,A.contents --내용
-         ,nvl(A.hit , 0) hit --조회수
-         ,A.group_id
-         ,A.depth
-         ,A.g_level
-         ,to_char(A.regdate, 'yyyy-mm-dd') regdate
-         ,to_char(A.moddate, 'yyyy-mm-dd') moddate
-         ,A.ip_addr
-         ,row_number() over (order by A.group_id desc, A.g_level asc) as num
-         ,ceil(row_number () over (order by A.group_id desc, A.g_level asc)/16-1) as pg
-         from tl_question_answer A
-         left outer join tl_member B on A.userid=B.userid
-         where delyn='N'
-         <if test="sel!=null and key!=null">
-            <if test="sel.equals('all')">
-               and (title like '%'||#{key}||'%'
-               or
-               contents like '%'||#{key}||'%')
-            </if>
-            <if test="sel.equals('title')">
-               and title like '%'||#{key}||'%'
-            </if>
-            <if test="sel.equals('contents')">
-               and contents like '%'||#{key}||'%'
-            </if>
-         </if>
-      )where pg=#{pg}
-
+		
+    select  (select count(like_type) 
+   			 from tl_like 
+   			 where like_type = 1 and target_id=#{target_id}) as "1"
+           ,(select count(like_type)
+            from tl_like 
+            where like_type = 2 and target_id=#{target_id})  as "2"
+    from dual
+		   
    </select>
    <!-- PreparedStatement 사용하면서 파라미터를 ?로 했는데 이게 mybatis는 #{변수명} 으로 대체 #{pg} 
       parameterType에 반드시 pg 라는 변수가 있어야 한다 그래서 getPg 라는 함수를 호출해서 값을 읽어와 끼워넣기 한다 
@@ -84,16 +58,12 @@
       
 	select count(*) as isUpdate 
 	from tl_like 
-	where 1 = 1 
 	  <if test="sel!=null">
 		<if test="sel.equals('getUserTotal')">	   
-		  and	userid = #{userid} and target_id = #{target_id}
+		  where	userid = #{userid} and target_id = #{target_id}
 		</if>
-		<if test="sel.equals('getTargetTotal')">		  
-		  and target_id = #{target_id} and like_type=#{like_type} and delyn = 'N'
-	   </if>
-	   <if test="sel.equals('getBoardTotal')">
-          and delyn = 'N'
+	   <if test="sel.equals('getTotalCount')">
+          where delyn = 'N'
        </if>
 	  </if>
    </select>

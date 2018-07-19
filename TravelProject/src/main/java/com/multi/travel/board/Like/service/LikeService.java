@@ -1,15 +1,17 @@
 package com.multi.travel.board.Like.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.multi.travel.board.Like.dto.LikeDto;
 import com.multi.travel.board.Qna.dto.QnaDto;
 
 
 public interface LikeService {
-	List<QnaDto> getList(QnaDto dto);
+	List<LikeDto> getList(LikeDto dto);
 	int getTotal(LikeDto dto);
-	QnaDto getView(String qna_seq);
+	Map<String, Object>  getView(String like_seq);
 	
 	QnaDto getPrev(QnaDto paramDto);
 	QnaDto getNext(QnaDto paramDto);

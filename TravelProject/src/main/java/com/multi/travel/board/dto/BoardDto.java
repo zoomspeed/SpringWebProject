@@ -30,6 +30,8 @@ public class BoardDto {
 	private String filename3="";
 	private String ip_addr="";	
 	
+	private String like="";
+	private String dislike="";
 
 	//파일을 받아오기 위해서 추가하는 필드 
 	List<MultipartFile> files;
@@ -240,6 +242,22 @@ public class BoardDto {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getLike() {
+		return like;
+	}
+
+	public void setLike(String like) {
+		this.like = like;
+	}
+
+	public String getDislike() {
+		return dislike;
+	}
+
+	public void setDislike(String dislike) {
+		this.dislike = dislike;
 	}
 	
 	

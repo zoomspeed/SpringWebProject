@@ -1,7 +1,9 @@
 package com.multi.travel.board.Like.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +21,9 @@ public class LikeDaoImpl implements LikeDao{
 	SqlSessionTemplate sm;
 	
 	@Override
-	public List<QnaDto> getList(QnaDto dto) {
+	public List<LikeDto> getList(LikeDto dto) {
 		
-		List<QnaDto> list = sm.selectList("Qna.getList",dto);
+		List<LikeDto> list = sm.selectList("Qna.getList",dto);
 				
 		return list;
 	}
@@ -37,13 +39,13 @@ public class LikeDaoImpl implements LikeDao{
 	}
 
 	@Override
-	public QnaDto getView(String Qna_seq) {
+	public Map<String, Object> getView(String like_seq) {
 		//조회수 업데이트 
-		sm.update("Qna.updateHit", Qna_seq);
-		
-		QnaDto dto = 
-			sm.selectOne("Qna.getView", Qna_seq);
-		return dto;
+		//sm.selectList("Like.getView", like_seq);
+
+		Map<String, Object> dataList =  sm.selectMap("Like.getView",like_seq, "id");
+		return dataList;
+
 	}
 
 	@Override

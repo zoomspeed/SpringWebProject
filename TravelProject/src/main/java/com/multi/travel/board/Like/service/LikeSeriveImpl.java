@@ -1,6 +1,9 @@
 package com.multi.travel.board.Like.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +24,7 @@ public class LikeSeriveImpl implements LikeService{
 	LikeDao likeDao;
 	
 	@Override
-	public List<QnaDto> getList(QnaDto dto) {
+	public List<LikeDto> getList(LikeDto dto) {
 		// TODO Auto-generated method stub
 		return likeDao.getList(dto);
 	}
@@ -33,9 +36,9 @@ public class LikeSeriveImpl implements LikeService{
 	}
 
 	@Override
-	public QnaDto getView(String qna_seq) {
+	public Map<String, Object>  getView(String like_seq) {
 		
-		return likeDao.getView(qna_seq);
+		return likeDao.getView(like_seq);
 	}
 
 /*	@Override

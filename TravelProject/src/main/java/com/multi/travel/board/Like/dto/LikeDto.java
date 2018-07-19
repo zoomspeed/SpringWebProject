@@ -25,6 +25,9 @@ public class LikeDto {
 	private String pre_like_type="";
 	
 	private String isUpdate = "0";
+	
+	private String like="";
+	private String dislike="";
 	//디폴트 생성자 
 	public LikeDto() 
 	{}
@@ -198,6 +201,22 @@ public class LikeDto {
 
 	public void setPre_like_type(String pre_like_type) {
 		this.pre_like_type = pre_like_type;
+	}
+
+	public String getLike() {
+		return like;
+	}
+
+	public void setLike(String like) {
+		this.like = like;
+	}
+
+	public String getDislike() {
+		return dislike;
+	}
+
+	public void setDislike(String dislike) {
+		this.dislike = dislike;
 	}
 
 	
