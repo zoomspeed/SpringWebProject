@@ -39,12 +39,10 @@ public class LikeDaoImpl implements LikeDao{
 	}
 
 	@Override
-	public Map<String, Object> getView(String like_seq) {
+	public LikeDto getView(String like_seq) {
 		//조회수 업데이트 
-		//sm.selectList("Like.getView", like_seq);
 
-		Map<String, Object> dataList =  sm.selectMap("Like.getView",like_seq, "id");
-		return dataList;
+		return sm.selectOne("Like.getView", like_seq);
 
 	}
 

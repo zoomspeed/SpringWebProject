@@ -313,7 +313,7 @@ public class BoardController {
 	@RequestMapping("/board/boardview")
 	public void getBoardView(Model model, BoardDto dto)
 	{
-		Map<String, Object>  Likelist = new HashMap<String,Object>();
+		LikeDto  Likedto = new LikeDto();
 		
 		BoardDto viewDto = boardService.getView(dto.getBoard_seq());
 		BoardDto prevDto = boardService.getPrev(viewDto);
@@ -326,17 +326,16 @@ public class BoardController {
 		
 		LikeDto ldto = new LikeDto();
 		ldto.setTarget_id(dto.getBoard_seq());
-		Likelist = likeService.getView(dto.getBoard_seq());
+		Likedto = likeService.getView(dto.getBoard_seq());
 	
+			System.out.println(Likedto);
 
-			System.out.println("@@@"+Likelist.get("1"));
-			System.out.println("@@!"+Likelist.get("2"));
 		
 		
 /*		System.out.println("@@@"+Likelist.get(0).get("1"));
 		System.out.println("@@@"+Likelist.get(1).get("num"));*/
-		model.addAttribute("like", Likelist.get("1"));
-		model.addAttribute("dislike", Likelist.get("2"));
+		model.addAttribute("like", Likedto.getLike());
+		model.addAttribute("dislike", Likedto.getDislike());
 
 
 		

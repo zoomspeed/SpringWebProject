@@ -230,7 +230,8 @@ public class ImageController {
 			//model.addAttribute("ImageList", ImageLisst);
 			
 			return "board/albumbbs";
-		}		
+		}
+		
 }
 
 

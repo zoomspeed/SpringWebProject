@@ -36,7 +36,7 @@ public class LikeSeriveImpl implements LikeService{
 	}
 
 	@Override
-	public Map<String, Object>  getView(String like_seq) {
+	public LikeDto  getView(String like_seq) {
 		
 		return likeDao.getView(like_seq);
 	}

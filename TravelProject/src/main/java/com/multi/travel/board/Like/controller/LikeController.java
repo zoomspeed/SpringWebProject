@@ -43,7 +43,6 @@ public class LikeController {
 	{												//@RequestBody Map<String, Object> values, 
 		Map<String,Object> result = new HashMap<String,Object>();
 		LikeDto dto = new LikeDto();
-		Map <String,Object> like = new HashMap<String,Object>();
 		
 		
 		dto.setMode((String)values.get("mode"));
@@ -67,12 +66,12 @@ public class LikeController {
 			likeService.update(dto);
 		}
 		
-		like = likeService.getView(dto.getTarget_id());
-		System.out.println("@@@"+like.get(0));
-		System.out.println("@@@"+like.get(1));
+		dto = likeService.getView(dto.getTarget_id());
+		System.out.println(dto);
 
-		result.put("like", like.get(0));
-		result.put("dislike", like.get(1));		
+
+		result.put("like", dto.getLike());
+		result.put("dislike", dto.getDislike());		
 		result.put("like_type", dto.getLike_type());
 		return result;
 	}

@@ -11,7 +11,7 @@ import com.multi.travel.board.Qna.dto.QnaDto;
 public interface LikeService {
 	List<LikeDto> getList(LikeDto dto);
 	int getTotal(LikeDto dto);
-	Map<String, Object>  getView(String like_seq);
+	LikeDto  getView(String like_seq);
 	
 	QnaDto getPrev(QnaDto paramDto);
 	QnaDto getNext(QnaDto paramDto);

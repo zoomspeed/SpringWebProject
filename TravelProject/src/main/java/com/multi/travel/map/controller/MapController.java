@@ -33,5 +33,9 @@ public class MapController {
 	@RequestMapping("/map/place")
 	public void place()
 	{}
+	
+	@RequestMapping("/map/wordcloud")
+	public void wordcloud()
+	{}	
 
 }
